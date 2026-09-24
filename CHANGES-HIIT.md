@@ -37,6 +37,16 @@ rewritten or new files, and next to the change in the C++ sources.
 - The connection retry counter was a `static` shared by every connection and
   never reset on success; it is now a member reset on connect and on retry.
 
+## 2026-09-24 — Linux app: settings in sections
+
+- Settings moved from `Main.qml` to `linux/SettingsPage.qml` and grouped in cards:
+  AirPods, Controls, App, Android and Advanced (collapsed by default).
+- The AirPods card explains that the AirPods must be connected instead of hiding
+  its options; the phone address only shows when Cross-Device Connectivity is on.
+- Short descriptions added to Cross-Device Connectivity, retry attempts and the
+  Magic Cloud Keys QR code.
+- `UiCard` can collapse; new `UiLabel` for themed text.
+
 ## Third-party assets
 
 | Asset | Path | License |

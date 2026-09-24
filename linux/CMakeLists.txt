@@ -61,9 +61,11 @@ qt_add_qml_module(librepods
         KeysQRDialog.qml
         Theme.qml
         ConnectionStatus.qml
+        SettingsPage.qml
         UiBadge.qml
         UiButton.qml
         UiCard.qml
+        UiLabel.qml
         UiSelect.qml
         UiSlider.qml
         UiSpinBox.qml
