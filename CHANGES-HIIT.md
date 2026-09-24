@@ -115,6 +115,14 @@ rewritten or new files, and next to the change in the C++ sources.
   language now see English.
 - The language selector only offers languages the font can draw.
 
+## 2026-09-24 — Linux app: Hearing Aid shown as status, not as a switch
+
+- The Hearing Aid switch leaves the main window. Hearing Aid is set up once from an
+  iPhone or iPad after a hearing test, so an everyday toggle could only switch an
+  accessibility feature off by mistake.
+- Settings > AirPods shows "Hearing Aid — On. Set up from an iPhone or iPad." while
+  it is enabled.
+
 ## Third-party assets
 
 | Asset | Path | License |

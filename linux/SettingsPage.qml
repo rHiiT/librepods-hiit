@@ -127,6 +127,35 @@ Page {
                     }
                 }
 
+                // Hearing Aid is set up once, from an iPhone or iPad, after a hearing test; it is
+                // shown as information only so an everyday toggle cannot switch it off by mistake
+                RowLayout {
+                    Layout.fillWidth: true
+                    visible: airPodsTrayApp.airpodsConnected && airPodsTrayApp.deviceInfo.hearingAidEnabled
+                    spacing: 10
+
+                    Icon {
+                        Layout.alignment: Qt.AlignTop
+                        name: "ear"
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true
+                        spacing: 4
+
+                        UiLabel {
+                            Layout.fillWidth: true
+                            text: qsTr("Hearing Aid")
+                        }
+
+                        UiLabel {
+                            Layout.fillWidth: true
+                            tone: "muted"
+                            text: qsTr("On. Set up from an iPhone or iPad.")
+                        }
+                    }
+                }
+
                 UiSwitch {
                     Layout.fillWidth: true
                     visible: airPodsTrayApp.airpodsConnected

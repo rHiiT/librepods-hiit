@@ -233,15 +233,6 @@ ApplicationWindow {
                     onToggled: airPodsTrayApp.setConversationalAwareness(checked)
                 }
 
-                UiSwitch {
-                    Layout.fillWidth: true
-                    visible: airPodsTrayApp.airpodsConnected
-                    iconName: "ear"
-                    text: qsTr("Hearing Aid")
-                    checked: airPodsTrayApp.deviceInfo.hearingAidEnabled
-                    onToggled: airPodsTrayApp.setHearingAidEnabled(checked)
-                }
-
                 Item {
                     implicitHeight: 20
                 }
