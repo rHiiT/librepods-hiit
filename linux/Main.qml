@@ -1,6 +1,7 @@
 // Main.qml
 // Modified by LibrePods HiiT: controls rebuilt on the Ui* component kit, Departure Mono
-// font, Lucide icons and a connection badge that does not rely on color alone.
+// font, Lucide icons, a connection badge that does not rely on color alone, a status
+// panel for every non-connected state, and feedback for rename and phone address.
 pragma ComponentBehavior: Bound
 
 import QtQuick
@@ -21,6 +22,10 @@ ApplicationWindow {
     font.pixelSize: Theme.fontSize
 
     onClosing: mainWindow.visible = false
+
+    UiToast {
+        id: toast
+    }
 
     function reopen(pageToLoad) {
         if (pageToLoad == "settings")
@@ -100,14 +105,38 @@ ApplicationWindow {
                 }
 
                 UiBadge {
-                    text: airPodsTrayApp.airpodsConnected ? qsTr("Connected") : qsTr("Disconnected")
-                    iconName: airPodsTrayApp.airpodsConnected ? "bluetooth-connected" : "bluetooth-off"
-                    tone: airPodsTrayApp.airpodsConnected ? Theme.success : Theme.danger
+                    readonly property string connectionState: airPodsTrayApp.connectionState
+                    text: {
+                        switch (connectionState) {
+                        case "connected": return qsTr("Connected");
+                        case "connecting": return qsTr("Connecting");
+                        case "off": return qsTr("Bluetooth off");
+                        case "failed": return qsTr("Not connected");
+                        default: return qsTr("Searching");
+                        }
+                    }
+                    iconName: connectionState === "connected" ? "bluetooth-connected"
+                            : connectionState === "off" || connectionState === "failed" ? "bluetooth-off"
+                            : "bluetooth-searching"
+                    tone: connectionState === "connected" ? Theme.success
+                        : connectionState === "off" || connectionState === "failed" ? Theme.danger
+                        : Theme.mutedForeground
+                }
+
+                ConnectionStatus {
+                    Layout.fillWidth: true
+                    Layout.topMargin: 32
+                    visible: !airPodsTrayApp.airpodsConnected
+                    connectionState: airPodsTrayApp.connectionState === "connected" ? "connecting" : airPodsTrayApp.connectionState
+                    deviceName: airPodsTrayApp.deviceInfo.deviceName
+                    onRetryRequested: airPodsTrayApp.retryConnection()
+                    onPowerOnRequested: airPodsTrayApp.powerOnBluetooth()
                 }
 
                 // Battery Indicator Row
                 Row {
                     Layout.alignment: Qt.AlignHCenter
+                    visible: airPodsTrayApp.airpodsConnected
                     spacing: 24
 
                     PodColumn {
@@ -156,7 +185,7 @@ ApplicationWindow {
 
                 ColumnLayout {
                     Layout.fillWidth: true
-                    visible: airPodsTrayApp.deviceInfo.adaptiveModeActive
+                    visible: airPodsTrayApp.airpodsConnected && airPodsTrayApp.deviceInfo.adaptiveModeActive
                     spacing: 8
 
                     Text {
@@ -353,47 +382,128 @@ ApplicationWindow {
                         }
                     }
 
-                    RowLayout {
+                    ColumnLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 20
                         Layout.rightMargin: 20
                         spacing: 8
                         visible: airPodsTrayApp.airpodsConnected
 
-                        UiTextField {
-                            id: newNameField
-                            Layout.fillWidth: true
-                            placeholderText: airPodsTrayApp.deviceInfo.deviceName
-                            maximumLength: 32
+                        Text {
+                            text: qsTr("AirPods name")
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            color: Theme.foreground
                         }
 
-                        UiButton {
-                            variant: "outline"
-                            iconName: "pencil"
-                            text: qsTr("Rename")
-                            onClicked: airPodsTrayApp.renameAirPods(newNameField.text)
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+
+                            UiTextField {
+                                id: newNameField
+                                Layout.fillWidth: true
+                                text: airPodsTrayApp.deviceInfo.deviceName
+                                maximumLength: 32
+                                invalid: renameError.text !== ""
+                                onTextEdited: renameError.text = ""
+                                onAccepted: if (renameButton.enabled) renameButton.clicked()
+                            }
+
+                            UiButton {
+                                id: renameButton
+                                variant: "outline"
+                                iconName: "pencil"
+                                text: qsTr("Rename")
+                                enabled: newNameField.text.trim() !== "" && newNameField.text.trim() !== airPodsTrayApp.deviceInfo.deviceName
+                                onClicked: {
+                                    const name = newNameField.text.trim();
+                                    const error = airPodsTrayApp.renameAirPods(name);
+                                    if (error !== "")
+                                        renameError.text = error;
+                                    else
+                                        toast.show(qsTr("Renamed to %1").arg(name));
+                                }
+                            }
+                        }
+
+                        Text {
+                            id: renameError
+                            Layout.fillWidth: true
+                            visible: text !== ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            color: Theme.danger
+                            wrapMode: Text.WordWrap
                         }
                     }
 
-                    RowLayout {
+                    ColumnLayout {
                         Layout.fillWidth: true
                         Layout.leftMargin: 20
                         Layout.rightMargin: 20
                         spacing: 8
-                        visible: airPodsTrayApp.airpodsConnected
 
-                        UiTextField {
-                            id: newPhoneMacField
-                            Layout.fillWidth: true
-                            placeholderText: (PHONE_MAC_ADDRESS !== "" ? PHONE_MAC_ADDRESS : "00:00:00:00:00:00")
-                            maximumLength: 32
+                        Text {
+                            text: qsTr("Phone Bluetooth address")
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            color: Theme.foreground
                         }
 
-                        UiButton {
-                            variant: "outline"
-                            iconName: "smartphone"
-                            text: qsTr("Change Phone MAC")
-                            onClicked: airPodsTrayApp.setPhoneMac(newPhoneMacField.text)
+                        Text {
+                            Layout.fillWidth: true
+                            text: qsTr("Used by Cross-Device Connectivity. On Android, find it in Settings > About phone.")
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            color: Theme.mutedForeground
+                            wrapMode: Text.WordWrap
+                        }
+
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing: 8
+
+                            UiTextField {
+                                id: newPhoneMacField
+                                readonly property bool complete: /^([0-9A-Fa-f]{2}([-:]?)){5}[0-9A-Fa-f]{2}$/.test(text)
+                                Layout.fillWidth: true
+                                text: PHONE_MAC_ADDRESS
+                                placeholderText: "AA:BB:CC:DD:EE:FF"
+                                maximumLength: 17
+                                inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
+                                validator: RegularExpressionValidator {
+                                    regularExpression: /^([0-9A-Fa-f]{2}[-:]?){0,5}[0-9A-Fa-f]{0,2}$/
+                                }
+                                invalid: phoneMacError.text !== ""
+                                onTextEdited: phoneMacError.text = ""
+                                onAccepted: if (phoneMacButton.enabled) phoneMacButton.clicked()
+                            }
+
+                            UiButton {
+                                id: phoneMacButton
+                                variant: "outline"
+                                iconName: "smartphone"
+                                text: qsTr("Save")
+                                enabled: newPhoneMacField.complete && newPhoneMacField.text.toUpperCase() !== PHONE_MAC_ADDRESS.toUpperCase()
+                                onClicked: {
+                                    const error = airPodsTrayApp.setPhoneMac(newPhoneMacField.text.toUpperCase());
+                                    if (error !== "")
+                                        phoneMacError.text = error;
+                                    else
+                                        toast.show(qsTr("Phone address saved"));
+                                }
+                            }
+                        }
+
+                        Text {
+                            id: phoneMacError
+                            Layout.fillWidth: true
+                            visible: text !== ""
+                            font.family: Theme.fontFamily
+                            font.pixelSize: Theme.fontSize
+                            color: Theme.danger
+                            wrapMode: Text.WordWrap
                         }
                     }
 
