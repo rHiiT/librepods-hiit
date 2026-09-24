@@ -49,6 +49,8 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(DeviceInfo *deviceInfo READ deviceInfo CONSTANT)
     Q_PROPERTY(QString phoneMacStatus READ phoneMacStatus NOTIFY phoneMacStatusChanged)
     Q_PROPERTY(bool hearingAidEnabled READ hearingAidEnabled WRITE setHearingAidEnabled NOTIFY hearingAidEnabledChanged)
+    // LibrePods HiiT: "off", "searching", "connecting", "connected" or "failed"
+    Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -87,6 +89,16 @@ public:
         connect(m_deviceInfo->getBattery(), &Battery::primaryChanged, this, &AirPodsTrayApp::primaryChanged);
         connect(m_systemSleepMonitor, &SystemSleepMonitor::systemGoingToSleep, this, &AirPodsTrayApp::onSystemGoingToSleep);
         connect(m_systemSleepMonitor, &SystemSleepMonitor::systemWakingUp, this, &AirPodsTrayApp::onSystemWakingUp);
+
+        // LibrePods HiiT: follow the adapter power so the UI can tell "Bluetooth off" from "searching"
+        m_localDevice = new QBluetoothLocalDevice(this);
+        connect(m_localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this, [this]() {
+            if (!isBluetoothOn())
+                setConnectionState(QStringLiteral("off"));
+            else if (m_connectionState == QLatin1String("off"))
+                retryConnection();
+        });
+        setConnectionState(isBluetoothOn() ? QStringLiteral("searching") : QStringLiteral("off"));
 
         // Load settings
         CrossDevice.isEnabled = loadCrossDeviceEnabled();
@@ -139,6 +151,8 @@ public:
     DeviceInfo *deviceInfo() const { return m_deviceInfo; }
     QString phoneMacStatus() const { return m_phoneMacStatus; }
     bool hearingAidEnabled() const { return m_deviceInfo->hearingAidEnabled(); }
+    QString connectionState() const { return m_connectionState; }
+    bool isBluetoothOn() const { return m_localDevice && m_localDevice->hostMode() != QBluetoothLocalDevice::HostPoweredOff; }
 
 private:
     bool debugMode;
@@ -273,22 +287,23 @@ public slots:
         }
     }
 
-    void renameAirPods(const QString &newName)
+    // LibrePods HiiT: returns an error message for the UI, or an empty string on success
+    QString renameAirPods(const QString &newName)
     {
         if (newName.isEmpty())
         {
             LOG_WARN("Cannot set empty name");
-            return;
+            return tr("Enter a name.");
         }
         if (newName.size() > 32)
         {
             LOG_WARN("Name is too long, must be 32 characters or less");
-            return;
+            return tr("Use 32 characters or fewer.");
         }
         if (newName == m_deviceInfo->deviceName())
         {
             LOG_INFO("Name is already set to: " << newName);
-            return;
+            return QString();
         }
 
         QByteArray packet = AirPodsPackets::Rename::getPacket(newName);
@@ -296,11 +311,10 @@ public slots:
         {
             LOG_INFO("Sent rename command for new name: " << newName);
             m_deviceInfo->setDeviceName(newName);
+            return QString();
         }
-        else
-        {
-            LOG_ERROR("Failed to send rename command: socket not open");
-        }
+        LOG_ERROR("Failed to send rename command: socket not open");
+        return tr("Couldn't rename: the AirPods are not connected.");
     }
 
     void setEarDetectionBehavior(int behavior)
@@ -330,13 +344,14 @@ public slots:
         emit crossDeviceEnabledChanged(enabled);
     }
 
-    void setPhoneMac(const QString &mac)
+    // LibrePods HiiT: returns an error message for the UI, or an empty string on success
+    QString setPhoneMac(const QString &mac)
     {
         if (mac.isEmpty()) {
             LOG_WARN("Empty MAC provided, ignoring");
             m_phoneMacStatus = QStringLiteral("No MAC provided (ignoring)");
             emit phoneMacStatusChanged();
-            return;
+            return tr("Enter the phone's Bluetooth address.");
         }
 
         // Basic MAC address validation (accepts formats like AA:BB:CC:DD:EE:FF, AABBCCDDEEFF, AA-BB-CC-DD-EE-FF)
@@ -345,7 +360,7 @@ public slots:
             LOG_ERROR("Invalid MAC address format: " << mac);
             m_phoneMacStatus = QStringLiteral("Invalid MAC: ") + mac;
             emit phoneMacStatusChanged();
-            return;
+            return tr("Use the format AA:BB:CC:DD:EE:FF.");
         }
 
         // Set environment variable for the running process
@@ -367,6 +382,28 @@ public slots:
             phoneSocket = nullptr;
         }
         connectToPhone();
+        return QString();
+    }
+
+    // LibrePods HiiT: look for the AirPods again after a failure or when Bluetooth comes back
+    void retryConnection()
+    {
+        if (!isBluetoothOn()) {
+            setConnectionState(QStringLiteral("off"));
+            return;
+        }
+        if (areAirpodsConnected())
+            return;
+        m_retryCount = 0;
+        setConnectionState(QStringLiteral("searching"));
+        monitor->checkAlreadyConnectedDevices();
+        m_bleManager->startScan();
+    }
+
+    void powerOnBluetooth()
+    {
+        if (m_localDevice)
+            m_localDevice->powerOn();
     }
 
     void updatePhoneMacStatus(const QString &status)
@@ -523,6 +560,7 @@ private slots:
         // Clear the device name and model
         m_deviceInfo->reset();
         m_bleManager->startScan();
+        setConnectionState(isBluetoothOn() ? QStringLiteral("searching") : QStringLiteral("off"));
         emit airPodsStatusChanged();
 
         // Show system notification
@@ -609,6 +647,7 @@ private slots:
         }
 
         LOG_INFO("Connecting to device: " << device.name());
+        setConnectionState(QStringLiteral("connecting"));
 
         // Clean up any existing socket
         if (socket)
@@ -637,18 +676,18 @@ private slots:
         {
             LOG_ERROR("Socket error: " << error << ", " << localSocket->errorString());
 
-            static int retryCount = 0;
-            if (retryCount < m_retryAttempts)
+            if (m_retryCount < m_retryAttempts)
             {
-                retryCount++;
-                LOG_INFO("Retrying connection (attempt " << retryCount << ")");
+                m_retryCount++;
+                LOG_INFO("Retrying connection (attempt " << m_retryCount << ")");
                 QTimer::singleShot(1500, this, [this, device]()
                                    { connectToDevice(device); });
             }
             else
             {
-                LOG_ERROR("Failed to connect after 3 attempts");
-                retryCount = 0;
+                LOG_ERROR("Failed to connect after " << m_retryAttempts << " attempts");
+                m_retryCount = 0;
+                setConnectionState(QStringLiteral("failed"));
             }
         };
 
@@ -746,6 +785,8 @@ private slots:
                 mediaController->activateA2dpProfile();
             }
             m_bleManager->stopScan();
+            m_retryCount = 0;
+            setConnectionState(QStringLiteral("connected"));
             emit airPodsStatusChanged();
         }
         else if (data.startsWith(AirPodsPackets::OneBudANCMode::HEADER)) {
@@ -971,6 +1012,7 @@ signals:
     void oneBudANCModeChanged(bool enabled);
     void phoneMacStatusChanged();
     void hearingAidEnabledChanged(bool enabled);
+    void connectionStateChanged();
 
 private:
     QBluetoothSocket *socket = nullptr;
@@ -988,6 +1030,18 @@ private:
     BleManager *m_bleManager;
     SystemSleepMonitor *m_systemSleepMonitor = nullptr;
     QString m_phoneMacStatus;
+    QBluetoothLocalDevice *m_localDevice = nullptr;
+    QString m_connectionState;
+    int m_retryCount = 0;
+
+    void setConnectionState(const QString &state)
+    {
+        if (m_connectionState == state)
+            return;
+        LOG_INFO("Connection state: " << state);
+        m_connectionState = state;
+        emit connectionStateChanged();
+    }
 };
 
 int main(int argc, char *argv[]) {

@@ -23,6 +23,20 @@ rewritten or new files, and next to the change in the C++ sources.
   - connection status and battery level no longer rely on color alone;
   - the settings page gains a header with a back button (also `Esc`).
 
+## 2026-09-24 — Linux app: connection states and feedback
+
+- The backend exposes `connectionState` (`off`, `searching`, `connecting`,
+  `connected`, `failed`) and the `retryConnection()` and `powerOnBluetooth()` actions.
+- The main window shows a status panel for each non-connected state, with a hint
+  and, when possible, an action ("Turn on Bluetooth", "Try again"). Battery and
+  controls are hidden until the AirPods are connected.
+- `renameAirPods()` and `setPhoneMac()` return an error message; the settings page
+  shows it under the field, or a confirmation toast on success.
+- The name field starts with the current name; the phone address field only
+  accepts hex digits and separators and explains where to find the address.
+- The connection retry counter was a `static` shared by every connection and
+  never reset on success; it is now a member reset on connect and on retry.
+
 ## Third-party assets
 
 | Asset | Path | License |
