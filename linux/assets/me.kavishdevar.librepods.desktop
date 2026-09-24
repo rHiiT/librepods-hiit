@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=LibrePods
-Comment=AirPods libreated from Apple's ecosystem
+Name=LibrePods HiiT Edition
+Comment=Control your AirPods on Linux
 Exec=librepods
 Icon=librepods
 Terminal=false

@@ -17,6 +17,7 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QFontDatabase>
+#include <QIcon>
 
 #include "airpods_packets.h"
 #include "logger.h"
@@ -1243,6 +1244,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
     app.setDesktopFileName("me.kavishdevar.librepods");
+    app.setWindowIcon(QIcon(":/icons/assets/librepods.svg")); // LibrePods HiiT: case icon
     app.setQuitOnLastWindowClosed(false);
 
     bool debugMode = false;
