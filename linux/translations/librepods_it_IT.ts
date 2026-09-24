@@ -93,8 +93,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Paired but not connected. If this computer was the last one used, they connect on their own when taken out of the case. If they are in use on another device, such as an iPhone, click Connect.</source>
-        <translation>Abbinate ma non connesse. Se questo computer è stato l&apos;ultimo a usarle, si connettono da sole quando escono dalla custodia. Se sono in uso su un altro dispositivo, come un iPhone, fai clic su Connetti.</translation>
+        <source>Paired. If they don&apos;t connect when taken out of the case, click Connect.</source>
+        <translation>Abbinate. Se non si connettono quando escono dalla custodia, fai clic su Connetti.</translation>
     </message>
     <message>
         <location line="+1"/>

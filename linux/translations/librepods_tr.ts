@@ -93,8 +93,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Paired but not connected. If this computer was the last one used, they connect on their own when taken out of the case. If they are in use on another device, such as an iPhone, click Connect.</source>
-        <translation>Eşleştirildi ancak bağlı değil. Son kullanılan cihaz bu bilgisayarsa, kutudan çıkarıldığında kendiliğinden bağlanır. iPhone gibi başka bir cihazda kullanılıyorsa Bağlan&apos;a tıklayın.</translation>
+        <source>Paired. If they don&apos;t connect when taken out of the case, click Connect.</source>
+        <translation>Eşleştirildi. Kutudan çıkarıldığında bağlanmazsa Bağlan&apos;a tıklayın.</translation>
     </message>
     <message>
         <location line="+1"/>
