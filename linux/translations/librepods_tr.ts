@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+379"/>
+        <location filename="../main.cpp" line="+390"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+115"/>
+        <location filename="../Main.qml" line="+122"/>
         <source>Connected · %1</source>
         <translation>Bağlı · %1</translation>
     </message>
@@ -348,8 +348,24 @@
     </message>
     <message>
         <location line="+8"/>
+        <location line="+17"/>
         <source>System default</source>
         <translation>Sistem varsayılanı</translation>
+    </message>
+    <message>
+        <location line="-6"/>
+        <source>Theme</source>
+        <translation>Tema</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Light</source>
+        <translation>Açık</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Dark</source>
+        <translation>Koyu</translation>
     </message>
     <message>
         <location line="+9"/>
