@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+341"/>
+        <location filename="../main.cpp" line="+365"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Use o formato AA:BB:CC:DD:EE:FF.</translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+227"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods desconectados</translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <location filename="../ConnectionStatus.qml" line="+58"/>
+        <location filename="../ConnectionStatus.qml" line="+64"/>
         <source>Bluetooth is off</source>
         <translation>O Bluetooth está desligado</translation>
     </message>
@@ -63,6 +63,16 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>%1 is nearby</source>
+        <translation>%1 está por perto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Your AirPods are nearby</source>
+        <translation>Seus AirPods estão por perto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Looking for your AirPods…</source>
         <translation>Procurando seus AirPods…</translation>
     </message>
@@ -78,8 +88,18 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Open the case near this computer. If they never show up, pair them first in your system&apos;s Bluetooth settings.</source>
-        <translation>Abra o estojo perto deste computador. Se eles não aparecerem, pareie-os antes nas configurações de Bluetooth do sistema.</translation>
+        <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
+        <translation>Conecte para usá-los neste computador. Se estiverem em uso em outro aparelho, podem passar para este.</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
+        <translation>Abra o estojo dos AirPods perto deste computador para encontrá-los. Eles precisam já estar pareados nas configurações de Bluetooth do sistema.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Connect the AirPods in your system&apos;s Bluetooth settings and LibrePods will pick them up.</source>
+        <translation>Conecte os AirPods nas configurações de Bluetooth do sistema e o LibrePods os encontrará.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -87,7 +107,12 @@
         <translation>Ligar Bluetooth</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
+        <source>Connect</source>
+        <translation>Conectar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Try again</source>
         <translation>Tentar de novo</translation>
     </message>
@@ -139,11 +164,16 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Nearby</source>
+        <translation>Por perto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Searching</source>
         <translation>Procurando</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+67"/>
         <source>Off</source>
         <translation>Desligado</translation>
     </message>
@@ -349,6 +379,26 @@
         <location line="+6"/>
         <source>Show Magic Cloud Keys QR</source>
         <translation>Mostrar QR das Magic Cloud Keys</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Experimental</source>
+        <translation>Experimental</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Features still being tested. They may not work correctly.</source>
+        <translation>Recursos ainda em teste. Podem não funcionar corretamente.</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Connect AirPods detected nearby</source>
+        <translation>Conectar AirPods detectados por perto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>When the AirPods case is opened near this computer, show a Connect button. The AirPods may not always switch from another device.</source>
+        <translation>Ao abrir o estojo dos AirPods perto deste computador, mostra um botão Conectar. Os AirPods nem sempre saem de outro aparelho.</translation>
     </message>
 </context>
 <context>

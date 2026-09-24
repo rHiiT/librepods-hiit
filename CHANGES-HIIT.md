@@ -83,6 +83,20 @@ rewritten or new files, and next to the change in the C++ sources.
   (`loadAppTranslation`), which also handles region fallback (e.g. `tr_TR` → `tr`).
 - The Magic Cloud Keys QR dialog texts are translatable.
 
+## 2026-09-24 — Linux app: connect AirPods detected nearby
+
+- New `nearby` connection state: when the BLE scan recognizes the known AirPods
+  (by their IRK) and they are not connected here, the window shows
+  "<name> is nearby" with a Connect button. The state expires after 15 s
+  without new advertisements.
+- Connect runs `bluetoothctl connect` on the last known address, saved when
+  the AirPods connect (`DeviceInfo/lastAddress`); the usual BlueZ flow then
+  opens the control channel.
+- The "searching" hint no longer says opening the case is enough to connect.
+- The feature is experimental and off by default: Settings > Experimental
+  (collapsed, with a warning) turns it on. When off, the "searching" hint tells
+  the user to connect the AirPods in the system's Bluetooth settings.
+
 ## Third-party assets
 
 | Asset | Path | License |

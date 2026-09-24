@@ -70,8 +70,11 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(DeviceInfo *deviceInfo READ deviceInfo CONSTANT)
     Q_PROPERTY(QString phoneMacStatus READ phoneMacStatus NOTIFY phoneMacStatusChanged)
     Q_PROPERTY(bool hearingAidEnabled READ hearingAidEnabled WRITE setHearingAidEnabled NOTIFY hearingAidEnabledChanged)
-    // LibrePods HiiT: "off", "searching", "connecting", "connected" or "failed"
+    // LibrePods HiiT: "off", "searching", "nearby", "connecting", "connected" or "failed"
     Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
+    Q_PROPERTY(QString lastDeviceName READ lastDeviceName NOTIFY connectionStateChanged)
+    // LibrePods HiiT: experimental, off by default
+    Q_PROPERTY(bool nearbyConnectEnabled READ nearbyConnectEnabled WRITE setNearbyConnectEnabled NOTIFY nearbyConnectEnabledChanged)
     // LibrePods HiiT: UI language code saved in the settings, "" = follow the system
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 
@@ -128,6 +131,15 @@ public:
         });
         setConnectionState(isBluetoothOn() ? QStringLiteral("searching") : QStringLiteral("off"));
 
+        // LibrePods HiiT: "nearby" lasts while BLE keeps seeing the AirPods
+        m_nearbyTimer = new QTimer(this);
+        m_nearbyTimer->setSingleShot(true);
+        m_nearbyTimer->setInterval(15000);
+        connect(m_nearbyTimer, &QTimer::timeout, this, [this]() {
+            if (m_connectionState == QLatin1String("nearby"))
+                setConnectionState(QStringLiteral("searching"));
+        });
+
         // Load settings
         CrossDevice.isEnabled = loadCrossDeviceEnabled();
         setEarDetectionBehavior(loadEarDetectionSettings());
@@ -181,6 +193,18 @@ public:
     bool hearingAidEnabled() const { return m_deviceInfo->hearingAidEnabled(); }
     QString connectionState() const { return m_connectionState; }
     QString language() const { return m_settings->value("app/language", "").toString(); }
+    QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
+    bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
+
+    void setNearbyConnectEnabled(bool enabled)
+    {
+        if (enabled == nearbyConnectEnabled())
+            return;
+        m_settings->setValue("experimental/nearbyConnect", enabled);
+        if (!enabled && m_connectionState == QLatin1String("nearby"))
+            setConnectionState(QStringLiteral("searching"));
+        emit nearbyConnectEnabledChanged();
+    }
 
     void setLanguage(const QString &code)
     {
@@ -443,6 +467,28 @@ public slots:
         setConnectionState(QStringLiteral("searching"));
         monitor->checkAlreadyConnectedDevices();
         m_bleManager->startScan();
+    }
+
+    // LibrePods HiiT: ask BlueZ to connect the last known AirPods; once BlueZ reports the
+    // connection, BluetoothMonitor::deviceConnected opens the control channel as usual
+    void connectNearby()
+    {
+        const QString address = m_settings->value("DeviceInfo/lastAddress").toString();
+        if (address.isEmpty()) {
+            retryConnection();
+            return;
+        }
+        setConnectionState(QStringLiteral("connecting"));
+
+        auto *process = new QProcess(this);
+        connect(process, &QProcess::finished, this, [this, process](int exitCode, QProcess::ExitStatus) {
+            const QString output = QString::fromUtf8(process->readAllStandardOutput()).trimmed();
+            process->deleteLater();
+            LOG_INFO("bluetoothctl connect: " << output);
+            if ((exitCode != 0 || !output.contains("Connection successful")) && !areAirpodsConnected())
+                setConnectionState(QStringLiteral("failed"));
+        });
+        process->start("bluetoothctl", {"--timeout", "20", "connect", address});
     }
 
     void powerOnBluetooth()
@@ -831,6 +877,7 @@ private slots:
             }
             m_bleManager->stopScan();
             m_retryCount = 0;
+            m_settings->setValue("DeviceInfo/lastAddress", m_deviceInfo->bluetoothAddress());
             setConnectionState(QStringLiteral("connected"));
             emit airPodsStatusChanged();
         }
@@ -965,6 +1012,13 @@ private slots:
     void bleDeviceFound(const BleInfo &device)
     {
         if (BLEUtils::isValidIrkRpa(m_deviceInfo->magicAccIRK(), device.address)) {
+            // LibrePods HiiT: our AirPods are advertising nearby but not connected here
+            if (nearbyConnectEnabled() && !areAirpodsConnected()
+                && (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("failed")
+                    || m_connectionState == QLatin1String("nearby"))) {
+                setConnectionState(QStringLiteral("nearby"));
+                m_nearbyTimer->start();
+            }
             m_deviceInfo->setModel(device.modelName);
             auto decryptet = BLEUtils::decryptLastBytes(device.encryptedPayload, m_deviceInfo->magicAccEncKey());
             m_deviceInfo->getBattery()->parseEncryptedPacket(decryptet, device.primaryLeft, device.isThisPodInTheCase, isModelHeadset(m_deviceInfo->model()));
@@ -1059,6 +1113,7 @@ signals:
     void hearingAidEnabledChanged(bool enabled);
     void connectionStateChanged();
     void languageChanged();
+    void nearbyConnectEnabledChanged();
 
 private:
     QBluetoothSocket *socket = nullptr;
@@ -1078,6 +1133,7 @@ private:
     QString m_phoneMacStatus;
     QBluetoothLocalDevice *m_localDevice = nullptr;
     QTranslator *m_translator = nullptr;
+    QTimer *m_nearbyTimer = nullptr;
     QString m_connectionState;
     int m_retryCount = 0;
 
