@@ -115,6 +115,17 @@ rewritten or new files, and next to the change in the C++ sources.
   language now see English.
 - The language selector only offers languages the font can draw.
 
+## 2026-09-24 — Linux app: paired AirPods offered with a Connect button
+
+- New `paired` connection state: when the AirPods are paired with this computer
+  (BlueZ `Paired`) but not connected, the window shows their name and a Connect
+  button, with one line of help: if they do not connect when taken out of the case,
+  click Connect.
+- The former "searching" state becomes `unpaired`: "No AirPods paired", three short
+  pairing steps and an "Open Bluetooth settings" button (KDE, GNOME or Blueman).
+- The case illustration is the main symbol of these states, since pairing and
+  reconnecting start from the case.
+- Connect (`connectKnownDevice`) uses the paired address, or the last used one.
 ## 2026-09-24 — Linux app: Hearing Aid shown as status, not as a switch
 
 - The Hearing Aid switch leaves the main window. Hearing Aid is set up once from an

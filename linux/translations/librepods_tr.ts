@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+365"/>
+        <location filename="../main.cpp" line="+379"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>AA:BB:CC:DD:EE:FF biçimini kullanın.</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+272"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods Bağlantısı Kesildi</translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <location filename="../ConnectionStatus.qml" line="+64"/>
+        <location filename="../ConnectionStatus.qml" line="+68"/>
         <source>Bluetooth is off</source>
         <translation>Bluetooth kapalı</translation>
     </message>
@@ -63,6 +63,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Your AirPods</source>
+        <translation>AirPods&apos;unuz</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>%1 is nearby</source>
         <translation>%1 yakınlarda</translation>
     </message>
@@ -73,36 +78,46 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Looking for your AirPods…</source>
-        <translation>AirPods&apos;unuz aranıyor…</translation>
+        <source>No AirPods paired</source>
+        <translation>Eşleştirilmiş AirPods yok</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
+        <source>If they don&apos;t connect when taken out of the case, click Connect.</source>
+        <translation>Kutudan çıkarıldığında bağlanmazsa Bağlan&apos;a tıklayın.</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Open the case with the AirPods inside.</source>
+        <translation>AirPods içindeyken kutuyu açın.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Hold the button on the back until the light flashes white.</source>
+        <translation>Işık beyaz yanıp sönene kadar arkadaki düğmeye basılı tutun.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pair them in the system&apos;s Bluetooth settings.</source>
+        <translation>Sistemin Bluetooth ayarlarından eşleştirin.</translation>
+    </message>
+    <message>
+        <location line="-19"/>
         <source>Turn on Bluetooth to control your AirPods.</source>
         <translation>AirPods&apos;unuzu kontrol etmek için Bluetooth&apos;u açın.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
-        <translation>Kutudan çıkarıldıklarından, bu bilgisayara yakın olduklarından ve sistemin Bluetooth ayarlarında bağlı olduklarından emin olun.</translation>
+        <location line="+1"/>
+        <source>Check that they are connected in the system&apos;s Bluetooth settings.</source>
+        <translation>Sistemin Bluetooth ayarlarında bağlı olduklarını kontrol edin.</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
         <translation>Bu bilgisayarda kullanmak için bağlanın. Başka bir cihazda kullanılıyorlarsa bu cihaza geçebilirler.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
-        <translation>Bulmak için AirPods kutusunu bu bilgisayarın yakınında açın. Sistemin Bluetooth ayarlarında önceden eşleştirilmiş olmaları gerekir.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Connect the AirPods in your system&apos;s Bluetooth settings and LibrePods will pick them up.</source>
-        <translation>AirPods&apos;u sistemin Bluetooth ayarlarından bağlayın, LibrePods onları algılayacaktır.</translation>
-    </message>
-    <message>
-        <location line="+10"/>
+        <location line="+61"/>
         <source>Turn on Bluetooth</source>
         <translation>Bluetooth&apos;u Aç</translation>
     </message>
@@ -110,6 +125,11 @@
         <location line="+1"/>
         <source>Connect</source>
         <translation>Bağlan</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open Bluetooth settings</source>
+        <translation>Bluetooth ayarlarını aç</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -159,21 +179,22 @@
     </message>
     <message>
         <location line="+1"/>
+        <location line="+2"/>
         <source>Not connected</source>
         <translation>Bağlı değil</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Nearby</source>
         <translation>Yakınlarda</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Searching</source>
-        <translation>Aranıyor</translation>
+        <location line="+2"/>
+        <source>Not paired</source>
+        <translation>Eşleştirilmedi</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+72"/>
         <source>Off</source>
         <translation>Kapalı</translation>
     </message>
