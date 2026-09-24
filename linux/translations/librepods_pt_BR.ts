@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+296"/>
+        <location filename="../main.cpp" line="+341"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -90,6 +90,24 @@
         <location line="+0"/>
         <source>Try again</source>
         <translation>Tentar de novo</translation>
+    </message>
+</context>
+<context>
+    <name>KeysQRDialog</name>
+    <message>
+        <location filename="../KeysQRDialog.qml" line="+10"/>
+        <source>Magic Cloud Keys QR Code</source>
+        <translation>QR das Magic Cloud Keys</translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Failed to generate QR code</source>
+        <translation>Não foi possível gerar o QR code</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
+        <translation>Escaneie este QR code com o app LibrePods para Android para transferir as Magic Cloud Keys.</translation>
     </message>
 </context>
 <context>
@@ -253,7 +271,17 @@
         <translation>App</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
+        <source>Language</source>
+        <translation>Idioma</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>System default</source>
+        <translation>Padrão do sistema</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Auto-Start on Login</source>
         <translation>Iniciar ao entrar no sistema</translation>
     </message>
@@ -349,22 +377,22 @@
         <translation>Bateria: </translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+74"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+1"/>
         <source>Settings</source>
         <translation>Configurações</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+1"/>
         <source>Toggle Conversational Awareness</source>
         <translation>Ligar/desligar Detecção de Conversa</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+7"/>
         <source>Adaptive</source>
         <translation>Adaptativo</translation>
     </message>
@@ -384,7 +412,7 @@
         <translation>Desligado</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-9"/>
         <source>Quit</source>
         <translation>Sair</translation>
     </message>

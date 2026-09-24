@@ -166,6 +166,24 @@ Page {
                 Layout.fillWidth: true
                 title: qsTr("App")
 
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    UiLabel {
+                        text: qsTr("Language")
+                    }
+
+                    UiSelect {
+                        // Language names stay in their own language so anyone can find theirs
+                        readonly property var codes: ["", "en", "pt_BR", "it_IT", "tr", "zh_TW"]
+                        Layout.fillWidth: true
+                        model: [qsTr("System default"), "English", "Português (Brasil)", "Italiano", "Türkçe", "繁體中文"]
+                        currentIndex: Math.max(0, codes.indexOf(airPodsTrayApp.language))
+                        onActivated: airPodsTrayApp.language = codes[currentIndex]
+                    }
+                }
+
                 UiSwitch {
                     Layout.fillWidth: true
                     iconName: "power"

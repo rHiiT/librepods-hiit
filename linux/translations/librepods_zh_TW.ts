@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+296"/>
+        <location filename="../main.cpp" line="+341"/>
         <source>Enter a name.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -89,6 +89,24 @@
     <message>
         <location line="+0"/>
         <source>Try again</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KeysQRDialog</name>
+    <message>
+        <location filename="../KeysQRDialog.qml" line="+10"/>
+        <source>Magic Cloud Keys QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+43"/>
+        <source>Failed to generate QR code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -253,7 +271,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+7"/>
+        <source>Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>System default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Auto-Start on Login</source>
         <translation>登入時自動啟動</translation>
     </message>
@@ -349,22 +377,22 @@
         <translation>電池狀態： </translation>
     </message>
     <message>
-        <location line="+21"/>
+        <location line="+74"/>
         <source>Open</source>
         <translation>開啟</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+1"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+1"/>
         <source>Toggle Conversational Awareness</source>
         <translation>切換對話感知</translation>
     </message>
     <message>
-        <location line="+11"/>
+        <location line="+7"/>
         <source>Adaptive</source>
         <translation>自適應</translation>
     </message>
@@ -384,7 +412,7 @@
         <translation>關閉</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-9"/>
         <source>Quit</source>
         <translation>結束</translation>
     </message>
