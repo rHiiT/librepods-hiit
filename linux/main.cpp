@@ -80,6 +80,8 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(bool nearbyConnectEnabled READ nearbyConnectEnabled WRITE setNearbyConnectEnabled NOTIFY nearbyConnectEnabledChanged)
     // LibrePods HiiT: UI language code saved in the settings, "" = follow the system
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
+    // LibrePods HiiT: "system", "light" or "dark", saved in the settings
+    Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -207,6 +209,15 @@ public:
     bool hearingAidEnabled() const { return m_deviceInfo->hearingAidEnabled(); }
     QString connectionState() const { return m_connectionState; }
     QString language() const { return m_settings->value("app/language", "").toString(); }
+    QString theme() const { return m_settings->value("app/theme", "system").toString(); }
+
+    void setTheme(const QString &theme)
+    {
+        if (theme == this->theme())
+            return;
+        m_settings->setValue("app/theme", theme);
+        emit themeChanged();
+    }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
     QString pairedDeviceName() const { return m_pairedName; }
     bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
@@ -1173,6 +1184,7 @@ signals:
     void hearingAidEnabledChanged(bool enabled);
     void connectionStateChanged();
     void languageChanged();
+    void themeChanged();
     void nearbyConnectEnabledChanged();
 
 private:

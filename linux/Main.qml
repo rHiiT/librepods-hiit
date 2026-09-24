@@ -25,6 +25,13 @@ ApplicationWindow {
 
     onClosing: mainWindow.visible = false
 
+    // The Theme singleton follows the saved theme choice
+    Binding {
+        target: Theme
+        property: "mode"
+        value: airPodsTrayApp.theme
+    }
+
     UiToast {
         id: appToast
     }

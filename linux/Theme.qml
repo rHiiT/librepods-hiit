@@ -1,6 +1,6 @@
 // Theme.qml
 // LibrePods HiiT: design tokens for the Linux UI (shadcn/ui-inspired, zinc palette).
-// Follows the system light/dark preference through SystemPalette.
+// Follows the system light/dark preference through SystemPalette, unless `mode` forces one.
 pragma Singleton
 
 import QtQuick
@@ -8,8 +8,12 @@ import QtQuick
 QtObject {
     id: theme
 
+    // "system", "light" or "dark"; bound to the saved setting in Main.qml
+    property string mode: "system"
+
     readonly property SystemPalette systemPalette: SystemPalette {}
-    readonly property bool dark: systemPalette.window.hslLightness < systemPalette.windowText.hslLightness
+    readonly property bool systemDark: systemPalette.window.hslLightness < systemPalette.windowText.hslLightness
+    readonly property bool dark: mode === "dark" || (mode !== "light" && systemDark)
 
     // Colors
     readonly property color background: dark ? "#09090b" : "#ffffff"

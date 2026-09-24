@@ -140,6 +140,11 @@ rewritten or new files, and next to the change in the C++ sources.
   illustration on a dark rounded tile, instead of the LibrePods logo.
 - The icon is also the window icon, and the desktop entry is named
   "LibrePods HiiT Edition".
+## 2026-09-24 — Linux app: theme selector
+
+- Settings > App has a Theme option: System default, Light or Dark. The choice is
+  saved (`app/theme`) and applied at once; System default keeps following the
+  desktop's light/dark preference.
 
 ## Third-party assets
 
