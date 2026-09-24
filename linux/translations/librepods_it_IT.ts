@@ -227,7 +227,7 @@
 <context>
     <name>PodColumn</name>
     <message>
-        <location filename="../PodColumn.qml" line="+55"/>
+        <location filename="../PodColumn.qml" line="+59"/>
         <source>Charging</source>
         <translation>In carica</translation>
     </message>
@@ -245,6 +245,11 @@
         <location line="+0"/>
         <source>Out of ear</source>
         <translation>Fuori dall&apos;orecchio</translation>
+    </message>
+    <message>
+        <location line="+24"/>
+        <source>The case only reports its battery while at least one bud is inside it.</source>
+        <translation>La custodia comunica la batteria solo quando contiene almeno un auricolare.</translation>
     </message>
 </context>
 <context>

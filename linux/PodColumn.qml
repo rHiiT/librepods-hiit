@@ -1,6 +1,6 @@
 // PodColumn.qml
 // Modified by LibrePods HiiT: original line-art illustrations instead of product photos,
-// and a status line: "Charging", "Last reading" (stale level) or the ear state.
+// and a status line: "Charging", "Last reading" (stale level, explained on hover) or the ear state.
 import QtQuick
 
 Column {
@@ -49,15 +49,39 @@ Column {
         indicator: root.indicator
     }
 
-    Text {
+    Row {
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: text !== ""
-        text: root.isCharging ? qsTr("Charging")
-            : root.lastKnown ? qsTr("Last reading")
-            : root.showsEarState ? (root.inEar ? qsTr("In ear") : qsTr("Out of ear"))
-            : ""
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSize
-        color: root.isCharging ? Theme.success : Theme.mutedForeground
+        spacing: 4
+
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: text !== ""
+            text: root.isCharging ? qsTr("Charging")
+                : root.lastKnown ? qsTr("Last reading")
+                : root.showsEarState ? (root.inEar ? qsTr("In ear") : qsTr("Out of ear"))
+                : ""
+            font.family: Theme.fontFamily
+            font.pixelSize: Theme.fontSize
+            color: root.isCharging ? Theme.success : Theme.mutedForeground
+        }
+
+        // Signals that hovering explains why the reading is not live
+        Icon {
+            anchors.verticalCenter: parent.verticalCenter
+            visible: root.lastKnown && !root.isCharging
+            name: "info"
+            size: 12
+            color: Theme.mutedForeground
+        }
+    }
+
+    HoverHandler {
+        id: hover
+    }
+
+    UiToolTip {
+        visible: root.lastKnown && hover.hovered
+        width: 220
+        text: qsTr("The case only reports its battery while at least one bud is inside it.")
     }
 }
