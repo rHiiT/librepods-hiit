@@ -134,6 +134,12 @@ rewritten or new files, and next to the change in the C++ sources.
 - Settings > AirPods shows "Hearing Aid — On. Set up from an iPhone or iPad." while
   it is enabled.
 
+## 2026-09-24 — Linux app: theme selector
+
+- Settings > App has a Theme option: System default, Light or Dark. The choice is
+  saved (`app/theme`) and applied at once; System default keeps following the
+  desktop's light/dark preference.
+
 ## Third-party assets
 
 | Asset | Path | License |

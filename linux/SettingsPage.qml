@@ -214,6 +214,23 @@ Page {
                     }
                 }
 
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    UiLabel {
+                        text: qsTr("Theme")
+                    }
+
+                    UiSelect {
+                        readonly property var modes: ["system", "light", "dark"]
+                        Layout.fillWidth: true
+                        model: [qsTr("System default"), qsTr("Light"), qsTr("Dark")]
+                        currentIndex: Math.max(0, modes.indexOf(airPodsTrayApp.theme))
+                        onActivated: airPodsTrayApp.theme = modes[currentIndex]
+                    }
+                }
+
                 UiSwitch {
                     Layout.fillWidth: true
                     iconName: "power"
