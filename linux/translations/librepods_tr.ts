@@ -223,11 +223,6 @@
         <source>Conversational Awareness</source>
         <translation>Konuşma Farkındalığı</translation>
     </message>
-    <message>
-        <location line="+9"/>
-        <source>Hearing Aid</source>
-        <translation>İşitme Cihazı</translation>
-    </message>
 </context>
 <context>
     <name>PodColumn</name>
@@ -290,7 +285,17 @@
         <translation>Yeni ad: %1</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+31"/>
+        <source>Hearing Aid</source>
+        <translation>İşitme Cihazı</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>On. Set up from an iPhone or iPad.</source>
+        <translation>Açık. iPhone veya iPad üzerinden ayarlandı.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>One Bud ANC Mode</source>
         <translation>Tek Kulaklık ANC Modu</translation>
     </message>

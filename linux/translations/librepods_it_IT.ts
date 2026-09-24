@@ -223,11 +223,6 @@
         <source>Conversational Awareness</source>
         <translation>Rilevamento conversazione</translation>
     </message>
-    <message>
-        <location line="+9"/>
-        <source>Hearing Aid</source>
-        <translation>Apparecchio acustico</translation>
-    </message>
 </context>
 <context>
     <name>PodColumn</name>
@@ -290,7 +285,17 @@
         <translation>Rinominate in %1</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+31"/>
+        <source>Hearing Aid</source>
+        <translation>Apparecchio acustico</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>On. Set up from an iPhone or iPad.</source>
+        <translation>Attivo. Configurato da iPhone o iPad.</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>One Bud ANC Mode</source>
         <translation>Modalità ANC singolo auricolare</translation>
     </message>
