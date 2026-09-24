@@ -86,6 +86,7 @@ qt_add_resources(librepods "resources"
     PREFIX "/icons"
     FILES
         assets/fonts/DepartureMono-Regular.otf
+        assets/librepods.svg
         assets/icons/arrow-left.svg
         assets/icons/audio-lines.svg
         assets/icons/battery-charging.svg
