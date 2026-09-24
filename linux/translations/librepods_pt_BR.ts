@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+371"/>
+        <location filename="../main.cpp" line="+372"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Use o formato AA:BB:CC:DD:EE:FF.</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+281"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods desconectados</translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <location filename="../ConnectionStatus.qml" line="+64"/>
+        <location filename="../ConnectionStatus.qml" line="+68"/>
         <source>Bluetooth is off</source>
         <translation>O Bluetooth está desligado</translation>
     </message>
@@ -78,41 +78,46 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Looking for your AirPods…</source>
-        <translation>Procurando seus AirPods…</translation>
+        <source>No AirPods paired</source>
+        <translation>Nenhum AirPods pareado</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+18"/>
+        <source>If they don&apos;t connect when taken out of the case, click Connect.</source>
+        <translation>Se não conectarem ao sair do estojo, clique em Conectar.</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Open the case with the AirPods inside.</source>
+        <translation>Abra o estojo com os AirPods dentro.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Hold the button on the back until the light flashes white.</source>
+        <translation>Segure o botão de trás até a luz piscar em branco.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pair them in the system&apos;s Bluetooth settings.</source>
+        <translation>Pareie nas configurações de Bluetooth do sistema.</translation>
+    </message>
+    <message>
+        <location line="-19"/>
         <source>Turn on Bluetooth to control your AirPods.</source>
         <translation>Ligue o Bluetooth para controlar seus AirPods.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+1"/>
         <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
         <translation>Confira se eles estão fora do estojo, perto deste computador e conectados nas configurações de Bluetooth do sistema.</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Paired. If they don&apos;t connect when taken out of the case, click Connect.</source>
-        <translation>Pareados. Se não conectarem ao sair do estojo, clique em Conectar.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
         <translation>Conecte para usá-los neste computador. Se estiverem em uso em outro aparelho, podem passar para este.</translation>
     </message>
     <message>
-        <location line="+2"/>
-        <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
-        <translation>Abra o estojo dos AirPods perto deste computador para encontrá-los. Eles precisam já estar pareados nas configurações de Bluetooth do sistema.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Connect the AirPods in your system&apos;s Bluetooth settings and LibrePods will pick them up.</source>
-        <translation>Conecte os AirPods nas configurações de Bluetooth do sistema e o LibrePods os encontrará.</translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+61"/>
         <source>Turn on Bluetooth</source>
         <translation>Ligar Bluetooth</translation>
     </message>
@@ -120,6 +125,11 @@
         <location line="+1"/>
         <source>Connect</source>
         <translation>Conectar</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open Bluetooth settings</source>
+        <translation>Abrir configurações de Bluetooth</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -180,11 +190,11 @@
     </message>
     <message>
         <location line="+2"/>
-        <source>Searching</source>
-        <translation>Procurando</translation>
+        <source>Not paired</source>
+        <translation>Não pareado</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+72"/>
         <source>Off</source>
         <translation>Desligado</translation>
     </message>

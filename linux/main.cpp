@@ -70,9 +70,10 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(DeviceInfo *deviceInfo READ deviceInfo CONSTANT)
     Q_PROPERTY(QString phoneMacStatus READ phoneMacStatus NOTIFY phoneMacStatusChanged)
     Q_PROPERTY(bool hearingAidEnabled READ hearingAidEnabled WRITE setHearingAidEnabled NOTIFY hearingAidEnabledChanged)
-    // LibrePods HiiT: "off", "searching", "paired", "nearby", "connecting", "connected" or "failed"
+    // LibrePods HiiT: "off", "unpaired", "paired", "nearby", "connecting", "connected" or "failed"
     Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QString pairedDeviceName READ pairedDeviceName NOTIFY connectionStateChanged)
+    Q_PROPERTY(bool canOpenBluetoothSettings READ canOpenBluetoothSettings CONSTANT)
     Q_PROPERTY(QString lastDeviceName READ lastDeviceName NOTIFY connectionStateChanged)
     // LibrePods HiiT: experimental, off by default
     Q_PROPERTY(bool nearbyConnectEnabled READ nearbyConnectEnabled WRITE setNearbyConnectEnabled NOTIFY nearbyConnectEnabledChanged)
@@ -122,7 +123,7 @@ public:
         connect(m_systemSleepMonitor, &SystemSleepMonitor::systemGoingToSleep, this, &AirPodsTrayApp::onSystemGoingToSleep);
         connect(m_systemSleepMonitor, &SystemSleepMonitor::systemWakingUp, this, &AirPodsTrayApp::onSystemWakingUp);
 
-        // LibrePods HiiT: follow the adapter power so the UI can tell "Bluetooth off" from "searching"
+        // LibrePods HiiT: follow the adapter power so the UI can tell "Bluetooth off" from "unpaired"
         m_localDevice = new QBluetoothLocalDevice(this);
         connect(m_localDevice, &QBluetoothLocalDevice::hostModeStateChanged, this, [this]() {
             if (!isBluetoothOn())
@@ -132,7 +133,7 @@ public:
         });
         enterIdleState();
         connect(monitor, &BluetoothMonitor::pairedDevicesChanged, this, [this]() {
-            if (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("paired"))
+            if (m_connectionState == QLatin1String("unpaired") || m_connectionState == QLatin1String("paired"))
                 enterIdleState();
         });
 
@@ -476,7 +477,7 @@ public slots:
     }
 
     // LibrePods HiiT: not connected and nothing in progress. A paired AirPods is offered with a
-    // Connect button ("paired"); without one the app waits for BlueZ to connect them ("searching").
+    // Connect button ("paired"); without one the user is guided to pair them ("unpaired").
     void enterIdleState()
     {
         if (!isBluetoothOn()) {
@@ -498,7 +499,7 @@ public slots:
         } else {
             m_pairedAddress.clear();
             m_pairedName.clear();
-            setConnectionState(QStringLiteral("searching"));
+            setConnectionState(QStringLiteral("unpaired"));
         }
     }
 
@@ -523,6 +524,32 @@ public slots:
                 setConnectionState(QStringLiteral("failed"));
         });
         process->start("bluetoothctl", {"--timeout", "20", "connect", address});
+    }
+
+    // LibrePods HiiT: pairing happens in the desktop's own Bluetooth settings
+    static QStringList bluetoothSettingsCommand()
+    {
+        const QList<QStringList> candidates = {
+            {"systemsettings", "kcm_bluetooth"},   // KDE Plasma
+            {"gnome-control-center", "bluetooth"}, // GNOME
+            {"blueman-manager"},                   // other desktops
+        };
+        for (const QStringList &command : candidates) {
+            if (!QStandardPaths::findExecutable(command.constFirst()).isEmpty())
+                return command;
+        }
+        return {};
+    }
+
+    bool canOpenBluetoothSettings() const { return !bluetoothSettingsCommand().isEmpty(); }
+
+    void openBluetoothSettings()
+    {
+        QStringList command = bluetoothSettingsCommand();
+        if (command.isEmpty())
+            return;
+        const QString program = command.takeFirst();
+        QProcess::startDetached(program, command);
     }
 
     void powerOnBluetooth()
@@ -1048,7 +1075,7 @@ private slots:
         if (BLEUtils::isValidIrkRpa(m_deviceInfo->magicAccIRK(), device.address)) {
             // LibrePods HiiT: our AirPods are advertising nearby but not connected here
             if (nearbyConnectEnabled() && !areAirpodsConnected()
-                && (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("failed")
+                && (m_connectionState == QLatin1String("unpaired") || m_connectionState == QLatin1String("failed")
                     || m_connectionState == QLatin1String("paired") || m_connectionState == QLatin1String("nearby"))) {
                 setConnectionState(QStringLiteral("nearby"));
                 m_nearbyTimer->start();

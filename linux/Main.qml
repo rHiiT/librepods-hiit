@@ -119,11 +119,12 @@ ApplicationWindow {
                         case "failed": return qsTr("Not connected");
                         case "nearby": return qsTr("Nearby");
                         case "paired": return qsTr("Not connected");
-                        default: return qsTr("Searching");
+                        default: return qsTr("Not paired");
                         }
                     }
                     iconName: connectionState === "connected" ? "bluetooth-connected"
-                            : connectionState === "off" || connectionState === "failed" || connectionState === "paired" ? "bluetooth-off"
+                            : connectionState === "off" || connectionState === "failed" || connectionState === "paired"
+                              || connectionState === "unpaired" ? "bluetooth-off"
                             : "bluetooth-searching"
                     tone: connectionState === "connected" ? Theme.success
                         : connectionState === "off" || connectionState === "failed" ? Theme.danger
@@ -140,7 +141,8 @@ ApplicationWindow {
                                 : airPodsTrayApp.deviceInfo.deviceName !== "" ? airPodsTrayApp.deviceInfo.deviceName
                                                                               : airPodsTrayApp.lastDeviceName
                     onRetryRequested: airPodsTrayApp.retryConnection()
-                    nearbyDetection: airPodsTrayApp.nearbyConnectEnabled
+                    canOpenBluetoothSettings: airPodsTrayApp.canOpenBluetoothSettings
+                    onBluetoothSettingsRequested: airPodsTrayApp.openBluetoothSettings()
                     onConnectRequested: airPodsTrayApp.connectKnownDevice()
                     onPowerOnRequested: airPodsTrayApp.powerOnBluetooth()
                 }
