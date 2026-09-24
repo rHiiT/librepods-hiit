@@ -1,5 +1,5 @@
 // KeysQRDialog.qml
-// Modified by LibrePods HiiT: Theme colors and Departure Mono font.
+// Modified by LibrePods HiiT: Theme colors, Departure Mono font and translatable texts.
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Layouts
@@ -7,7 +7,7 @@ import QtQuick.Window
 
 Window {
     id: root
-    title: "Magic Cloud Keys QR Code"
+    title: qsTr("Magic Cloud Keys QR Code")
     flags: Qt.Dialog
     modality: Qt.WindowModal
 
@@ -50,7 +50,7 @@ Window {
                 Label {
                     anchors.centerIn: parent
                     visible: qrCodeImage.status === Image.Error
-                    text: "Failed to generate QR code"
+                    text: qsTr("Failed to generate QR code")
                     font.family: Theme.fontFamily
                     font.pixelSize: Theme.fontSize
                     color: "#09090b"
@@ -61,7 +61,7 @@ Window {
         // Instruction text
         Label {
             Layout.fillWidth: true
-            text: "Scan this QR code to transfer\nthe Magic Cloud Keys to another device"
+            text: qsTr("Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.")
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
             color: Theme.foreground

@@ -23,6 +23,8 @@ public:
 
     void showNotification(const QString &title, const QString &message);
 
+    void retranslateMenu();
+
     bool notificationsEnabled() const { return m_notificationsEnabled; }
     void setNotificationsEnabled(bool enabled)
     {
@@ -51,7 +53,10 @@ private slots:
 private:
     QSystemTrayIcon *trayIcon;
     QMenu *trayMenu;
+    QAction *openAction = nullptr;
+    QAction *settingsAction = nullptr;
     QAction *caToggleAction;
+    QAction *quitAction = nullptr;
     QActionGroup *noiseControlGroup;
     bool m_notificationsEnabled = true;
 

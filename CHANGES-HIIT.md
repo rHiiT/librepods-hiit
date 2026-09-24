@@ -74,6 +74,15 @@ rewritten or new files, and next to the change in the C++ sources.
   ("Connected · <name>"), which elides long names.
 - The settings page heading is smaller so it does not compete with the logo.
 
+## 2026-09-24 — Linux app: language selector
+
+- Settings > App has a Language option (system default, English, Português
+  (Brasil), Italiano, Türkçe, 繁體中文). The choice is saved and applied at once,
+  to the window and the tray menu, without restarting.
+- Translation loading moved from `main()` to `AirPodsTrayApp`
+  (`loadAppTranslation`), which also handles region fallback (e.g. `tr_TR` → `tr`).
+- The Magic Cloud Keys QR dialog texts are translatable.
+
 ## Third-party assets
 
 | Asset | Path | License |

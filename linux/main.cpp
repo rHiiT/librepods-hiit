@@ -37,6 +37,27 @@ using namespace AirpodsTrayApp::Enums;
 
 Q_LOGGING_CATEGORY(librepods, "librepods")
 
+// LibrePods HiiT: loads the translation for a language code ("" = system language).
+// English is the source language, so it needs no file.
+static bool loadAppTranslation(QTranslator *translator, const QString &code)
+{
+    const QLocale locale = code.isEmpty() ? QLocale::system() : QLocale(code);
+    if (locale.language() == QLocale::English)
+        return false;
+
+    const QStringList translationPaths = {
+        QCoreApplication::applicationDirPath() + "/translations",
+        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/librepods/translations",
+        "/usr/share/librepods/translations",
+        "/usr/local/share/librepods/translations"
+    };
+    for (const QString &path : translationPaths) {
+        if (translator->load(locale, "librepods", "_", path))
+            return true;
+    }
+    return false;
+}
+
 class AirPodsTrayApp : public QObject {
     Q_OBJECT
     Q_PROPERTY(bool airpodsConnected READ areAirpodsConnected NOTIFY airPodsStatusChanged)
@@ -51,6 +72,8 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(bool hearingAidEnabled READ hearingAidEnabled WRITE setHearingAidEnabled NOTIFY hearingAidEnabledChanged)
     // LibrePods HiiT: "off", "searching", "connecting", "connected" or "failed"
     Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
+    // LibrePods HiiT: UI language code saved in the settings, "" = follow the system
+    Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -61,6 +84,11 @@ public:
     {
         QLoggingCategory::setFilterRules(QString("librepods.debug=%1").arg(debugMode ? "true" : "false"));
         LOG_INFO("Initializing LibrePods");
+
+        // Install the translation before any translated text (tray menu, QML) is created
+        m_translator = new QTranslator(this);
+        if (loadAppTranslation(m_translator, language()))
+            QCoreApplication::installTranslator(m_translator);
 
         // Initialize tray icon and connect signals
         trayManager = new TrayIconManager(this);
@@ -152,6 +180,23 @@ public:
     QString phoneMacStatus() const { return m_phoneMacStatus; }
     bool hearingAidEnabled() const { return m_deviceInfo->hearingAidEnabled(); }
     QString connectionState() const { return m_connectionState; }
+    QString language() const { return m_settings->value("app/language", "").toString(); }
+
+    void setLanguage(const QString &code)
+    {
+        if (code == language())
+            return;
+        m_settings->setValue("app/language", code);
+
+        QCoreApplication::removeTranslator(m_translator);
+        if (loadAppTranslation(m_translator, code))
+            QCoreApplication::installTranslator(m_translator);
+        if (parent)
+            parent->retranslate();
+        trayManager->retranslateMenu();
+        LOG_INFO("Language set to: " << (code.isEmpty() ? QStringLiteral("system") : code));
+        emit languageChanged();
+    }
     bool isBluetoothOn() const { return m_localDevice && m_localDevice->hostMode() != QBluetoothLocalDevice::HostPoweredOff; }
 
 private:
@@ -1013,6 +1058,7 @@ signals:
     void phoneMacStatusChanged();
     void hearingAidEnabledChanged(bool enabled);
     void connectionStateChanged();
+    void languageChanged();
 
 private:
     QBluetoothSocket *socket = nullptr;
@@ -1031,6 +1077,7 @@ private:
     SystemSleepMonitor *m_systemSleepMonitor = nullptr;
     QString m_phoneMacStatus;
     QBluetoothLocalDevice *m_localDevice = nullptr;
+    QTranslator *m_translator = nullptr;
     QString m_connectionState;
     int m_retryCount = 0;
 
@@ -1046,25 +1093,6 @@ private:
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-
-    // Load translations
-    QTranslator *translator = new QTranslator(&app);
-    QString locale = QLocale::system().name();
-
-    // Try to load translation from various locations
-    QStringList translationPaths = {
-        QCoreApplication::applicationDirPath() + "/translations",
-        QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/librepods/translations",
-        "/usr/share/librepods/translations",
-        "/usr/local/share/librepods/translations"
-    };
-
-    for (const QString &path : translationPaths) {
-        if (translator->load("librepods_" + locale, path)) {
-            app.installTranslator(translator);
-            break;
-        }
-    }
 
     QLocalServer::removeServer("app_server");
 
