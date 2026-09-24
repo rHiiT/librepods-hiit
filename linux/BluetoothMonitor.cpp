@@ -117,22 +117,56 @@ bool BluetoothMonitor::checkAlreadyConnectedDevices()
     return deviceFound;
 }
 
-QList<QPair<QString, QString>> BluetoothMonitor::pairedDisconnectedAirPods()
+ManagedObjectList BluetoothMonitor::managedObjects()
 {
-    QList<QPair<QString, QString>> result;
-
+    ManagedObjectList objects;
     QDBusInterface objectManager("org.bluez", "/", "org.freedesktop.DBus.ObjectManager", m_dbus);
     QDBusMessage reply = objectManager.call("GetManagedObjects");
     if (reply.type() == QDBusMessage::ErrorMessage)
     {
         LOG_WARN("Failed to get managed objects: " << reply.errorMessage());
-        return result;
+        return objects;
+    }
+    reply.arguments().constFirst().value<QDBusArgument>() >> objects;
+    return objects;
+}
+
+void BluetoothMonitor::connectDevice(const QString &address)
+{
+    // Calling BlueZ directly avoids `bluetoothctl connect`, which in non-interactive mode can
+    // run before it has loaded the device list and report a paired device as "not available"
+    const ManagedObjectList objects = managedObjects();
+    QString path;
+    for (auto it = objects.constBegin(); it != objects.constEnd(); ++it)
+    {
+        const QVariantMap deviceProps = it.value().value("org.bluez.Device1");
+        if (deviceProps.value("Address").toString().compare(address, Qt::CaseInsensitive) == 0)
+        {
+            path = it.key().path();
+            break;
+        }
+    }
+    if (path.isEmpty())
+    {
+        emit connectFinished(false, QStringLiteral("device %1 not found in BlueZ").arg(address));
+        return;
     }
 
-    ManagedObjectList managedObjects;
-    reply.arguments().constFirst().value<QDBusArgument>() >> managedObjects;
+    QDBusMessage call = QDBusMessage::createMethodCall("org.bluez", path, "org.bluez.Device1", "Connect");
+    auto *watcher = new QDBusPendingCallWatcher(m_dbus.asyncCall(call, 30000), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this](QDBusPendingCallWatcher *w) {
+        const QDBusPendingReply<> reply = *w;
+        w->deleteLater();
+        emit connectFinished(!reply.isError(), reply.error().message());
+    });
+}
 
-    for (auto it = managedObjects.constBegin(); it != managedObjects.constEnd(); ++it)
+QList<QPair<QString, QString>> BluetoothMonitor::pairedDisconnectedAirPods()
+{
+    QList<QPair<QString, QString>> result;
+    const ManagedObjectList objects = managedObjects();
+
+    for (auto it = objects.constBegin(); it != objects.constEnd(); ++it)
     {
         const QVariantMap deviceProps = it.value().value("org.bluez.Device1");
         if (deviceProps.isEmpty())

@@ -20,10 +20,14 @@ public:
     // LibrePods HiiT: AirPods paired with this computer but not connected, as {address, name}
     QList<QPair<QString, QString>> pairedDisconnectedAirPods();
 
+    // LibrePods HiiT: asks BlueZ to connect a device (org.bluez.Device1.Connect), asynchronously
+    void connectDevice(const QString &address);
+
 signals:
     void deviceConnected(const QString &macAddress, const QString &deviceName);
     void deviceDisconnected(const QString &macAddress, const QString &deviceName);
     void pairedDevicesChanged();
+    void connectFinished(bool success, const QString &error);
 
 private slots:
     void onPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
@@ -33,6 +37,7 @@ private:
     void registerDBusService();
     bool isAirPodsDevice(const QString &devicePath);
     QString getDeviceName(const QString &devicePath);
+    ManagedObjectList managedObjects();
 };
 
 #endif // BLUETOOTHMONITOR_H

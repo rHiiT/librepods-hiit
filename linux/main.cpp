@@ -132,6 +132,13 @@ public:
                 retryConnection();
         });
         enterIdleState();
+        connect(monitor, &BluetoothMonitor::connectFinished, this, [this](bool success, const QString &error) {
+            if (success)
+                return; // BluetoothMonitor::deviceConnected takes it from here
+            LOG_WARN("BlueZ connect failed: " << error);
+            if (!areAirpodsConnected())
+                setConnectionState(QStringLiteral("failed"));
+        });
         connect(monitor, &BluetoothMonitor::pairedDevicesChanged, this, [this]() {
             if (m_connectionState == QLatin1String("unpaired") || m_connectionState == QLatin1String("paired"))
                 enterIdleState();
@@ -503,8 +510,8 @@ public slots:
         }
     }
 
-    // LibrePods HiiT: ask BlueZ to connect the paired (or last used) AirPods; once BlueZ reports
-    // the connection, BluetoothMonitor::deviceConnected opens the control channel as usual
+    // LibrePods HiiT: ask BlueZ (over D-Bus) to connect the paired or last used AirPods; once BlueZ
+    // reports the connection, BluetoothMonitor::deviceConnected opens the control channel as usual
     void connectKnownDevice()
     {
         const QString address = !m_pairedAddress.isEmpty() ? m_pairedAddress
@@ -514,16 +521,7 @@ public slots:
             return;
         }
         setConnectionState(QStringLiteral("connecting"));
-
-        auto *process = new QProcess(this);
-        connect(process, &QProcess::finished, this, [this, process](int exitCode, QProcess::ExitStatus) {
-            const QString output = QString::fromUtf8(process->readAllStandardOutput()).trimmed();
-            process->deleteLater();
-            LOG_INFO("bluetoothctl connect: " << output);
-            if ((exitCode != 0 || !output.contains("Connection successful")) && !areAirpodsConnected())
-                setConnectionState(QStringLiteral("failed"));
-        });
-        process->start("bluetoothctl", {"--timeout", "20", "connect", address});
+        monitor->connectDevice(address);
     }
 
     // LibrePods HiiT: pairing happens in the desktop's own Bluetooth settings
