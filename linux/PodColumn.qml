@@ -1,6 +1,6 @@
 // PodColumn.qml
 // Modified by LibrePods HiiT: original line-art illustrations instead of product photos,
-// and an "out of ear" label in addition to the dimmed opacity.
+// and a status line: "Charging", "Last reading" (stale level) or the ear state.
 import QtQuick
 
 Column {
@@ -11,7 +11,10 @@ Column {
     property bool isCharging: false
     property string indicator: ""
     property bool showsEarState: indicator !== ""
-    property real targetOpacity: inEar ? 1 : 0.5
+    property bool lastKnown: false // level is a last reading, not live
+    property real targetOpacity: inEar && !lastKnown ? 1 : 0.5
+
+    onLastKnownChanged: opacityTimer.restart()
 
     Timer {
         id: opacityTimer
@@ -40,6 +43,7 @@ Column {
 
     BatteryIndicator {
         anchors.horizontalCenter: parent.horizontalCenter
+        opacity: root.lastKnown ? 0.5 : 1
         batteryLevel: root.batteryLevel
         isCharging: root.isCharging
         indicator: root.indicator
@@ -47,10 +51,13 @@ Column {
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: root.showsEarState
-        text: root.inEar ? qsTr("In ear") : qsTr("Out of ear")
+        visible: text !== ""
+        text: root.isCharging ? qsTr("Charging")
+            : root.lastKnown ? qsTr("Last reading")
+            : root.showsEarState ? (root.inEar ? qsTr("In ear") : qsTr("Out of ear"))
+            : ""
         font.family: Theme.fontFamily
         font.pixelSize: Theme.fontSize
-        color: Theme.mutedForeground
+        color: root.isCharging ? Theme.success : Theme.mutedForeground
     }
 }

@@ -172,6 +172,7 @@ ApplicationWindow {
                         illustration: airPodsTrayApp.deviceInfo.caseIcon
                         batteryLevel: airPodsTrayApp.deviceInfo.battery.caseLevel
                         isCharging: airPodsTrayApp.deviceInfo.battery.caseCharging
+                        lastKnown: airPodsTrayApp.deviceInfo.battery.caseLastKnown
                     }
 
                     PodColumn {

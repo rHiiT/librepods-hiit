@@ -97,6 +97,13 @@ rewritten or new files, and next to the change in the C++ sources.
   (collapsed, with a warning) turns it on. When off, the "searching" hint tells
   the user to connect the AirPods in the system's Bluetooth settings.
 
+## 2026-09-24 — Linux app: case battery state
+
+- When both buds are out of the case the AirPods report the case as disconnected;
+  the level kept from before is now shown dimmed as "Last reading" instead of
+  as a live value (`Battery::caseLastKnown`).
+- Charging components show a "Charging" label, not only the charging icon.
+
 ## Third-party assets
 
 | Asset | Path | License |

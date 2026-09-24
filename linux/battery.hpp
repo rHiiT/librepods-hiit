@@ -25,6 +25,8 @@ class Battery : public QObject
     Q_PROPERTY(quint8 caseLevel READ getCaseLevel NOTIFY batteryStatusChanged)
     Q_PROPERTY(bool caseCharging READ isCaseCharging NOTIFY batteryStatusChanged)
     Q_PROPERTY(bool caseAvailable READ isCaseAvailable NOTIFY batteryStatusChanged)
+    // LibrePods HiiT: the case level is the last one received, not a live reading
+    Q_PROPERTY(bool caseLastKnown READ isCaseLastKnown NOTIFY batteryStatusChanged)
 
 public:
     explicit Battery(QObject *parent = nullptr) : QObject(parent)
@@ -39,6 +41,7 @@ public:
         states[Component::Left] = {};
         states[Component::Right] = {};
         states[Component::Case] = {};
+        m_caseLastKnown = false;
         emit batteryStatusChanged();
     }
 
@@ -107,6 +110,14 @@ public:
             if (status != BatteryStatus::Disconnected)
             {
                 newStates[comp] = {level, status};
+            }
+
+            // LibrePods HiiT: with both buds out of the case the AirPods cannot reach it and
+            // report it as disconnected; the level kept from before is only a last reading
+            if (comp == Component::Case)
+            {
+                m_caseLastKnown = status == BatteryStatus::Disconnected
+                                  && newStates.value(Component::Case).status != BatteryStatus::Disconnected;
             }
 
             // If this is a pod (Left or Right), add it to the list
@@ -197,6 +208,7 @@ public:
                 isRightCharging = states.value(Component::Right).status == BatteryStatus::Charging;
             }
 
+            const bool caseReported = rawCaseBattery != CHAR_MAX;
             if (rawCaseBattery == CHAR_MAX) {
                 rawCaseBattery = states.value(Component::Case).level; // Use last valid level
                 isCaseCharging = states.value(Component::Case).status == BatteryStatus::Charging;
@@ -207,6 +219,8 @@ public:
             states[Component::Right] = {static_cast<quint8>(rawRightBattery), isRightCharging ? BatteryStatus::Charging : BatteryStatus::Discharging};
             if (podInCase) {
                 states[Component::Case] = {static_cast<quint8>(rawCaseBattery), isCaseCharging ? BatteryStatus::Charging : BatteryStatus::Discharging};
+                if (caseReported)
+                    m_caseLastKnown = false;
             }
             primaryPod = isLeftPodPrimary ? Component::Left : Component::Right;
             secondaryPod = isLeftPodPrimary ? Component::Right : Component::Left;
@@ -263,6 +277,7 @@ public:
     quint8 getCaseLevel() const { return states.value(Component::Case).level; }
     bool isCaseCharging() const { return isStatus(Component::Case, BatteryStatus::Charging); }
     bool isCaseAvailable() const { return !isStatus(Component::Case, BatteryStatus::Disconnected); }
+    bool isCaseLastKnown() const { return m_caseLastKnown; }
     quint8 getHeadsetLevel() const { return states.value(Component::Headset).level; }
     bool isHeadsetCharging() const { return isStatus(Component::Headset, BatteryStatus::Charging); }
     bool isHeadsetAvailable() const { return !isStatus(Component::Headset, BatteryStatus::Disconnected); }
@@ -285,6 +300,7 @@ private:
     }
 
     QMap<Component, BatteryState> states;
+    bool m_caseLastKnown = false;
     Component primaryPod;
     Component secondaryPod;
 };
