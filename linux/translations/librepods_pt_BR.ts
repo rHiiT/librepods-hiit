@@ -95,12 +95,12 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+102"/>
-        <source>Settings</source>
-        <translation>Configurações</translation>
+        <location filename="../Main.qml" line="+115"/>
+        <source>Connected · %1</source>
+        <translation>Conectado · %1</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="+1"/>
         <source>Connected</source>
         <translation>Conectado</translation>
     </message>
@@ -321,6 +321,24 @@
         <location line="+6"/>
         <source>Show Magic Cloud Keys QR</source>
         <translation>Mostrar QR das Magic Cloud Keys</translation>
+    </message>
+</context>
+<context>
+    <name>TitleBar</name>
+    <message>
+        <location filename="../TitleBar.qml" line="+55"/>
+        <source>Settings</source>
+        <translation>Configurações</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Minimize</source>
+        <translation>Minimizar</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Close to tray</source>
+        <translation>Fechar para a bandeja</translation>
     </message>
 </context>
 <context>

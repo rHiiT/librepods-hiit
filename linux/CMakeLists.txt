@@ -67,6 +67,8 @@ qt_add_qml_module(librepods
         Theme.qml
         ConnectionStatus.qml
         SettingsPage.qml
+        TitleBar.qml
+        WindowResizeHandles.qml
         UiBadge.qml
         UiButton.qml
         UiCard.qml
@@ -107,6 +109,7 @@ qt_add_resources(librepods "resources"
         assets/icons/info.svg
         assets/icons/key-round.svg
         assets/icons/loader-circle.svg
+        assets/icons/minus.svg
         assets/icons/pencil.svg
         assets/icons/power.svg
         assets/icons/qr-code.svg

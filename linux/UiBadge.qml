@@ -8,6 +8,7 @@ Rectangle {
     property string text: ""
     property string iconName: ""
     property color tone: Theme.foreground
+    property real maximumWidth: Number.POSITIVE_INFINITY // longer text is elided
 
     implicitWidth: row.implicitWidth + 16
     implicitHeight: 24
@@ -31,6 +32,8 @@ Rectangle {
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
+            width: Math.min(implicitWidth, root.maximumWidth - 16 - (root.iconName !== "" ? 14 + row.spacing : 0))
+            elide: Text.ElideRight
             text: root.text
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSize

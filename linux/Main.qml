@@ -1,7 +1,8 @@
 // Main.qml
 // Modified by LibrePods HiiT: controls rebuilt on the Ui* component kit, Departure Mono
 // font, Lucide icons, a connection badge that does not rely on color alone, a status
-// panel for every non-connected state; settings moved to SettingsPage.qml.
+// panel for every non-connected state; settings moved to SettingsPage.qml; frameless
+// window with its own title bar (TitleBar.qml).
 pragma ComponentBehavior: Bound
 
 import QtQuick
@@ -12,10 +13,11 @@ ApplicationWindow {
     id: mainWindow
     visible: !airPodsTrayApp.hideOnStart
     width: 440
-    height: 480
+    height: 540
     minimumWidth: 400
-    minimumHeight: 380
-    title: "LibrePods"
+    minimumHeight: 420
+    flags: Qt.Window | Qt.FramelessWindowHint
+    title: "LibrePods HiiT Edition"
     objectName: "mainWindowObject"
     color: Theme.background
     font.family: Theme.fontFamily
@@ -63,11 +65,34 @@ ApplicationWindow {
         }
     }
 
-    StackView {
-        id: stackView
+    ColumnLayout {
         anchors.fill: parent
-        initialItem: mainPage
+        spacing: 0
+
+        TitleBar {
+            Layout.fillWidth: true
+            showSettings: stackView.depth === 1
+            onSettingsRequested: stackView.push(settingsPage)
+        }
+
+        StackView {
+            id: stackView
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            clip: true
+            initialItem: mainPage
+        }
     }
+
+    // Window outline: without the system frame the window needs its own edge
+    Rectangle {
+        anchors.fill: parent
+        color: "transparent"
+        border.width: 1
+        border.color: Theme.border
+    }
+
+    WindowResizeHandles {}
 
     Component {
         id: mainPage
@@ -81,34 +106,14 @@ ApplicationWindow {
                 width: mainScroll.availableWidth - 40
                 spacing: 20
 
-                // Header: device name, connection status and settings
-                RowLayout {
-                    Layout.fillWidth: true
-                    spacing: 12
-
-                    Text {
-                        Layout.fillWidth: true
-                        text: airPodsTrayApp.airpodsConnected && airPodsTrayApp.deviceInfo.deviceName !== ""
-                              ? airPodsTrayApp.deviceInfo.deviceName : "LibrePods"
-                        font.family: Theme.fontFamily
-                        font.pixelSize: Theme.fontSizeLarge
-                        color: Theme.foreground
-                        elide: Text.ElideRight
-                    }
-
-                    UiButton {
-                        variant: "ghost"
-                        iconName: "settings"
-                        toolTipText: qsTr("Settings")
-                        onClicked: stackView.push(settingsPage)
-                    }
-                }
-
                 UiBadge {
+                    maximumWidth: parent.width
                     readonly property string connectionState: airPodsTrayApp.connectionState
                     text: {
                         switch (connectionState) {
-                        case "connected": return qsTr("Connected");
+                        case "connected": return airPodsTrayApp.deviceInfo.deviceName !== ""
+                                                 ? qsTr("Connected · %1").arg(airPodsTrayApp.deviceInfo.deviceName)
+                                                 : qsTr("Connected");
                         case "connecting": return qsTr("Connecting");
                         case "off": return qsTr("Bluetooth off");
                         case "failed": return qsTr("Not connected");
