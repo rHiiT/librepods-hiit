@@ -104,6 +104,17 @@ rewritten or new files, and next to the change in the C++ sources.
   as a live value (`Battery::caseLastKnown`).
 - Charging components show a "Charging" label, not only the charging icon.
 
+## 2026-09-24 — Linux app: Italian and Turkish completed, Traditional Chinese removed
+
+- Italian and Turkish translate all 90 strings (57 new ones each), keeping the
+  terms already chosen by their previous translators. They were written by an
+  AI assistant and would benefit from a review by native speakers.
+- Traditional Chinese (`librepods_zh_TW.ts`, contributed upstream) is removed from
+  the fork: Departure Mono has no CJK glyphs (194 of the characters it needs are
+  missing), so the text fell back to another font. Users with a Chinese system
+  language now see English.
+- The language selector only offers languages the font can draw.
+
 ## Third-party assets
 
 | Asset | Path | License |
