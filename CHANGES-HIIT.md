@@ -54,6 +54,16 @@ rewritten or new files, and next to the change in the C++ sources.
 - With no battery status (e.g. right after a disconnect) the tray shows the device
   icon instead of "0%".
 
+## 2026-09-24 — Linux app: Brazilian Portuguese and translation build
+
+- New Brazilian Portuguese translation (`linux/translations/librepods_pt_BR.ts`), complete.
+- Italian and Traditional Chinese were never built (only Turkish was listed in
+  `TS_FILES`); all four languages are now compiled.
+- Translation files regenerated with `lupdate`; strings that moved from `Main.qml`
+  to `SettingsPage.qml` keep their existing Italian, Turkish and Chinese translations.
+  New strings stay untranslated (shown in English) in those three languages.
+- `.qm` files are written to `<build dir>/translations`, where the app looks for them.
+
 ## Third-party assets
 
 | Asset | Path | License |

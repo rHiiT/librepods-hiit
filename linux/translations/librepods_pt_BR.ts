@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_TW">
+<TS version="2.1" language="pt_BR">
 <context>
     <name>AirPodsTrayApp</name>
     <message>
         <location filename="../main.cpp" line="+296"/>
         <source>Enter a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Digite um nome.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Use 32 characters or fewer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use no máximo 32 caracteres.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Couldn&apos;t rename: the AirPods are not connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível renomear: os AirPods não estão conectados.</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Enter the phone&apos;s Bluetooth address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Digite o endereço Bluetooth do celular.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Use the format AA:BB:CC:DD:EE:FF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use o formato AA:BB:CC:DD:EE:FF.</translation>
     </message>
     <message>
         <location line="+205"/>
         <source>AirPods Disconnected</source>
-        <translation>AirPods 已中斷連線</translation>
+        <translation>AirPods desconectados</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Your AirPods have been disconnected</source>
-        <translation>你的 AirPods 已中斷連線</translation>
+        <translation>Seus AirPods foram desconectados</translation>
     </message>
 </context>
 <context>
@@ -44,120 +44,120 @@
     <message>
         <location filename="../ConnectionStatus.qml" line="+58"/>
         <source>Bluetooth is off</source>
-        <translation type="unfinished"></translation>
+        <translation>O Bluetooth está desligado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connecting to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando a %1…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connecting to your AirPods…</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando aos seus AirPods…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Couldn&apos;t connect to your AirPods</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível conectar aos seus AirPods</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Looking for your AirPods…</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurando seus AirPods…</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Turn on Bluetooth to control your AirPods.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligue o Bluetooth para controlar seus AirPods.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Confira se eles estão fora do estojo, perto deste computador e conectados nas configurações de Bluetooth do sistema.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Open the case near this computer. If they never show up, pair them first in your system&apos;s Bluetooth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Abra o estojo perto deste computador. Se eles não aparecerem, pareie-os antes nas configurações de Bluetooth do sistema.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Turn on Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligar Bluetooth</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Tentar de novo</translation>
     </message>
 </context>
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+111"/>
+        <location filename="../Main.qml" line="+102"/>
+        <source>Settings</source>
+        <translation>Configurações</translation>
+    </message>
+    <message>
+        <location line="+9"/>
         <source>Connected</source>
-        <translation>已連線</translation>
+        <translation>Conectado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectando</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Bluetooth off</source>
-        <translation type="unfinished"></translation>
+        <translation>Bluetooth desligado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Não conectado</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Procurando</translation>
     </message>
     <message>
         <location line="+64"/>
         <source>Off</source>
-        <translation>關閉</translation>
+        <translation>Desligado</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Noise Cancellation</source>
-        <translation>降噪</translation>
+        <translation>Cancelamento de Ruído</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Transparency</source>
-        <translation>通透模式</translation>
+        <translation>Transparência</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Adaptive</source>
-        <translation>自適應</translation>
+        <translation>Adaptativo</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Adaptive Noise Level: </source>
-        <translation>自適應噪音等級： </translation>
+        <translation>Nível de ruído adaptativo: </translation>
     </message>
     <message>
         <location line="+29"/>
         <source>Conversational Awareness</source>
-        <translation>對話感知</translation>
+        <translation>Detecção de Conversa</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Hearing Aid</source>
-        <translation>助聽器</translation>
-    </message>
-    <message>
-        <location line="-128"/>
-        <source>Settings</source>
-        <translation>設定</translation>
+        <translation>Aparelho Auditivo</translation>
     </message>
 </context>
 <context>
@@ -165,12 +165,12 @@
     <message>
         <location filename="../PodColumn.qml" line="+51"/>
         <source>In ear</source>
-        <translation type="unfinished"></translation>
+        <translation>No ouvido</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Out of ear</source>
-        <translation type="unfinished"></translation>
+        <translation>Fora do ouvido</translation>
     </message>
 </context>
 <context>
@@ -178,149 +178,149 @@
     <message>
         <location filename="../SettingsPage.qml" line="+16"/>
         <source>Settings</source>
-        <translation>設定</translation>
+        <translation>Configurações</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Voltar</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>AirPods</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Connect your AirPods to change their name and noise control options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Conecte seus AirPods para mudar o nome e as opções de controle de ruído.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>AirPods name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome dos AirPods</translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Rename</source>
-        <translation>重新命名</translation>
+        <translation>Renomear</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Renamed to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Renomeado para %1</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>One Bud ANC Mode</source>
-        <translation>單耳 ANC 模式</translation>
+        <translation>ANC com um fone só</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enable ANC when using one AirPod
 (More noise reduction, but uses more battery)</source>
-        <translation>使用一只 AirPod 時啟用 ANC
-（更多降噪效果，但更耗電）</translation>
+        <translation>Liga o ANC ao usar um só AirPod
+(Reduz mais ruído, mas gasta mais bateria)</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Controles</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Pause Behavior When Removing AirPods:</source>
-        <translation>取下 AirPods 時的暫停行為：</translation>
+        <translation>Pausar ao tirar os AirPods:</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>One Removed</source>
-        <translation>取下其中一只時</translation>
+        <translation>Ao tirar um</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Both Removed</source>
-        <translation>兩只都取下時</translation>
+        <translation>Ao tirar os dois</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Never</source>
-        <translation>永不</translation>
+        <translation>Nunca</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>App</source>
-        <translation type="unfinished"></translation>
+        <translation>App</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Auto-Start on Login</source>
-        <translation>登入時自動啟動</translation>
+        <translation>Iniciar ao entrar no sistema</translation>
     </message>
     <message>
         <location line="+8"/>
         <source>Enable System Notifications</source>
-        <translation>啟用系統通知</translation>
+        <translation>Notificações do sistema</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Android</source>
-        <translation type="unfinished"></translation>
+        <translation>Android</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Cross-Device Connectivity with Android</source>
-        <translation>與 Android 的跨裝置連線</translation>
+        <translation>Conexão entre dispositivos com Android</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Hand the AirPods over between this computer and your phone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Passa os AirPods entre este computador e o seu celular.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Phone Bluetooth address</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço Bluetooth do celular</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>On Android, find it in Settings &gt; About phone.</source>
-        <translation type="unfinished"></translation>
+        <translation>No Android, veja em Configurações &gt; Sobre o telefone.</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvar</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Phone address saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Endereço do celular salvo</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avançado</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Bluetooth Retry Attempts:</source>
-        <translation>Bluetooth 重試次數：</translation>
+        <translation>Tentativas de reconexão Bluetooth:</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>How many times to retry before giving up on a connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Quantas vezes tentar antes de desistir de uma conexão.</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.</source>
-        <translation type="unfinished"></translation>
+        <translation>Escaneie com o app LibrePods para Android para que ele identifique estes AirPods e leia a bateria pelo Bluetooth.</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Show Magic Cloud Keys QR</source>
-        <translation>顯示 Magic Cloud Key QR 碼</translation>
+        <translation>Mostrar QR das Magic Cloud Keys</translation>
     </message>
 </context>
 <context>
@@ -328,47 +328,47 @@
     <message>
         <location filename="../trayiconmanager.cpp" line="+42"/>
         <source>Battery Status: </source>
-        <translation>電池狀態： </translation>
+        <translation>Bateria: </translation>
     </message>
     <message>
         <location line="+21"/>
         <source>Open</source>
-        <translation>開啟</translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Settings</source>
-        <translation>設定</translation>
+        <translation>Configurações</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Toggle Conversational Awareness</source>
-        <translation>切換對話感知</translation>
+        <translation>Ligar/desligar Detecção de Conversa</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Adaptive</source>
-        <translation>自適應</translation>
+        <translation>Adaptativo</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Transparency</source>
-        <translation>通透模式</translation>
+        <translation>Transparência</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Noise Cancellation</source>
-        <translation>降噪</translation>
+        <translation>Cancelamento de Ruído</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Off</source>
-        <translation>關閉</translation>
+        <translation>Desligado</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Quit</source>
-        <translation>結束</translation>
+        <translation>Sair</translation>
     </message>
 </context>
 </TS>
