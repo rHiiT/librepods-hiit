@@ -110,30 +110,42 @@ void TrayIconManager::setupMenuActions()
 
 void TrayIconManager::updateIconFromBattery(const QString &status)
 {
+    // LibrePods HiiT: no status (e.g. right after a disconnect) shows the device icon, not "0%"
+    if (status.isEmpty())
+    {
+        trayIcon->setIcon(defaultIcon());
+        return;
+    }
+
     int leftLevel = 0;
     int rightLevel = 0;
     int minLevel = 0;
 
-    if (!status.isEmpty())
-    {
-        // Parse the battery status string
-        QStringList parts = status.split(", ");
-        if (parts.size() >= 2) {
-            leftLevel = parts[0].split(": ")[1].replace("%", "").toInt();
-            rightLevel = parts[1].split(": ")[1].replace("%", "").toInt();
-            minLevel = (leftLevel == 0) ? rightLevel : (rightLevel == 0) ? leftLevel
-                                                                    : qMin(leftLevel, rightLevel);
-        } else if (parts.size() == 1) {
-            minLevel = parts[0].split(": ")[1].replace("%", "").toInt();
-        }
+    // Parse the battery status string
+    QStringList parts = status.split(", ");
+    if (parts.size() >= 2) {
+        leftLevel = parts[0].split(": ")[1].replace("%", "").toInt();
+        rightLevel = parts[1].split(": ")[1].replace("%", "").toInt();
+        minLevel = (leftLevel == 0) ? rightLevel : (rightLevel == 0) ? leftLevel
+                                                                : qMin(leftLevel, rightLevel);
+    } else if (parts.size() == 1) {
+        minLevel = parts[0].split(": ")[1].replace("%", "").toInt();
     }
 
-    QPixmap pixmap(32, 32);
+    // LibrePods HiiT: the number alone in Departure Mono (crisp at multiples of 11px), in the
+    // system text color so it stays visible on light panels; red when low. The full status
+    // stays in the tooltip.
+    const QColor textColor = minLevel <= 20 ? QColor("#ef4444")
+                                            : QApplication::palette().color(QPalette::WindowText);
+    QFont font("Departure Mono");
+    font.setPixelSize(minLevel >= 100 ? 33 : 44);
+
+    QPixmap pixmap(64, 64);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
-    painter.setPen(Qt::white);
-    painter.setFont(QFont("Arial", 12, QFont::Bold));
-    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString::number(minLevel) + "%");
+    painter.setPen(textColor);
+    painter.setFont(font);
+    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString::number(minLevel));
     painter.end();
 
     trayIcon->setIcon(QIcon(pixmap));
