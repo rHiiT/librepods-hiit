@@ -22,7 +22,7 @@ Page {
     }
 
     header: Rectangle {
-        implicitHeight: 56
+        implicitHeight: 48
         color: Theme.background
 
         RowLayout {
@@ -42,7 +42,7 @@ Page {
                 Layout.fillWidth: true
                 text: root.title
                 font.family: Theme.fontFamily
-                font.pixelSize: Theme.fontSizeLarge
+                font.pixelSize: Theme.fontSize
                 color: Theme.foreground
             }
         }

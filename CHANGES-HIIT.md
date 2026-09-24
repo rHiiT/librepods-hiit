@@ -64,6 +64,16 @@ rewritten or new files, and next to the change in the C++ sources.
   New strings stay untranslated (shown in English) in those three languages.
 - `.qm` files are written to `<build dir>/translations`, where the app looks for them.
 
+## 2026-09-24 — Linux app: frameless window and HiiT Edition branding
+
+- The main window is frameless (`Qt.FramelessWindowHint`) with its own title bar
+  (`linux/TitleBar.qml`): "LibrePods" logo with "HiiT Edition" below, settings,
+  minimize and close-to-tray buttons. Dragging the bar moves the window and the
+  edges resize it (`linux/WindowResizeHandles.qml`), both through the window manager.
+- The AirPods name moved from the page heading to the connection badge
+  ("Connected · <name>"), which elides long names.
+- The settings page heading is smaller so it does not compete with the logo.
+
 ## Third-party assets
 
 | Asset | Path | License |

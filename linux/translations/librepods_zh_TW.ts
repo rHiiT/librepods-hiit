@@ -95,7 +95,12 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+111"/>
+        <location filename="../Main.qml" line="+115"/>
+        <source>Connected · %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Connected</source>
         <translation>已連線</translation>
     </message>
@@ -153,11 +158,6 @@
         <location line="+9"/>
         <source>Hearing Aid</source>
         <translation>助聽器</translation>
-    </message>
-    <message>
-        <location line="-128"/>
-        <source>Settings</source>
-        <translation>設定</translation>
     </message>
 </context>
 <context>
@@ -321,6 +321,24 @@
         <location line="+6"/>
         <source>Show Magic Cloud Keys QR</source>
         <translation>顯示 Magic Cloud Key QR 碼</translation>
+    </message>
+</context>
+<context>
+    <name>TitleBar</name>
+    <message>
+        <location filename="../TitleBar.qml" line="+55"/>
+        <source>Settings</source>
+        <translation>設定</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Minimize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Close to tray</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
