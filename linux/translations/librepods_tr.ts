@@ -173,7 +173,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <source>Off</source>
         <translation>Kapalı</translation>
     </message>
@@ -211,7 +211,17 @@
 <context>
     <name>PodColumn</name>
     <message>
-        <location filename="../PodColumn.qml" line="+51"/>
+        <location filename="../PodColumn.qml" line="+55"/>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last reading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>In ear</source>
         <translation type="unfinished"></translation>
     </message>

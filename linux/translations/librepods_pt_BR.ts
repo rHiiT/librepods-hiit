@@ -173,7 +173,7 @@
         <translation>Procurando</translation>
     </message>
     <message>
-        <location line="+67"/>
+        <location line="+68"/>
         <source>Off</source>
         <translation>Desligado</translation>
     </message>
@@ -211,7 +211,17 @@
 <context>
     <name>PodColumn</name>
     <message>
-        <location filename="../PodColumn.qml" line="+51"/>
+        <location filename="../PodColumn.qml" line="+55"/>
+        <source>Charging</source>
+        <translation>Carregando</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Last reading</source>
+        <translation>Última leitura</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>In ear</source>
         <translation>No ouvido</translation>
     </message>
