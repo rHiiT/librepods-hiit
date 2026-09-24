@@ -41,22 +41,31 @@ Button {
     opacity: enabled ? 1 : 0.5
     Accessible.name: iconOnly ? toolTipText : text
 
-    contentItem: Row {
-        spacing: 6
+    // The Row sits centered in the button; as the contentItem itself it would be pinned to
+    // the top-left corner, which only showed on icon-only buttons
+    contentItem: Item {
+        implicitWidth: content.implicitWidth
+        implicitHeight: content.implicitHeight
 
-        Icon {
-            anchors.verticalCenter: parent.verticalCenter
-            visible: root.iconName !== ""
-            name: root.iconName
-            color: root.contentColor
-        }
+        Row {
+            id: content
+            anchors.centerIn: parent
+            spacing: 6
 
-        Text {
-            anchors.verticalCenter: parent.verticalCenter
-            visible: !root.iconOnly
-            text: root.text
-            font: root.font
-            color: root.contentColor
+            Icon {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: root.iconName !== ""
+                name: root.iconName
+                color: root.contentColor
+            }
+
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: !root.iconOnly
+                text: root.text
+                font: root.font
+                color: root.contentColor
+            }
         }
     }
 
