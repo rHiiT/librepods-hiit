@@ -175,10 +175,11 @@ Page {
                     }
 
                     UiSelect {
-                        // Language names stay in their own language so anyone can find theirs
-                        readonly property var codes: ["", "en", "pt_BR", "it_IT", "tr", "zh_TW"]
+                        // Language names stay in their own language so anyone can find theirs.
+                        // Only languages the Departure Mono font can draw are offered.
+                        readonly property var codes: ["", "en", "pt_BR", "it_IT", "tr"]
                         Layout.fillWidth: true
-                        model: [qsTr("System default"), "English", "Português (Brasil)", "Italiano", "Türkçe", "繁體中文"]
+                        model: [qsTr("System default"), "English", "Português (Brasil)", "Italiano", "Türkçe"]
                         currentIndex: Math.max(0, codes.indexOf(airPodsTrayApp.language))
                         onActivated: airPodsTrayApp.language = codes[currentIndex]
                     }

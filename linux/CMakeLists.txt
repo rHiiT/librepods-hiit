@@ -16,7 +16,6 @@ set(TS_FILES
     translations/librepods_it_IT.ts
     translations/librepods_pt_BR.ts
     translations/librepods_tr.ts
-    translations/librepods_zh_TW.ts
 )
 # LibrePods HiiT: main.cpp looks in <app dir>/translations, so builds run from the build tree translated too
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/translations")

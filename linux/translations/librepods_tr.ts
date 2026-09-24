@@ -6,27 +6,27 @@
     <message>
         <location filename="../main.cpp" line="+365"/>
         <source>Enter a name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir ad girin.</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Use 32 characters or fewer.</source>
-        <translation type="unfinished"></translation>
+        <translation>En fazla 32 karakter kullanın.</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Couldn&apos;t rename: the AirPods are not connected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeniden adlandırılamadı: AirPods bağlı değil.</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Enter the phone&apos;s Bluetooth address.</source>
-        <translation type="unfinished"></translation>
+        <translation>Telefonun Bluetooth adresini girin.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Use the format AA:BB:CC:DD:EE:FF.</source>
-        <translation type="unfinished"></translation>
+        <translation>AA:BB:CC:DD:EE:FF biçimini kullanın.</translation>
     </message>
     <message>
         <location line="+227"/>
@@ -44,77 +44,77 @@
     <message>
         <location filename="../ConnectionStatus.qml" line="+64"/>
         <source>Bluetooth is off</source>
-        <translation type="unfinished"></translation>
+        <translation>Bluetooth kapalı</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connecting to %1…</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 cihazına bağlanılıyor…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connecting to your AirPods…</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;unuza bağlanılıyor…</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Couldn&apos;t connect to your AirPods</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;unuza bağlanılamadı</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>%1 is nearby</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 yakınlarda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Your AirPods are nearby</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;unuz yakınlarda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Looking for your AirPods…</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;unuz aranıyor…</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Turn on Bluetooth to control your AirPods.</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;unuzu kontrol etmek için Bluetooth&apos;u açın.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kutudan çıkarıldıklarından, bu bilgisayara yakın olduklarından ve sistemin Bluetooth ayarlarında bağlı olduklarından emin olun.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu bilgisayarda kullanmak için bağlanın. Başka bir cihazda kullanılıyorlarsa bu cihaza geçebilirler.</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bulmak için AirPods kutusunu bu bilgisayarın yakınında açın. Sistemin Bluetooth ayarlarında önceden eşleştirilmiş olmaları gerekir.</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connect the AirPods in your system&apos;s Bluetooth settings and LibrePods will pick them up.</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;u sistemin Bluetooth ayarlarından bağlayın, LibrePods onları algılayacaktır.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Turn on Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation>Bluetooth&apos;u Aç</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Try again</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekrar dene</translation>
     </message>
 </context>
 <context>
@@ -122,17 +122,17 @@
     <message>
         <location filename="../KeysQRDialog.qml" line="+10"/>
         <source>Magic Cloud Keys QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Magic Cloud Anahtarları QR Kodu</translation>
     </message>
     <message>
         <location line="+43"/>
         <source>Failed to generate QR code</source>
-        <translation type="unfinished"></translation>
+        <translation>QR kodu oluşturulamadı</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
-        <translation type="unfinished"></translation>
+        <translation>Magic Cloud Anahtarlarını aktarmak için bu QR kodunu LibrePods Android uygulamasıyla tarayın.</translation>
     </message>
 </context>
 <context>
@@ -140,7 +140,7 @@
     <message>
         <location filename="../Main.qml" line="+115"/>
         <source>Connected · %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlı · %1</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -150,27 +150,27 @@
     <message>
         <location line="+1"/>
         <source>Connecting</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlanıyor</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Bluetooth off</source>
-        <translation type="unfinished"></translation>
+        <translation>Bluetooth kapalı</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Not connected</source>
-        <translation type="unfinished"></translation>
+        <translation>Bağlı değil</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Nearby</source>
-        <translation type="unfinished"></translation>
+        <translation>Yakınlarda</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Searching</source>
-        <translation type="unfinished"></translation>
+        <translation>Aranıyor</translation>
     </message>
     <message>
         <location line="+68"/>
@@ -213,22 +213,22 @@
     <message>
         <location filename="../PodColumn.qml" line="+55"/>
         <source>Charging</source>
-        <translation type="unfinished"></translation>
+        <translation>Şarj oluyor</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Last reading</source>
-        <translation type="unfinished"></translation>
+        <translation>Son okuma</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>In ear</source>
-        <translation type="unfinished"></translation>
+        <translation>Kulakta</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Out of ear</source>
-        <translation type="unfinished"></translation>
+        <translation>Kulak dışında</translation>
     </message>
 </context>
 <context>
@@ -241,22 +241,22 @@
     <message>
         <location line="+21"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Geri</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>AirPods</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Connect your AirPods to change their name and noise control options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Adını ve gürültü kontrolü seçeneklerini değiştirmek için AirPods&apos;unuzu bağlayın.</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>AirPods name</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods adı</translation>
     </message>
     <message>
         <location line="+21"/>
@@ -266,7 +266,7 @@
     <message>
         <location line="+8"/>
         <source>Renamed to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Yeni ad: %1</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -283,7 +283,7 @@
     <message>
         <location line="+9"/>
         <source>Controls</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontroller</translation>
     </message>
     <message>
         <location line="+8"/>
@@ -308,17 +308,17 @@
     <message>
         <location line="+10"/>
         <source>App</source>
-        <translation type="unfinished"></translation>
+        <translation>Uygulama</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Dil</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>System default</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem varsayılanı</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -333,7 +333,7 @@
     <message>
         <location line="+9"/>
         <source>Android</source>
-        <translation type="unfinished"></translation>
+        <translation>Android</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -343,32 +343,32 @@
     <message>
         <location line="+1"/>
         <source>Hand the AirPods over between this computer and your phone.</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods&apos;u bu bilgisayar ile telefonunuz arasında aktarır.</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Phone Bluetooth address</source>
-        <translation type="unfinished"></translation>
+        <translation>Telefonun Bluetooth adresi</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>On Android, find it in Settings &gt; About phone.</source>
-        <translation type="unfinished"></translation>
+        <translation>Android&apos;de Ayarlar &gt; Telefon hakkında bölümünde bulabilirsiniz.</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaydet</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Phone address saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Telefon adresi kaydedildi</translation>
     </message>
     <message>
         <location line="+17"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Gelişmiş</translation>
     </message>
     <message>
         <location line="+14"/>
@@ -378,12 +378,12 @@
     <message>
         <location line="+6"/>
         <source>How many times to retry before giving up on a connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bir bağlantıdan vazgeçmeden önce kaç kez yeniden denenecek.</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bu AirPods&apos;u tanıyabilmesi ve pilini Bluetooth üzerinden okuyabilmesi için LibrePods Android uygulamasıyla tarayın.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -393,22 +393,22 @@
     <message>
         <location line="+9"/>
         <source>Experimental</source>
-        <translation type="unfinished"></translation>
+        <translation>Deneysel</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Features still being tested. They may not work correctly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hâlâ test edilen özellikler. Doğru çalışmayabilirler.</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Connect AirPods detected nearby</source>
-        <translation type="unfinished"></translation>
+        <translation>Yakında algılanan AirPods&apos;a bağlan</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>When the AirPods case is opened near this computer, show a Connect button. The AirPods may not always switch from another device.</source>
-        <translation type="unfinished"></translation>
+        <translation>AirPods kutusu bu bilgisayarın yakınında açıldığında bir Bağlan düğmesi gösterir. AirPods her zaman başka bir cihazdan geçmeyebilir.</translation>
     </message>
 </context>
 <context>
@@ -421,12 +421,12 @@
     <message>
         <location line="+7"/>
         <source>Minimize</source>
-        <translation type="unfinished"></translation>
+        <translation>Simge durumuna küçült</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Close to tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistem tepsisine kapat</translation>
     </message>
 </context>
 <context>
