@@ -73,6 +73,8 @@ class AirPodsTrayApp : public QObject {
     // LibrePods HiiT: "off", "searching", "nearby", "connecting", "connected" or "failed"
     Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
     Q_PROPERTY(QString lastDeviceName READ lastDeviceName NOTIFY connectionStateChanged)
+    // LibrePods HiiT: experimental, off by default
+    Q_PROPERTY(bool nearbyConnectEnabled READ nearbyConnectEnabled WRITE setNearbyConnectEnabled NOTIFY nearbyConnectEnabledChanged)
     // LibrePods HiiT: UI language code saved in the settings, "" = follow the system
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
 
@@ -192,6 +194,17 @@ public:
     QString connectionState() const { return m_connectionState; }
     QString language() const { return m_settings->value("app/language", "").toString(); }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
+    bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
+
+    void setNearbyConnectEnabled(bool enabled)
+    {
+        if (enabled == nearbyConnectEnabled())
+            return;
+        m_settings->setValue("experimental/nearbyConnect", enabled);
+        if (!enabled && m_connectionState == QLatin1String("nearby"))
+            setConnectionState(QStringLiteral("searching"));
+        emit nearbyConnectEnabledChanged();
+    }
 
     void setLanguage(const QString &code)
     {
@@ -1000,7 +1013,7 @@ private slots:
     {
         if (BLEUtils::isValidIrkRpa(m_deviceInfo->magicAccIRK(), device.address)) {
             // LibrePods HiiT: our AirPods are advertising nearby but not connected here
-            if (!areAirpodsConnected()
+            if (nearbyConnectEnabled() && !areAirpodsConnected()
                 && (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("failed")
                     || m_connectionState == QLatin1String("nearby"))) {
                 setConnectionState(QStringLiteral("nearby"));
@@ -1100,6 +1113,7 @@ signals:
     void hearingAidEnabledChanged(bool enabled);
     void connectionStateChanged();
     void languageChanged();
+    void nearbyConnectEnabledChanged();
 
 private:
     QBluetoothSocket *socket = nullptr;

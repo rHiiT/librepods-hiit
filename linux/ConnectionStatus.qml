@@ -8,6 +8,7 @@ Column {
 
     property string connectionState: "searching" // off, searching, nearby, connecting or failed
     property string deviceName: ""
+    property bool nearbyDetection: false // experimental "nearby" detection is on
 
     signal retryRequested()
     signal connectRequested()
@@ -86,7 +87,9 @@ Column {
             case "connecting": return "";
             case "failed": return qsTr("Make sure they are out of the case, close to this computer and connected in your system's Bluetooth settings.");
             case "nearby": return qsTr("Connect to use them on this computer. If they are in use on another device, they may move to this one.");
-            default: return qsTr("Open the AirPods case near this computer to find them. They must already be paired in your system's Bluetooth settings.");
+            default: return root.nearbyDetection
+                     ? qsTr("Open the AirPods case near this computer to find them. They must already be paired in your system's Bluetooth settings.")
+                     : qsTr("Connect the AirPods in your system's Bluetooth settings and LibrePods will pick them up.");
             }
         }
     }

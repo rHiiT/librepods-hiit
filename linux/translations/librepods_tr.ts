@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+352"/>
+        <location filename="../main.cpp" line="+365"/>
         <source>Enter a name.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <location filename="../ConnectionStatus.qml" line="+63"/>
+        <location filename="../ConnectionStatus.qml" line="+64"/>
         <source>Bluetooth is off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,8 +92,13 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Connect the AirPods in your system&apos;s Bluetooth settings and LibrePods will pick them up.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -168,7 +173,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+66"/>
+        <location line="+67"/>
         <source>Off</source>
         <translation>Kapalı</translation>
     </message>
@@ -374,6 +379,26 @@
         <location line="+6"/>
         <source>Show Magic Cloud Keys QR</source>
         <translation>Magic Cloud Anahtarları QR&apos;ını Göster</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Experimental</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Features still being tested. They may not work correctly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Connect AirPods detected nearby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>When the AirPods case is opened near this computer, show a Connect button. The AirPods may not always switch from another device.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

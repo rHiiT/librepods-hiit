@@ -329,6 +329,24 @@ Page {
                 }
             }
 
+            // Experimental: features still being tested, collapsed and off by default
+            UiCard {
+                Layout.fillWidth: true
+                title: qsTr("Experimental")
+                description: qsTr("Features still being tested. They may not work correctly.")
+                collapsible: true
+                expanded: false
+
+                UiSwitch {
+                    Layout.fillWidth: true
+                    iconName: "bluetooth-searching"
+                    text: qsTr("Connect AirPods detected nearby")
+                    description: qsTr("When the AirPods case is opened near this computer, show a Connect button. The AirPods may not always switch from another device.")
+                    checked: airPodsTrayApp.nearbyConnectEnabled
+                    onToggled: airPodsTrayApp.nearbyConnectEnabled = checked
+                }
+            }
+
             KeysQRDialog {
                 id: keysQrDialog
                 encKey: airPodsTrayApp.deviceInfo.magicAccEncKey

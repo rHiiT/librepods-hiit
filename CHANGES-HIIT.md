@@ -93,6 +93,9 @@ rewritten or new files, and next to the change in the C++ sources.
   the AirPods connect (`DeviceInfo/lastAddress`); the usual BlueZ flow then
   opens the control channel.
 - The "searching" hint no longer says opening the case is enough to connect.
+- The feature is experimental and off by default: Settings > Experimental
+  (collapsed, with a warning) turns it on. When off, the "searching" hint tells
+  the user to connect the AirPods in the system's Bluetooth settings.
 
 ## Third-party assets
 

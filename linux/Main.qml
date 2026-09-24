@@ -137,6 +137,7 @@ ApplicationWindow {
                     deviceName: airPodsTrayApp.deviceInfo.deviceName !== "" ? airPodsTrayApp.deviceInfo.deviceName
                                                                             : airPodsTrayApp.lastDeviceName
                     onRetryRequested: airPodsTrayApp.retryConnection()
+                    nearbyDetection: airPodsTrayApp.nearbyConnectEnabled
                     onConnectRequested: airPodsTrayApp.connectNearby()
                     onPowerOnRequested: airPodsTrayApp.powerOnBluetooth()
                 }
