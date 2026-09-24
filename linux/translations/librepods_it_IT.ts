@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+341"/>
+        <location filename="../main.cpp" line="+352"/>
         <source>Enter a name.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29,7 +29,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+205"/>
+        <location line="+227"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods disconnesse</translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>ConnectionStatus</name>
     <message>
-        <location filename="../ConnectionStatus.qml" line="+58"/>
+        <location filename="../ConnectionStatus.qml" line="+63"/>
         <source>Bluetooth is off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -63,6 +63,16 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>%1 is nearby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Your AirPods are nearby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Looking for your AirPods…</source>
         <translation type="unfinished"></translation>
     </message>
@@ -78,7 +88,12 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Open the case near this computer. If they never show up, pair them first in your system&apos;s Bluetooth settings.</source>
+        <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Open the AirPods case near this computer to find them. They must already be paired in your system&apos;s Bluetooth settings.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -87,7 +102,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="+1"/>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Try again</source>
         <translation type="unfinished"></translation>
     </message>
@@ -139,11 +159,16 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Nearby</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Searching</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+66"/>
         <source>Off</source>
         <translation>Non attivo</translation>
     </message>

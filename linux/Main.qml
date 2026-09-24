@@ -117,6 +117,7 @@ ApplicationWindow {
                         case "connecting": return qsTr("Connecting");
                         case "off": return qsTr("Bluetooth off");
                         case "failed": return qsTr("Not connected");
+                        case "nearby": return qsTr("Nearby");
                         default: return qsTr("Searching");
                         }
                     }
@@ -133,8 +134,10 @@ ApplicationWindow {
                     Layout.topMargin: 32
                     visible: !airPodsTrayApp.airpodsConnected
                     connectionState: airPodsTrayApp.connectionState === "connected" ? "connecting" : airPodsTrayApp.connectionState
-                    deviceName: airPodsTrayApp.deviceInfo.deviceName
+                    deviceName: airPodsTrayApp.deviceInfo.deviceName !== "" ? airPodsTrayApp.deviceInfo.deviceName
+                                                                            : airPodsTrayApp.lastDeviceName
                     onRetryRequested: airPodsTrayApp.retryConnection()
+                    onConnectRequested: airPodsTrayApp.connectNearby()
                     onPowerOnRequested: airPodsTrayApp.powerOnBluetooth()
                 }
 

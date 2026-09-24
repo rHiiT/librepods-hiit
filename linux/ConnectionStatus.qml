@@ -6,10 +6,11 @@ import QtQuick
 Column {
     id: root
 
-    property string connectionState: "searching" // off, searching, connecting or failed
+    property string connectionState: "searching" // off, searching, nearby, connecting or failed
     property string deviceName: ""
 
     signal retryRequested()
+    signal connectRequested()
     signal powerOnRequested()
 
     readonly property bool busy: connectionState === "searching" || connectionState === "connecting"
@@ -24,8 +25,12 @@ Column {
             anchors.centerIn: parent
             visible: !root.busy
             size: 40
-            name: root.connectionState === "off" ? "bluetooth-off" : "circle-alert"
-            color: root.connectionState === "failed" ? Theme.danger : Theme.mutedForeground
+            name: root.connectionState === "off" ? "bluetooth-off"
+                : root.connectionState === "nearby" ? "bud"
+                : "circle-alert"
+            color: root.connectionState === "failed" ? Theme.danger
+                 : root.connectionState === "nearby" ? Theme.foreground
+                 : Theme.mutedForeground
         }
 
         Icon {
@@ -59,6 +64,8 @@ Column {
             case "connecting": return root.deviceName !== "" ? qsTr("Connecting to %1…").arg(root.deviceName)
                                                              : qsTr("Connecting to your AirPods…");
             case "failed": return qsTr("Couldn't connect to your AirPods");
+            case "nearby": return root.deviceName !== "" ? qsTr("%1 is nearby").arg(root.deviceName)
+                                                         : qsTr("Your AirPods are nearby");
             default: return qsTr("Looking for your AirPods…");
             }
         }
@@ -78,17 +85,27 @@ Column {
             case "off": return qsTr("Turn on Bluetooth to control your AirPods.");
             case "connecting": return "";
             case "failed": return qsTr("Make sure they are out of the case, close to this computer and connected in your system's Bluetooth settings.");
-            default: return qsTr("Open the case near this computer. If they never show up, pair them first in your system's Bluetooth settings.");
+            case "nearby": return qsTr("Connect to use them on this computer. If they are in use on another device, they may move to this one.");
+            default: return qsTr("Open the AirPods case near this computer to find them. They must already be paired in your system's Bluetooth settings.");
             }
         }
     }
 
     UiButton {
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: root.connectionState === "off" || root.connectionState === "failed"
+        visible: root.connectionState === "off" || root.connectionState === "failed" || root.connectionState === "nearby"
         variant: "default"
-        iconName: root.connectionState === "off" ? "bluetooth-connected" : "refresh-cw"
-        text: root.connectionState === "off" ? qsTr("Turn on Bluetooth") : qsTr("Try again")
-        onClicked: root.connectionState === "off" ? root.powerOnRequested() : root.retryRequested()
+        iconName: root.connectionState === "off" || root.connectionState === "nearby" ? "bluetooth-connected" : "refresh-cw"
+        text: root.connectionState === "off" ? qsTr("Turn on Bluetooth")
+            : root.connectionState === "nearby" ? qsTr("Connect")
+            : qsTr("Try again")
+        onClicked: {
+            if (root.connectionState === "off")
+                root.powerOnRequested();
+            else if (root.connectionState === "nearby")
+                root.connectRequested();
+            else
+                root.retryRequested();
+        }
     }
 }
