@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+372"/>
+        <location filename="../main.cpp" line="+379"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Use o formato AA:BB:CC:DD:EE:FF.</translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location line="+272"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods desconectados</translation>
     </message>
@@ -108,8 +108,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
-        <translation>Confira se eles estão fora do estojo, perto deste computador e conectados nas configurações de Bluetooth do sistema.</translation>
+        <source>Check that they are connected in the system&apos;s Bluetooth settings.</source>
+        <translation>Confira se estão conectados nas configurações de Bluetooth do sistema.</translation>
     </message>
     <message>
         <location line="+2"/>

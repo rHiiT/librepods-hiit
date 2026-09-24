@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+372"/>
+        <location filename="../main.cpp" line="+379"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>AA:BB:CC:DD:EE:FF biçimini kullanın.</translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location line="+272"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods Bağlantısı Kesildi</translation>
     </message>
@@ -108,8 +108,8 @@
     </message>
     <message>
         <location line="+1"/>
-        <source>Make sure they are out of the case, close to this computer and connected in your system&apos;s Bluetooth settings.</source>
-        <translation>Kutudan çıkarıldıklarından, bu bilgisayara yakın olduklarından ve sistemin Bluetooth ayarlarında bağlı olduklarından emin olun.</translation>
+        <source>Check that they are connected in the system&apos;s Bluetooth settings.</source>
+        <translation>Sistemin Bluetooth ayarlarında bağlı olduklarını kontrol edin.</translation>
     </message>
     <message>
         <location line="+2"/>

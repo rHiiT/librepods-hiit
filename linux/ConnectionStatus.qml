@@ -89,7 +89,7 @@ Column {
         text: {
             switch (root.connectionState) {
             case "off": return qsTr("Turn on Bluetooth to control your AirPods.");
-            case "failed": return qsTr("Make sure they are out of the case, close to this computer and connected in your system's Bluetooth settings.");
+            case "failed": return qsTr("Check that they are connected in the system's Bluetooth settings.");
             case "paired": return qsTr("If they don't connect when taken out of the case, click Connect.");
             case "nearby": return qsTr("Connect to use them on this computer. If they are in use on another device, they may move to this one.");
             default: return "";
