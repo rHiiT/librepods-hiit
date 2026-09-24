@@ -232,8 +232,8 @@
     </message>
     <message>
         <location line="+24"/>
-        <source>The case only reports its battery while at least one bud is inside it. Put a bud back to update it.</source>
-        <translation>Kutu, pil durumunu yalnızca içinde en az bir kulaklık varken bildirir. Güncellemek için bir kulaklığı geri koyun.</translation>
+        <source>The case only reports its battery while at least one bud is inside it.</source>
+        <translation>Kutu, pil durumunu yalnızca içinde en az bir kulaklık varken bildirir.</translation>
     </message>
 </context>
 <context>

@@ -232,8 +232,8 @@
     </message>
     <message>
         <location line="+24"/>
-        <source>The case only reports its battery while at least one bud is inside it. Put a bud back to update it.</source>
-        <translation>O estojo só informa a bateria quando há pelo menos um fone dentro. Guarde um fone para atualizar.</translation>
+        <source>The case only reports its battery while at least one bud is inside it.</source>
+        <translation>O estojo só informa a bateria quando há pelo menos um fone dentro.</translation>
     </message>
 </context>
 <context>

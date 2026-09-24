@@ -232,8 +232,8 @@
     </message>
     <message>
         <location line="+24"/>
-        <source>The case only reports its battery while at least one bud is inside it. Put a bud back to update it.</source>
-        <translation>La custodia comunica la batteria solo quando contiene almeno un auricolare. Riponi un auricolare per aggiornarla.</translation>
+        <source>The case only reports its battery while at least one bud is inside it.</source>
+        <translation>La custodia comunica la batteria solo quando contiene almeno un auricolare.</translation>
     </message>
 </context>
 <context>

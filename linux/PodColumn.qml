@@ -82,6 +82,6 @@ Column {
     UiToolTip {
         visible: root.lastKnown && hover.hovered
         width: 220
-        text: qsTr("The case only reports its battery while at least one bud is inside it. Put a bud back to update it.")
+        text: qsTr("The case only reports its battery while at least one bud is inside it.")
     }
 }
