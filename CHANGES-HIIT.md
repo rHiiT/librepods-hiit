@@ -47,6 +47,13 @@ rewritten or new files, and next to the change in the C++ sources.
   Magic Cloud Keys QR code.
 - `UiCard` can collapse; new `UiLabel` for themed text.
 
+## 2026-09-24 — Linux app: tray battery number
+
+- The tray icon draws the lowest battery level in Departure Mono and the system
+  text color (it was white Arial, invisible on light panels), in red at 20% or less.
+- With no battery status (e.g. right after a disconnect) the tray shows the device
+  icon instead of "0%".
+
 ## Third-party assets
 
 | Asset | Path | License |
