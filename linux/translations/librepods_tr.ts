@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+365"/>
+        <location filename="../main.cpp" line="+371"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>AA:BB:CC:DD:EE:FF biçimini kullanın.</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+255"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods Bağlantısı Kesildi</translation>
     </message>
@@ -63,6 +63,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Your AirPods</source>
+        <translation>AirPods&apos;unuz</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>%1 is nearby</source>
         <translation>%1 yakınlarda</translation>
     </message>
@@ -88,6 +93,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Paired but not connected. If this computer was the last one used, they connect on their own when taken out of the case. If they are in use on another device, such as an iPhone, click Connect.</source>
+        <translation>Eşleştirildi ancak bağlı değil. Son kullanılan cihaz bu bilgisayarsa, kutudan çıkarıldığında kendiliğinden bağlanır. iPhone gibi başka bir cihazda kullanılıyorsa Bağlan&apos;a tıklayın.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
         <translation>Bu bilgisayarda kullanmak için bağlanın. Başka bir cihazda kullanılıyorlarsa bu cihaza geçebilirler.</translation>
     </message>
@@ -102,7 +112,7 @@
         <translation>AirPods&apos;u sistemin Bluetooth ayarlarından bağlayın, LibrePods onları algılayacaktır.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Turn on Bluetooth</source>
         <translation>Bluetooth&apos;u Aç</translation>
     </message>
@@ -159,21 +169,22 @@
     </message>
     <message>
         <location line="+1"/>
+        <location line="+2"/>
         <source>Not connected</source>
         <translation>Bağlı değil</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Nearby</source>
         <translation>Yakınlarda</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Searching</source>
         <translation>Aranıyor</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+70"/>
         <source>Off</source>
         <translation>Kapalı</translation>
     </message>
@@ -316,7 +327,7 @@
         <translation>Dil</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>System default</source>
         <translation>Sistem varsayılanı</translation>
     </message>

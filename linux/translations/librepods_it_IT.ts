@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+365"/>
+        <location filename="../main.cpp" line="+371"/>
         <source>Enter a name.</source>
         <translation>Inserisci un nome.</translation>
     </message>
@@ -29,7 +29,7 @@
         <translation>Usa il formato AA:BB:CC:DD:EE:FF.</translation>
     </message>
     <message>
-        <location line="+227"/>
+        <location line="+255"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods disconnesse</translation>
     </message>
@@ -63,6 +63,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Your AirPods</source>
+        <translation>Le tue AirPods</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>%1 is nearby</source>
         <translation>%1 è nelle vicinanze</translation>
     </message>
@@ -88,6 +93,11 @@
     </message>
     <message>
         <location line="+1"/>
+        <source>Paired but not connected. If this computer was the last one used, they connect on their own when taken out of the case. If they are in use on another device, such as an iPhone, click Connect.</source>
+        <translation>Abbinate ma non connesse. Se questo computer è stato l&apos;ultimo a usarle, si connettono da sole quando escono dalla custodia. Se sono in uso su un altro dispositivo, come un iPhone, fai clic su Connetti.</translation>
+    </message>
+    <message>
+        <location line="+1"/>
         <source>Connect to use them on this computer. If they are in use on another device, they may move to this one.</source>
         <translation>Connettile per usarle su questo computer. Se sono in uso su un altro dispositivo, potrebbero passare a questo.</translation>
     </message>
@@ -102,7 +112,7 @@
         <translation>Connetti le AirPods nelle impostazioni Bluetooth del sistema e LibrePods le rileverà.</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+11"/>
         <source>Turn on Bluetooth</source>
         <translation>Attiva Bluetooth</translation>
     </message>
@@ -159,21 +169,22 @@
     </message>
     <message>
         <location line="+1"/>
+        <location line="+2"/>
         <source>Not connected</source>
         <translation>Non connesso</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="-1"/>
         <source>Nearby</source>
         <translation>Nelle vicinanze</translation>
     </message>
     <message>
-        <location line="+1"/>
+        <location line="+2"/>
         <source>Searching</source>
         <translation>Ricerca</translation>
     </message>
     <message>
-        <location line="+68"/>
+        <location line="+70"/>
         <source>Off</source>
         <translation>Non attivo</translation>
     </message>
@@ -316,7 +327,7 @@
         <translation>Lingua</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+8"/>
         <source>System default</source>
         <translation>Predefinita di sistema</translation>
     </message>

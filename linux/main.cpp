@@ -70,8 +70,9 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(DeviceInfo *deviceInfo READ deviceInfo CONSTANT)
     Q_PROPERTY(QString phoneMacStatus READ phoneMacStatus NOTIFY phoneMacStatusChanged)
     Q_PROPERTY(bool hearingAidEnabled READ hearingAidEnabled WRITE setHearingAidEnabled NOTIFY hearingAidEnabledChanged)
-    // LibrePods HiiT: "off", "searching", "nearby", "connecting", "connected" or "failed"
+    // LibrePods HiiT: "off", "searching", "paired", "nearby", "connecting", "connected" or "failed"
     Q_PROPERTY(QString connectionState READ connectionState NOTIFY connectionStateChanged)
+    Q_PROPERTY(QString pairedDeviceName READ pairedDeviceName NOTIFY connectionStateChanged)
     Q_PROPERTY(QString lastDeviceName READ lastDeviceName NOTIFY connectionStateChanged)
     // LibrePods HiiT: experimental, off by default
     Q_PROPERTY(bool nearbyConnectEnabled READ nearbyConnectEnabled WRITE setNearbyConnectEnabled NOTIFY nearbyConnectEnabledChanged)
@@ -129,7 +130,11 @@ public:
             else if (m_connectionState == QLatin1String("off"))
                 retryConnection();
         });
-        setConnectionState(isBluetoothOn() ? QStringLiteral("searching") : QStringLiteral("off"));
+        enterIdleState();
+        connect(monitor, &BluetoothMonitor::pairedDevicesChanged, this, [this]() {
+            if (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("paired"))
+                enterIdleState();
+        });
 
         // LibrePods HiiT: "nearby" lasts while BLE keeps seeing the AirPods
         m_nearbyTimer = new QTimer(this);
@@ -137,7 +142,7 @@ public:
         m_nearbyTimer->setInterval(15000);
         connect(m_nearbyTimer, &QTimer::timeout, this, [this]() {
             if (m_connectionState == QLatin1String("nearby"))
-                setConnectionState(QStringLiteral("searching"));
+                enterIdleState();
         });
 
         // Load settings
@@ -194,6 +199,7 @@ public:
     QString connectionState() const { return m_connectionState; }
     QString language() const { return m_settings->value("app/language", "").toString(); }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
+    QString pairedDeviceName() const { return m_pairedName; }
     bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
 
     void setNearbyConnectEnabled(bool enabled)
@@ -202,7 +208,7 @@ public:
             return;
         m_settings->setValue("experimental/nearbyConnect", enabled);
         if (!enabled && m_connectionState == QLatin1String("nearby"))
-            setConnectionState(QStringLiteral("searching"));
+            enterIdleState();
         emit nearbyConnectEnabledChanged();
     }
 
@@ -464,16 +470,44 @@ public slots:
         if (areAirpodsConnected())
             return;
         m_retryCount = 0;
-        setConnectionState(QStringLiteral("searching"));
+        enterIdleState();
         monitor->checkAlreadyConnectedDevices();
         m_bleManager->startScan();
     }
 
-    // LibrePods HiiT: ask BlueZ to connect the last known AirPods; once BlueZ reports the
-    // connection, BluetoothMonitor::deviceConnected opens the control channel as usual
-    void connectNearby()
+    // LibrePods HiiT: not connected and nothing in progress. A paired AirPods is offered with a
+    // Connect button ("paired"); without one the app waits for BlueZ to connect them ("searching").
+    void enterIdleState()
     {
-        const QString address = m_settings->value("DeviceInfo/lastAddress").toString();
+        if (!isBluetoothOn()) {
+            setConnectionState(QStringLiteral("off"));
+            return;
+        }
+        const auto paired = monitor->pairedDisconnectedAirPods();
+        if (!paired.isEmpty()) {
+            // Prefer the AirPods used last, when several are paired
+            const QString last = m_settings->value("DeviceInfo/lastAddress").toString();
+            auto chosen = paired.constFirst();
+            for (const auto &device : paired)
+                if (device.first.compare(last, Qt::CaseInsensitive) == 0)
+                    chosen = device;
+            m_pairedAddress = chosen.first;
+            m_pairedName = chosen.second;
+            setConnectionState(QStringLiteral("paired"));
+            emit connectionStateChanged(); // the name may change while the state stays "paired"
+        } else {
+            m_pairedAddress.clear();
+            m_pairedName.clear();
+            setConnectionState(QStringLiteral("searching"));
+        }
+    }
+
+    // LibrePods HiiT: ask BlueZ to connect the paired (or last used) AirPods; once BlueZ reports
+    // the connection, BluetoothMonitor::deviceConnected opens the control channel as usual
+    void connectKnownDevice()
+    {
+        const QString address = !m_pairedAddress.isEmpty() ? m_pairedAddress
+                                                             : m_settings->value("DeviceInfo/lastAddress").toString();
         if (address.isEmpty()) {
             retryConnection();
             return;
@@ -651,7 +685,7 @@ private slots:
         // Clear the device name and model
         m_deviceInfo->reset();
         m_bleManager->startScan();
-        setConnectionState(isBluetoothOn() ? QStringLiteral("searching") : QStringLiteral("off"));
+        enterIdleState();
         emit airPodsStatusChanged();
 
         // Show system notification
@@ -1015,7 +1049,7 @@ private slots:
             // LibrePods HiiT: our AirPods are advertising nearby but not connected here
             if (nearbyConnectEnabled() && !areAirpodsConnected()
                 && (m_connectionState == QLatin1String("searching") || m_connectionState == QLatin1String("failed")
-                    || m_connectionState == QLatin1String("nearby"))) {
+                    || m_connectionState == QLatin1String("paired") || m_connectionState == QLatin1String("nearby"))) {
                 setConnectionState(QStringLiteral("nearby"));
                 m_nearbyTimer->start();
             }
@@ -1134,6 +1168,8 @@ private:
     QBluetoothLocalDevice *m_localDevice = nullptr;
     QTranslator *m_translator = nullptr;
     QTimer *m_nearbyTimer = nullptr;
+    QString m_pairedAddress;
+    QString m_pairedName;
     QString m_connectionState;
     int m_retryCount = 0;
 

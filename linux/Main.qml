@@ -118,11 +118,12 @@ ApplicationWindow {
                         case "off": return qsTr("Bluetooth off");
                         case "failed": return qsTr("Not connected");
                         case "nearby": return qsTr("Nearby");
+                        case "paired": return qsTr("Not connected");
                         default: return qsTr("Searching");
                         }
                     }
                     iconName: connectionState === "connected" ? "bluetooth-connected"
-                            : connectionState === "off" || connectionState === "failed" ? "bluetooth-off"
+                            : connectionState === "off" || connectionState === "failed" || connectionState === "paired" ? "bluetooth-off"
                             : "bluetooth-searching"
                     tone: connectionState === "connected" ? Theme.success
                         : connectionState === "off" || connectionState === "failed" ? Theme.danger
@@ -134,11 +135,13 @@ ApplicationWindow {
                     Layout.topMargin: 32
                     visible: !airPodsTrayApp.airpodsConnected
                     connectionState: airPodsTrayApp.connectionState === "connected" ? "connecting" : airPodsTrayApp.connectionState
-                    deviceName: airPodsTrayApp.deviceInfo.deviceName !== "" ? airPodsTrayApp.deviceInfo.deviceName
-                                                                            : airPodsTrayApp.lastDeviceName
+                    deviceName: airPodsTrayApp.connectionState === "paired" && airPodsTrayApp.pairedDeviceName !== ""
+                                ? airPodsTrayApp.pairedDeviceName
+                                : airPodsTrayApp.deviceInfo.deviceName !== "" ? airPodsTrayApp.deviceInfo.deviceName
+                                                                              : airPodsTrayApp.lastDeviceName
                     onRetryRequested: airPodsTrayApp.retryConnection()
                     nearbyDetection: airPodsTrayApp.nearbyConnectEnabled
-                    onConnectRequested: airPodsTrayApp.connectNearby()
+                    onConnectRequested: airPodsTrayApp.connectKnownDevice()
                     onPowerOnRequested: airPodsTrayApp.powerOnBluetooth()
                 }
 

@@ -115,6 +115,15 @@ rewritten or new files, and next to the change in the C++ sources.
   language now see English.
 - The language selector only offers languages the font can draw.
 
+## 2026-09-24 — Linux app: paired AirPods offered with a Connect button
+
+- New `paired` connection state: when the AirPods are paired with this computer
+  (BlueZ `Paired`) but not connected, the window shows their name, explains that
+  they connect on their own when this computer was the last one used, and offers
+  a Connect button for when they are in use on another device. "Searching" is left
+  for when no AirPods are paired.
+- Connect (`connectKnownDevice`) uses the paired address, or the last used one.
+
 ## Third-party assets
 
 | Asset | Path | License |

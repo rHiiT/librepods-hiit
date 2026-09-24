@@ -117,6 +117,34 @@ bool BluetoothMonitor::checkAlreadyConnectedDevices()
     return deviceFound;
 }
 
+QList<QPair<QString, QString>> BluetoothMonitor::pairedDisconnectedAirPods()
+{
+    QList<QPair<QString, QString>> result;
+
+    QDBusInterface objectManager("org.bluez", "/", "org.freedesktop.DBus.ObjectManager", m_dbus);
+    QDBusMessage reply = objectManager.call("GetManagedObjects");
+    if (reply.type() == QDBusMessage::ErrorMessage)
+    {
+        LOG_WARN("Failed to get managed objects: " << reply.errorMessage());
+        return result;
+    }
+
+    ManagedObjectList managedObjects;
+    reply.arguments().constFirst().value<QDBusArgument>() >> managedObjects;
+
+    for (auto it = managedObjects.constBegin(); it != managedObjects.constEnd(); ++it)
+    {
+        const QVariantMap deviceProps = it.value().value("org.bluez.Device1");
+        if (deviceProps.isEmpty())
+            continue;
+        if (!deviceProps.value("UUIDs").toStringList().contains("74ec2172-0bad-4d01-8f77-997b2be0722a"))
+            continue;
+        if (deviceProps.value("Paired").toBool() && !deviceProps.value("Connected").toBool())
+            result.append({deviceProps.value("Address").toString(), deviceProps.value("Name").toString()});
+    }
+    return result;
+}
+
 void BluetoothMonitor::onPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps)
 {
     Q_UNUSED(invalidatedProps);
@@ -124,6 +152,12 @@ void BluetoothMonitor::onPropertiesChanged(const QString &interface, const QVari
     if (interface != "org.bluez.Device1")
     {
         return;
+    }
+
+    // LibrePods HiiT: pairing or unpairing changes what the UI can offer to connect
+    if (changedProps.contains("Paired") && isAirPodsDevice(QDBusContext::message().path()))
+    {
+        emit pairedDevicesChanged();
     }
 
     if (changedProps.contains("Connected"))

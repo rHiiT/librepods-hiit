@@ -17,9 +17,13 @@ public:
 
     bool checkAlreadyConnectedDevices();
 
+    // LibrePods HiiT: AirPods paired with this computer but not connected, as {address, name}
+    QList<QPair<QString, QString>> pairedDisconnectedAirPods();
+
 signals:
     void deviceConnected(const QString &macAddress, const QString &deviceName);
     void deviceDisconnected(const QString &macAddress, const QString &deviceName);
+    void pairedDevicesChanged();
 
 private slots:
     void onPropertiesChanged(const QString &interface, const QVariantMap &changedProps, const QStringList &invalidatedProps);
