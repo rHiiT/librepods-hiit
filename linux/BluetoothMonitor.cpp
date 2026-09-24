@@ -188,10 +188,27 @@ void BluetoothMonitor::onPropertiesChanged(const QString &interface, const QVari
         return;
     }
 
-    // LibrePods HiiT: pairing or unpairing changes what the UI can offer to connect
-    if (changedProps.contains("Paired") && isAirPodsDevice(QDBusContext::message().path()))
+    // LibrePods HiiT: pairing or unpairing changes what the UI can offer to connect. On a first
+    // pairing BlueZ reports Connected before service discovery fills UUIDs, so the Connected
+    // change below does not recognize the AirPods yet; when UUIDs arrive, pick the connection up.
+    if (changedProps.contains("Paired") || changedProps.contains("UUIDs"))
     {
-        emit pairedDevicesChanged();
+        const QString path = QDBusContext::message().path();
+        if (isAirPodsDevice(path))
+        {
+            emit pairedDevicesChanged();
+
+            QDBusInterface properties("org.bluez", path, "org.freedesktop.DBus.Properties", m_dbus);
+            const QDBusReply<QVariant> connectedReply = properties.call("Get", "org.bluez.Device1", "Connected");
+            const QDBusReply<QVariant> addressReply = properties.call("Get", "org.bluez.Device1", "Address");
+            if (changedProps.contains("UUIDs") && !changedProps.contains("Connected")
+                && connectedReply.isValid() && connectedReply.value().toBool() && addressReply.isValid())
+            {
+                const QString macAddress = addressReply.value().toString();
+                emit deviceConnected(macAddress, getDeviceName(path));
+                LOG_DEBUG("AirPods identified after connecting:" << macAddress);
+            }
+        }
     }
 
     if (changedProps.contains("Connected"))
