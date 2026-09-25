@@ -146,6 +146,14 @@ rewritten or new files, and next to the change in the C++ sources.
   saved (`app/theme`) and applied at once; System default keeps following the
   desktop's light/dark preference.
 
+## 2026-09-25 — Linux app: audio stuck on the "off" profile
+
+- Fixed AirPods staying connected with no sound. Right after connecting, the
+  Bluetooth card may not exist in PipeWire yet; A2DP activation failed once and
+  was never retried, so the card kept the profile WirePlumber restored (often
+  "off", saved when both buds were taken out). `MediaController` now looks the
+  card up again and retries the activation for up to 10 seconds.
+
 ## Third-party assets
 
 | Asset | Path | License |
