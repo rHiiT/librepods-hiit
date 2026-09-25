@@ -22,12 +22,19 @@ Get `LibrePods-HiiT-x86_64.AppImage` from the
 [latest release](https://github.com/rHiiT/librepods-hiit/releases/latest), then:
 
 ```bash
-chmod +x LibrePods-HiiT-x86_64.AppImage
-./LibrePods-HiiT-x86_64.AppImage
+mkdir -p ~/Applications
+mv LibrePods-HiiT-x86_64.AppImage ~/Applications/
+chmod +x ~/Applications/LibrePods-HiiT-x86_64.AppImage
+~/Applications/LibrePods-HiiT-x86_64.AppImage
 ```
 
 On first run the app adds itself to your application menu. To start it with your
-session, turn on **Settings > App > Auto-Start on Login**.
+session, turn on **Settings > App > Auto-Start on Login**. Both point at the AppImage
+file and follow it if you move or rename it (on the next run).
+
+**Updating:** replace the file with the one from a newer release. Your settings are
+kept. The version you have is shown at the bottom of Settings; include it when you
+report a problem.
 
 Builds of the latest `main` are available as artifacts of the
 [Linux workflow](https://github.com/rHiiT/librepods-hiit/actions/workflows/ci-linux.yml).
@@ -51,6 +58,9 @@ later), BlueZ, and PipeWire (with `pipewire-pulse`) or PulseAudio.
 - **Languages:** English, Brazilian Portuguese, Italian and Turkish.
 - **Window lives in the tray:** minimize and close send it to the tray (optional); on KDE
   Plasma it also stays out of the taskbar.
+
+- **Linux only.** Features that depended on the LibrePods Android app were removed: the
+  Magic Cloud Keys QR code and the cross-device link with Android.
 
 The full list, required by the GPL, is in [CHANGES-HIIT.md](CHANGES-HIIT.md).
 
