@@ -1012,6 +1012,9 @@ private:
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
+    // LibrePods HiiT: fixed name, not the executable's: inside an AppImage the binary starts
+    // as "AppRun", and the autostart entry is named after the application
+    app.setApplicationName(QStringLiteral("librepods"));
 
     QLocalServer::removeServer("app_server");
 

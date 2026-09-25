@@ -276,6 +276,13 @@ rewritten or new files, and next to the change in the C++ sources.
   them over, and the blocking `bluetoothctl connect` froze the window while the
   AirPods were out of reach.
 
+## 2026-09-25 — Linux app: autostart from the AppImage
+
+- The application name is set to `librepods` instead of taken from the executable.
+  Inside the AppImage the binary starts as `AppRun`, so the autostart entry was
+  looked up as `AppRun.desktop`: an existing entry was never refreshed to the
+  AppImage path, and the setting showed as off.
+
 ## Third-party assets
 
 | Asset | Path | License |
