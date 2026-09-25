@@ -271,8 +271,10 @@ rewritten or new files, and next to the change in the C++ sources.
   Bluetooth address (`PHONE_MAC_ADDRESS`), the Android card in Settings, the
   `AirPodsPackets::Phone` packets and the `smartphone` icon. Android is not a
   target of this fork. The old `crossdevice/enabled` setting is deleted on start.
-- Unchanged: when media starts playing and the AirPods are not connected, the app
-  still asks BlueZ to connect them.
+- The app no longer asks BlueZ to connect the AirPods when media starts playing.
+  With an iPhone the AirPods keep one connection at a time, so this could not take
+  them over, and the blocking `bluetoothctl connect` froze the window while the
+  AirPods were out of reach.
 
 ## Third-party assets
 
