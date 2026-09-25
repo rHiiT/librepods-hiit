@@ -224,6 +224,20 @@ rewritten or new files, and next to the change in the C++ sources.
   also show without a tray; the tray balloon is only used when that service does
   not answer. A new notification replaces the previous one.
 
+## 2026-09-25 — Linux app: AppImage
+
+- `linux/packaging/build-appimage.sh` builds `LibrePods-HiiT-x86_64.AppImage` with
+  linuxdeploy (Qt, QML, Wayland and X11 plugins, OpenSSL, libpulse) and appimagetool,
+  whose static runtime does not need libfuse2 on the host.
+- `.github/workflows/ci-linux.yml` now builds the AppImage on Ubuntu 22.04 with
+  Qt 6.8.3, on pull requests, on `main` and on `v*` tags (published as a release
+  asset). The previous workflow was manual only and missed OpenSSL and libpulse.
+- Running from an AppImage, the app writes its own app menu entry and icon to
+  `~/.local/share` (pointing at the AppImage file, refreshed if it moves), which
+  Wayland needs for the window and tray icons. Entries from a regular install are
+  left alone. Autostart points at the AppImage file too, and translations are also
+  looked up in `<prefix>/share/librepods/translations`.
+
 ## Third-party assets
 
 | Asset | Path | License |

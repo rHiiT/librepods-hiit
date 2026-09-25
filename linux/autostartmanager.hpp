@@ -19,6 +19,10 @@ public:
         QString autostartDir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/autostart";
         QDir().mkpath(autostartDir);
         m_autostartFilePath = autostartDir + "/" + QCoreApplication::applicationName() + ".desktop";
+
+        // LibrePods HiiT: an AppImage may have been moved or renamed since the entry was written
+        if (autoStartEnabled() && !qEnvironmentVariable("APPIMAGE").isEmpty())
+            createAutoStartEntry();
     }
 
     bool autoStartEnabled() const
@@ -55,7 +59,11 @@ private:
             return;
         }
 
-        QString appPath = QCoreApplication::applicationFilePath();
+        // LibrePods HiiT: inside an AppImage the binary lives in a temporary mount that changes
+        // on every run; the AppImage file itself is what has to be started
+        QString appPath = qEnvironmentVariable("APPIMAGE");
+        if (appPath.isEmpty())
+            appPath = QCoreApplication::applicationFilePath();
         // Handle cases where the path might contain spaces
         if (appPath.contains(' '))
         {

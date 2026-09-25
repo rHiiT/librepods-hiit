@@ -26,6 +26,7 @@
 #include "media/mediacontroller.h"
 #include "trayiconmanager.h"
 #include "kwintaskbarrule.hpp"
+#include "appimageintegration.hpp"
 #include "enums.h"
 #include "battery.hpp"
 #include "BluetoothMonitor.h"
@@ -51,6 +52,8 @@ static bool loadAppTranslation(QTranslator *translator, const QString &code)
 
     const QStringList translationPaths = {
         QCoreApplication::applicationDirPath() + "/translations",
+        // LibrePods HiiT: <prefix>/bin/../share, as laid out inside the AppImage
+        QCoreApplication::applicationDirPath() + "/../share/librepods/translations",
         QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/librepods/translations",
         "/usr/share/librepods/translations",
         "/usr/local/share/librepods/translations"
@@ -1310,6 +1313,7 @@ int main(int argc, char *argv[]) {
     app.setDesktopFileName("me.kavishdevar.librepods");
     app.setWindowIcon(QIcon(":/icons/assets/librepods.svg")); // LibrePods HiiT: case icon
     app.setQuitOnLastWindowClosed(false);
+    AppImageIntegration::integrate(); // LibrePods HiiT: app menu entry and icon for the AppImage
 
     bool debugMode = false;
     bool hideOnStart = false;
