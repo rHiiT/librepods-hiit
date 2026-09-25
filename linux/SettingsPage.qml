@@ -412,6 +412,17 @@ Page {
                 }
             }
 
+            // LibrePods HiiT: version, for bug reports
+            Text {
+                Layout.fillWidth: true
+                Layout.topMargin: 8
+                horizontalAlignment: Text.AlignHCenter
+                font.family: Theme.fontFamily
+                font.pixelSize: Theme.fontSize
+                color: Theme.mutedForeground
+                text: "LibrePods HiiT Edition " + Qt.application.version
+            }
+
             KeysQRDialog {
                 id: keysQrDialog
                 encKey: airPodsTrayApp.deviceInfo.magicAccEncKey

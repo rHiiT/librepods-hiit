@@ -1311,6 +1311,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
     app.setDesktopFileName("me.kavishdevar.librepods");
+    app.setApplicationVersion(QStringLiteral(LIBREPODS_VERSION)); // LibrePods HiiT: from CMake
     app.setWindowIcon(QIcon(":/icons/assets/librepods.svg")); // LibrePods HiiT: case icon
     app.setQuitOnLastWindowClosed(false);
     AppImageIntegration::integrate(); // LibrePods HiiT: app menu entry and icon for the AppImage

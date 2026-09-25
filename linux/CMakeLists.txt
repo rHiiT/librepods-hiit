@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(linux VERSION 0.1 LANGUAGES CXX)
+# LibrePods HiiT: the fork's version (SemVer); release tags are v<VERSION>
+project(linux VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -52,6 +53,7 @@ qt_add_executable(librepods
     media/playerstatuswatcher.h
     systemsleepmonitor.hpp
 )
+target_compile_definitions(librepods PRIVATE LIBREPODS_VERSION="${PROJECT_VERSION}")
 
 set_source_files_properties(Theme.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 

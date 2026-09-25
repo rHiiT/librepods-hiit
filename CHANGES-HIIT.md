@@ -245,6 +245,14 @@ rewritten or new files, and next to the change in the C++ sources.
   The upstream README remains available in the upstream repository and in git history.
 - Screenshots of the Linux app in `imgs/hiit/`.
 
+## 2026-09-25 — Linux app: version
+
+- The fork follows Semantic Versioning, starting at 0.1.0 (`project(... VERSION)` in
+  `linux/CMakeLists.txt`); release tags are `v<VERSION>`.
+- The app knows its version (`QCoreApplication::applicationVersion`) and shows it at
+  the bottom of Settings.
+- The Linux workflow refuses a `v*` tag that does not match that version.
+
 ## Third-party assets
 
 | Asset | Path | License |
