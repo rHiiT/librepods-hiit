@@ -175,6 +175,14 @@ rewritten or new files, and next to the change in the C++ sources.
   last reading, not as 0%. While not connected it shows the connection state.
 - The tray icon follows `connectionState` instead of the battery status string.
 
+## 2026-09-25 — Linux app: minimize and close to tray
+
+- The minimize button hides the window in the tray instead of leaving a second
+  entry in the taskbar.
+- New setting "Close to tray" (Settings > App, on by default): when off, closing
+  the window quits the app. Saved as `app/closeToTray`.
+- New Lucide icon `panel-bottom-close` (`linux/assets/icons/`).
+
 ## Third-party assets
 
 | Asset | Path | License |

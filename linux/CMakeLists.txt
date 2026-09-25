@@ -109,6 +109,7 @@ qt_add_resources(librepods "resources"
         assets/icons/key-round.svg
         assets/icons/loader-circle.svg
         assets/icons/minus.svg
+        assets/icons/panel-bottom-close.svg
         assets/icons/pencil.svg
         assets/icons/power.svg
         assets/icons/qr-code.svg

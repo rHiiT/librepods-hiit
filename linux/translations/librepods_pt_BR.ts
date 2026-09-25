@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+395"/>
+        <location filename="../main.cpp" line="+406"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+123"/>
+        <location filename="../Main.qml" line="+129"/>
         <source>Connected · %1</source>
         <translation>Conectado · %1</translation>
     </message>
@@ -374,6 +374,11 @@
     </message>
     <message>
         <location line="+8"/>
+        <source>Close to tray</source>
+        <translation>Fechar para a bandeja</translation>
+    </message>
+    <message>
+        <location line="+8"/>
         <source>Enable System Notifications</source>
         <translation>Notificações do sistema</translation>
     </message>
@@ -466,12 +471,17 @@
         <translation>Configurações</translation>
     </message>
     <message>
-        <location line="+7"/>
-        <source>Minimize</source>
-        <translation>Minimizar</translation>
+        <location line="+9"/>
+        <source>Minimize to tray</source>
+        <translation>Minimizar para a bandeja</translation>
     </message>
     <message>
         <location line="+7"/>
+        <source>Quit</source>
+        <translation>Sair</translation>
+    </message>
+    <message>
+        <location line="+0"/>
         <source>Close to tray</source>
         <translation>Fechar para a bandeja</translation>
     </message>
