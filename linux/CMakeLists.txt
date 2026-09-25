@@ -35,6 +35,7 @@ qt_add_executable(librepods
     BluetoothMonitor.cpp
     BluetoothMonitor.h
     autostartmanager.hpp
+    kwintaskbarrule.hpp
     BasicControlCommand.hpp
     deviceinfo.hpp
     ble/bleutils.cpp
@@ -86,6 +87,7 @@ qt_add_resources(librepods "resources"
     FILES
         assets/fonts/DepartureMono-Regular.otf
         assets/librepods.svg
+        assets/icons/app-window.svg
         assets/icons/arrow-left.svg
         assets/icons/audio-lines.svg
         assets/icons/battery-charging.svg

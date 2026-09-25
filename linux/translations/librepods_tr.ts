@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+406"/>
+        <location filename="../main.cpp" line="+424"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -371,6 +371,11 @@
         <location line="+9"/>
         <source>Auto-Start on Login</source>
         <translation>Oturum Açıldığında Otomatik Başlat</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Show in taskbar</source>
+        <translation>Görev çubuğunda göster</translation>
     </message>
     <message>
         <location line="+8"/>
