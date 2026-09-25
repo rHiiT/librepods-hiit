@@ -110,6 +110,7 @@ public:
         connect(trayManager, &TrayIconManager::trayClicked, this, &AirPodsTrayApp::onTrayIconActivated);
         connect(trayManager, &TrayIconManager::openApp, this, &AirPodsTrayApp::onOpenApp);
         connect(trayManager, &TrayIconManager::openSettings, this, &AirPodsTrayApp::onOpenSettings);
+        connect(trayManager, &TrayIconManager::connectRequested, this, &AirPodsTrayApp::connectKnownDevice);
         connect(trayManager, &TrayIconManager::noiseControlChanged, this, &AirPodsTrayApp::setNoiseControlMode);
         connect(trayManager, &TrayIconManager::conversationalAwarenessToggled, this, &AirPodsTrayApp::setConversationalAwareness);
         // LibrePods HiiT: the tray follows the connection and reads the battery from DeviceInfo

@@ -8,6 +8,7 @@
 #include <QActionGroup>
 #include <QPalette>
 #include <QEvent>
+#include <QPainter>
 
 #include "IconImageProvider.hpp"
 #include "deviceinfo.hpp"
@@ -95,22 +96,85 @@ void TrayIconManager::syncControls()
 
 void TrayIconManager::refresh()
 {
+    checkLowBattery();
     const bool headset = m_deviceInfo
                          && m_deviceInfo->getBattery()->getPrimaryPod() == Battery::Component::Headset;
     showIllustration(!isConnected() ? "case" : headset ? "headphones" : "buds");
     trayIcon->setToolTip(tooltipText());
+    updateHeader();
 }
 
-QString TrayIconManager::tooltipText() const
+QString TrayIconManager::displayName() const
 {
     QString name = m_deviceInfo ? m_deviceInfo->deviceName() : QString();
     if (name.isEmpty())
         name = m_pairedName;
     if (name.isEmpty())
         name = QStringLiteral("LibrePods");
+    return name;
+}
 
+QString TrayIconManager::tooltipText() const
+{
     const QString details = isConnected() ? batteryLines() : stateText();
-    return details.isEmpty() ? name : name + '\n' + details;
+    return details.isEmpty() ? displayName() : displayName() + '\n' + details;
+}
+
+// LibrePods HiiT: the top of the menu repeats the tooltip, since the icon no longer shows the
+// battery and a tooltip needs hovering
+void TrayIconManager::updateHeader()
+{
+    if (!nameAction)
+        return;
+    nameAction->setText(displayName());
+
+    const QStringList lines = (isConnected() ? batteryLines() : stateText()).split('\n', Qt::SkipEmptyParts);
+    for (int i = 0; i < 2; ++i)
+    {
+        detailActions[i]->setVisible(i < lines.size());
+        detailActions[i]->setText(i < lines.size() ? lines.at(i) : QString());
+    }
+    connectAction->setVisible(canConnect());
+}
+
+// Same states that offer Connect in the main window, plus a failed attempt
+bool TrayIconManager::canConnect() const
+{
+    return m_connectionState == QLatin1String("paired") || m_connectionState == QLatin1String("nearby")
+           || m_connectionState == QLatin1String("failed");
+}
+
+void TrayIconManager::checkLowBattery()
+{
+    int lowest = -1;
+    bool charging = false;
+    if (m_deviceInfo && isConnected())
+    {
+        const Battery *battery = m_deviceInfo->getBattery();
+        auto consider = [&](bool available, int level, bool isCharging) {
+            if (!available || level <= 0)
+                return;
+            if (lowest < 0 || level < lowest)
+                lowest = level;
+            charging = charging || isCharging;
+        };
+        if (battery->getPrimaryPod() == Battery::Component::Headset)
+            consider(battery->isHeadsetAvailable(), battery->getHeadsetLevel(), battery->isHeadsetCharging());
+        else
+        {
+            consider(battery->isLeftPodAvailable(), battery->getLeftPodLevel(), battery->isLeftPodCharging());
+            consider(battery->isRightPodAvailable(), battery->getRightPodLevel(), battery->isRightPodCharging());
+        }
+    }
+
+    m_lowBattery = lowest >= 0 && lowest <= 20 && !charging;
+    if (lowest > 20 || charging)
+        m_lowBatteryNotified = false; // charged again: warn again next time
+    if (m_lowBattery && !m_lowBatteryNotified)
+    {
+        m_lowBatteryNotified = true;
+        showNotification(tr("Low battery"), tr("%1: %2% left").arg(displayName()).arg(lowest));
+    }
 }
 
 QString TrayIconManager::batteryLines() const
@@ -166,28 +230,21 @@ QString TrayIconManager::stateText() const
 
 void TrayIconManager::setupMenuActions()
 {
-    // Open action
-    openAction = new QAction(trayMenu);
-    trayMenu->addAction(openAction);
-    connect(openAction, &QAction::triggered, qApp, [this](){emit openApp();});
+    // LibrePods HiiT: status header, then the controls, then the app actions. DBusMenu has no
+    // plain text rows, so the header lines are disabled actions.
+    nameAction = new QAction(trayMenu);
+    nameAction->setEnabled(false);
+    trayMenu->addAction(nameAction);
+    for (QAction *&action : detailActions)
+    {
+        action = new QAction(trayMenu);
+        action->setEnabled(false);
+        trayMenu->addAction(action);
+    }
 
-    // Settings Menu
-
-    settingsAction = new QAction(trayMenu);
-    trayMenu->addAction(settingsAction);
-    connect(settingsAction, &QAction::triggered, qApp, [this](){emit openSettings();});
-
-    trayMenu->addSeparator();
-
-    // Conversational Awareness Toggle
-    caToggleAction = new QAction(trayMenu);
-    caToggleAction->setCheckable(true);
-    trayMenu->addAction(caToggleAction);
-    connect(caToggleAction, &QAction::triggered, this, [this](bool checked)
-            {
-                emit conversationalAwarenessToggled(checked);
-                syncControls();
-            });
+    connectAction = new QAction(trayMenu);
+    trayMenu->addAction(connectAction);
+    connect(connectAction, &QAction::triggered, this, [this]() { emit connectRequested(); });
 
     trayMenu->addSeparator();
 
@@ -216,6 +273,28 @@ void TrayIconManager::setupMenuActions()
                 });
     }
 
+    // Conversational Awareness Toggle
+    caToggleAction = new QAction(trayMenu);
+    caToggleAction->setCheckable(true);
+    trayMenu->addAction(caToggleAction);
+    connect(caToggleAction, &QAction::triggered, this, [this](bool checked)
+            {
+                emit conversationalAwarenessToggled(checked);
+                syncControls();
+            });
+
+    trayMenu->addSeparator();
+
+    // Open action
+    openAction = new QAction(trayMenu);
+    trayMenu->addAction(openAction);
+    connect(openAction, &QAction::triggered, qApp, [this](){emit openApp();});
+
+    // Settings Menu
+    settingsAction = new QAction(trayMenu);
+    trayMenu->addAction(settingsAction);
+    connect(settingsAction, &QAction::triggered, qApp, [this](){emit openSettings();});
+
     trayMenu->addSeparator();
 
     // Quit action
@@ -225,6 +304,7 @@ void TrayIconManager::setupMenuActions()
 
     syncControls();
     retranslateMenu();
+    updateHeader();
 }
 
 // LibrePods HiiT: texts are set here so a language change can refresh them
@@ -234,6 +314,7 @@ void TrayIconManager::retranslateMenu()
     settingsAction->setText(tr("Settings"));
     caToggleAction->setText(tr("Conversational Awareness"));
     quitAction->setText(tr("Quit"));
+    connectAction->setText(tr("Connect"));
 
     for (QAction *action : noiseControlGroup->actions())
     {
@@ -246,6 +327,7 @@ void TrayIconManager::retranslateMenu()
         }
     }
     trayIcon->setToolTip(tooltipText());
+    updateHeader();
 }
 
 void TrayIconManager::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -263,5 +345,16 @@ void TrayIconManager::showIllustration(const QString &name)
 {
     m_illustration = name;
     const QColor color = QApplication::palette().color(QPalette::WindowText);
-    trayIcon->setIcon(QIcon(QPixmap::fromImage(IconImageProvider::render(name, color, QSize(64, 64)))));
+    QImage image = IconImageProvider::render(name, color, QSize(64, 64));
+
+    // LibrePods HiiT: low battery is a red dot on the earbuds, the level stays in the menu
+    if (m_lowBattery && name != QLatin1String("case"))
+    {
+        QPainter painter(&image);
+        painter.setRenderHint(QPainter::Antialiasing);
+        painter.setPen(Qt::NoPen);
+        painter.setBrush(QColor("#ef4444"));
+        painter.drawEllipse(QRectF(40, 2, 22, 22));
+    }
+    trayIcon->setIcon(QIcon(QPixmap::fromImage(image)));
 }
