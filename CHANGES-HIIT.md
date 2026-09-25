@@ -183,6 +183,14 @@ rewritten or new files, and next to the change in the C++ sources.
   the window quits the app. Saved as `app/closeToTray`.
 - New Lucide icon `panel-bottom-close` (`linux/assets/icons/`).
 
+## 2026-09-25 — Linux app: pause when one bud is removed
+
+- Fixed "Pause when removing AirPods: one removed" never pausing, and the
+  Conversational Awareness volume change never applying, on PipeWire.
+  `MediaController::isActiveOutputDeviceAirPods()` looked for the address as
+  `D0_3E_...` in the default sink name, which PipeWire writes as
+  `bluez_output.D0:3E:...`; both forms now match.
+
 ## Third-party assets
 
 | Asset | Path | License |
