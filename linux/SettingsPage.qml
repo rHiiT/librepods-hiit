@@ -241,6 +241,15 @@ Page {
 
                 UiSwitch {
                     Layout.fillWidth: true
+                    visible: airPodsTrayApp.canHideFromTaskbar
+                    iconName: "app-window"
+                    text: qsTr("Show in taskbar")
+                    checked: airPodsTrayApp.showInTaskbar
+                    onToggled: airPodsTrayApp.showInTaskbar = checked
+                }
+
+                UiSwitch {
+                    Layout.fillWidth: true
                     iconName: "panel-bottom-close"
                     text: qsTr("Close to tray")
                     checked: airPodsTrayApp.closeToTray

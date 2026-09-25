@@ -23,6 +23,7 @@
 #include "logger.h"
 #include "media/mediacontroller.h"
 #include "trayiconmanager.h"
+#include "kwintaskbarrule.hpp"
 #include "enums.h"
 #include "battery.hpp"
 #include "BluetoothMonitor.h"
@@ -84,6 +85,9 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
     // LibrePods HiiT: closing the window keeps the app in the tray (default) or quits it
     Q_PROPERTY(bool closeToTray READ closeToTray WRITE setCloseToTray NOTIFY closeToTrayChanged)
+    // LibrePods HiiT: the window lives in the tray; listing it in the taskbar is opt-in (KDE only)
+    Q_PROPERTY(bool showInTaskbar READ showInTaskbar WRITE setShowInTaskbar NOTIFY showInTaskbarChanged)
+    Q_PROPERTY(bool canHideFromTaskbar READ canHideFromTaskbar CONSTANT)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -162,6 +166,9 @@ public:
                 enterIdleState();
         });
 
+        // LibrePods HiiT: keep the KWin rule in line with the setting (also on first run)
+        KWinTaskbarRule::apply(!showInTaskbar());
+
         // Load settings
         CrossDevice.isEnabled = loadCrossDeviceEnabled();
         setEarDetectionBehavior(loadEarDetectionSettings());
@@ -233,6 +240,17 @@ public:
         m_settings->setValue("app/closeToTray", enabled);
         emit closeToTrayChanged();
     }
+
+    bool showInTaskbar() const { return m_settings->value("app/showInTaskbar", false).toBool(); }
+    void setShowInTaskbar(bool enabled)
+    {
+        if (enabled == showInTaskbar())
+            return;
+        m_settings->setValue("app/showInTaskbar", enabled);
+        KWinTaskbarRule::apply(!enabled);
+        emit showInTaskbarChanged();
+    }
+    bool canHideFromTaskbar() const { return KWinTaskbarRule::isSupported(); }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
     QString pairedDeviceName() const { return m_pairedName; }
     bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
@@ -1200,6 +1218,7 @@ signals:
     void languageChanged();
     void themeChanged();
     void closeToTrayChanged();
+    void showInTaskbarChanged();
     void nearbyConnectEnabledChanged();
 
 private:

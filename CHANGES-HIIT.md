@@ -191,6 +191,16 @@ rewritten or new files, and next to the change in the C++ sources.
   `D0_3E_...` in the default sink name, which PipeWire writes as
   `bluez_output.D0:3E:...`; both forms now match.
 
+## 2026-09-25 — Linux app: window only in the tray
+
+- On KDE Plasma the window no longer gets a taskbar entry: the app is reached
+  from the tray icon. Wayland does not let an app skip the taskbar by itself
+  (`Qt::Tool` has no effect there), so `linux/kwintaskbarrule.hpp` adds a KWin
+  window rule for the app id (`kwinrulesrc`, group `librepods-hiit-skip-taskbar`)
+  and removes it when the new "Show in taskbar" setting (Settings > App,
+  `app/showInTaskbar`, off by default) is turned on. Other window rules are kept.
+- New Lucide icon `app-window` (`linux/assets/icons/`).
+
 ## Third-party assets
 
 | Asset | Path | License |
