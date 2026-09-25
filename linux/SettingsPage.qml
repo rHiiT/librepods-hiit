@@ -374,24 +374,6 @@ Page {
                         onValueModified: airPodsTrayApp.retryAttempts = value
                     }
                 }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    spacing: 8
-
-                    UiLabel {
-                        Layout.fillWidth: true
-                        tone: "muted"
-                        text: qsTr("Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.")
-                    }
-
-                    UiButton {
-                        variant: "outline"
-                        iconName: "qr-code"
-                        text: qsTr("Show Magic Cloud Keys QR")
-                        onClicked: keysQrDialog.show()
-                    }
-                }
             }
 
             // Experimental: features still being tested, collapsed and off by default
@@ -421,12 +403,6 @@ Page {
                 font.pixelSize: Theme.fontSize
                 color: Theme.mutedForeground
                 text: "LibrePods HiiT Edition " + Qt.application.version
-            }
-
-            KeysQRDialog {
-                id: keysQrDialog
-                encKey: airPodsTrayApp.deviceInfo.magicAccEncKey
-                irk: airPodsTrayApp.deviceInfo.magicAccIRK
             }
 
             Item { implicitHeight: 4 }

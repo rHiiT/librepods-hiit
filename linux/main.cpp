@@ -34,7 +34,6 @@
 #include "deviceinfo.hpp"
 #include "ble/blemanager.h"
 #include "ble/bleutils.h"
-#include "QRCodeImageProvider.hpp"
 #include "IconImageProvider.hpp"
 #include "systemsleepmonitor.hpp"
 
@@ -1345,7 +1344,6 @@ int main(int argc, char *argv[]) {
         trayApp->updatePhoneMacStatus(phoneMacEnv.isEmpty() ? QStringLiteral("No phone MAC set") : phoneMacEnv);
     }
 
-    engine.addImageProvider("qrcode", new QRCodeImageProvider());
     engine.addImageProvider("icon", new IconImageProvider());
     trayApp->loadMainModule();
 
