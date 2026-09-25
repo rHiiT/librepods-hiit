@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+390"/>
+        <location filename="../main.cpp" line="+395"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+122"/>
+        <location filename="../Main.qml" line="+123"/>
         <source>Connected · %1</source>
         <translation>Bağlı · %1</translation>
     </message>
@@ -479,12 +479,7 @@
 <context>
     <name>TrayIconManager</name>
     <message>
-        <location filename="../trayiconmanager.cpp" line="+42"/>
-        <source>Battery Status: </source>
-        <translation>Pil Durumu: </translation>
-    </message>
-    <message>
-        <location line="+74"/>
+        <location filename="../trayiconmanager.cpp" line="+233"/>
         <source>Open</source>
         <translation>Aç</translation>
     </message>
@@ -494,9 +489,74 @@
         <translation>Ayarlar</translation>
     </message>
     <message>
+        <location line="-110"/>
+        <source>%1, charging</source>
+        <translation>%1, şarj oluyor</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Battery %1%</source>
+        <translation>Pil %1%</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Left %1%</source>
+        <translation>Sol %1%</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Right %1%</source>
+        <translation>Sağ %1%</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Case %1%</source>
+        <translation>Kutu %1%</translation>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>Toggle Conversational Awareness</source>
-        <translation>Konuşma Farkındalığını Aç/Kapat</translation>
+        <source>%1, last reading</source>
+        <translation>%1, son okuma</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Bluetooth is off</source>
+        <translation>Bluetooth kapalı</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Connecting…</source>
+        <translation>Bağlanılıyor…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Couldn&apos;t connect</source>
+        <translation>Bağlanılamadı</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not connected</source>
+        <translation>Bağlı değil</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Nearby</source>
+        <translation>Yakınlarda</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>No AirPods paired</source>
+        <translation>Eşleştirilmiş AirPods yok</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Looking for your AirPods…</source>
+        <translation>AirPods&apos;unuz aranıyor…</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Conversational Awareness</source>
+        <translation>Konuşma Farkındalığı</translation>
     </message>
     <message>
         <location line="+7"/>

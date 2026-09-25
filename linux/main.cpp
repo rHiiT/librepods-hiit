@@ -106,7 +106,11 @@ public:
         connect(trayManager, &TrayIconManager::openSettings, this, &AirPodsTrayApp::onOpenSettings);
         connect(trayManager, &TrayIconManager::noiseControlChanged, this, &AirPodsTrayApp::setNoiseControlMode);
         connect(trayManager, &TrayIconManager::conversationalAwarenessToggled, this, &AirPodsTrayApp::setConversationalAwareness);
-        connect(m_deviceInfo, &DeviceInfo::batteryStatusChanged, trayManager, &TrayIconManager::updateBatteryStatus);
+        // LibrePods HiiT: the tray follows the connection and reads the battery from DeviceInfo
+        trayManager->setDeviceInfo(m_deviceInfo);
+        connect(this, &AirPodsTrayApp::connectionStateChanged, trayManager, [this]() {
+            trayManager->updateConnectionState(m_connectionState, m_pairedName);
+        });
         connect(m_deviceInfo, &DeviceInfo::noiseControlModeChanged, trayManager, &TrayIconManager::updateNoiseControlState);
         connect(m_deviceInfo, &DeviceInfo::conversationalAwarenessChanged, trayManager, &TrayIconManager::updateConversationalAwareness);
         connect(trayManager, &TrayIconManager::notificationsEnabledChanged, this, &AirPodsTrayApp::saveNotificationsEnabled);
@@ -729,7 +733,6 @@ private slots:
         trayManager->showNotification(
             tr("AirPods Disconnected"),
             tr("Your AirPods have been disconnected"));
-        trayManager->resetTrayIcon();
     }
 
     void bluezDeviceDisconnected(const QString &address, const QString &name)

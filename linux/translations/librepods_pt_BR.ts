@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+390"/>
+        <location filename="../main.cpp" line="+395"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+122"/>
+        <location filename="../Main.qml" line="+123"/>
         <source>Connected · %1</source>
         <translation>Conectado · %1</translation>
     </message>
@@ -479,12 +479,7 @@
 <context>
     <name>TrayIconManager</name>
     <message>
-        <location filename="../trayiconmanager.cpp" line="+42"/>
-        <source>Battery Status: </source>
-        <translation>Bateria: </translation>
-    </message>
-    <message>
-        <location line="+74"/>
+        <location filename="../trayiconmanager.cpp" line="+233"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
@@ -494,9 +489,74 @@
         <translation>Configurações</translation>
     </message>
     <message>
+        <location line="-110"/>
+        <source>%1, charging</source>
+        <translation>%1, carregando</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Battery %1%</source>
+        <translation>Bateria %1%</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Left %1%</source>
+        <translation>Esquerdo %1%</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Right %1%</source>
+        <translation>Direito %1%</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Case %1%</source>
+        <translation>Estojo %1%</translation>
+    </message>
+    <message>
         <location line="+1"/>
-        <source>Toggle Conversational Awareness</source>
-        <translation>Ligar/desligar Detecção de Conversa</translation>
+        <source>%1, last reading</source>
+        <translation>%1, última leitura</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Bluetooth is off</source>
+        <translation>O Bluetooth está desligado</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Connecting…</source>
+        <translation>Conectando…</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Couldn&apos;t connect</source>
+        <translation>Não foi possível conectar</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not connected</source>
+        <translation>Não conectado</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Nearby</source>
+        <translation>Por perto</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>No AirPods paired</source>
+        <translation>Nenhum AirPods pareado</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Looking for your AirPods…</source>
+        <translation>Procurando seus AirPods…</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Conversational Awareness</source>
+        <translation>Detecção de Conversa</translation>
     </message>
     <message>
         <location line="+7"/>
