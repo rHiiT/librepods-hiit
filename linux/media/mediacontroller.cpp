@@ -115,7 +115,14 @@ void MediaController::followMediaChanges() {
 bool MediaController::isActiveOutputDeviceAirPods() {
   QString defaultSink = m_pulseAudio->getDefaultSink();
   LOG_DEBUG("Default sink: " << defaultSink);
-  return defaultSink.contains(connectedDeviceMacAddress);
+  // LibrePods HiiT: PipeWire names the sink "bluez_output.D0:3E:...", with colons, while the
+  // address is kept as "D0_3E_..." (PulseAudio's "bluez_sink.D0_3E_..."); match both
+  if (connectedDeviceMacAddress.isEmpty())
+    return false;
+  QString colonAddress = connectedDeviceMacAddress;
+  colonAddress.replace('_', ':');
+  return defaultSink.contains(connectedDeviceMacAddress, Qt::CaseInsensitive)
+         || defaultSink.contains(colonAddress, Qt::CaseInsensitive);
 }
 
 void MediaController::handleConversationalAwareness(const QByteArray &data) {
