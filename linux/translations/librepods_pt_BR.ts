@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+452"/>
+        <location filename="../main.cpp" line="+454"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -135,24 +135,6 @@
         <location line="+1"/>
         <source>Try again</source>
         <translation>Tentar de novo</translation>
-    </message>
-</context>
-<context>
-    <name>KeysQRDialog</name>
-    <message>
-        <location filename="../KeysQRDialog.qml" line="+10"/>
-        <source>Magic Cloud Keys QR Code</source>
-        <translation>QR das Magic Cloud Keys</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Failed to generate QR code</source>
-        <translation>Não foi possível gerar o QR code</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
-        <translation>Escaneie este QR code com o app LibrePods para Android para transferir as Magic Cloud Keys.</translation>
     </message>
 </context>
 <context>
@@ -438,17 +420,7 @@
         <translation>Quantas vezes tentar antes de desistir de uma conexão.</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.</source>
-        <translation>Escaneie com o app LibrePods para Android para que ele identifique estes AirPods e leia a bateria pelo Bluetooth.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Show Magic Cloud Keys QR</source>
-        <translation>Mostrar QR das Magic Cloud Keys</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+16"/>
         <source>Experimental</source>
         <translation>Experimental</translation>
     </message>

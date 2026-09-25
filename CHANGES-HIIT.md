@@ -253,6 +253,17 @@ rewritten or new files, and next to the change in the C++ sources.
   the bottom of Settings.
 - The Linux workflow refuses a `v*` tag that does not match that version.
 
+## 2026-09-25 — Linux app: Magic Cloud Keys QR code removed
+
+- Settings > Advanced no longer shows the Magic Cloud Keys QR code. It encoded a
+  `librepods://add-magic-keys` link that the Android app no longer handles (its
+  intent filter is commented out; the app now asks the AirPods for the keys itself),
+  so scanning it did nothing while it displayed the keys on screen.
+- Removed `KeysQRDialog.qml`, `QRCodeImageProvider.hpp`, the bundled
+  QR-Code-generator library (`linux/thirdparty/`) and the `qr-code` icon.
+- The app still requests the keys from the AirPods: they identify the AirPods in
+  BLE advertisements and decrypt their battery data.
+
 ## Third-party assets
 
 | Asset | Path | License |

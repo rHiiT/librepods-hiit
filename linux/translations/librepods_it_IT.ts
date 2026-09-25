@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+452"/>
+        <location filename="../main.cpp" line="+454"/>
         <source>Enter a name.</source>
         <translation>Inserisci un nome.</translation>
     </message>
@@ -135,24 +135,6 @@
         <location line="+1"/>
         <source>Try again</source>
         <translation>Riprova</translation>
-    </message>
-</context>
-<context>
-    <name>KeysQRDialog</name>
-    <message>
-        <location filename="../KeysQRDialog.qml" line="+10"/>
-        <source>Magic Cloud Keys QR Code</source>
-        <translation>Codice QR Magic Cloud Keys</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Failed to generate QR code</source>
-        <translation>Impossibile generare il codice QR</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
-        <translation>Scansiona questo codice QR con l&apos;app LibrePods per Android per trasferire le Magic Cloud Keys.</translation>
     </message>
 </context>
 <context>
@@ -438,17 +420,7 @@
         <translation>Quante volte riprovare prima di rinunciare a una connessione.</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.</source>
-        <translation>Scansiona con l&apos;app LibrePods per Android affinché possa riconoscere queste AirPods e leggerne la batteria via Bluetooth.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Show Magic Cloud Keys QR</source>
-        <translation>Mostra QR Magic Cloud Keys</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+16"/>
         <source>Experimental</source>
         <translation>Sperimentale</translation>
     </message>

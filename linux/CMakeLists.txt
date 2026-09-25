@@ -44,9 +44,6 @@ qt_add_executable(librepods
     ble/bleutils.h
     ble/blemanager.cpp
     ble/blemanager.h
-    thirdparty/QR-Code-generator/qrcodegen.cpp
-    thirdparty/QR-Code-generator/qrcodegen.hpp
-    QRCodeImageProvider.hpp
     IconImageProvider.hpp
     eardetection.hpp
     media/playerstatuswatcher.cpp
@@ -66,7 +63,6 @@ qt_add_qml_module(librepods
         SegmentedControl.qml
         PodColumn.qml
         Icon.qml
-        KeysQRDialog.qml
         Theme.qml
         ConnectionStatus.qml
         SettingsPage.qml
@@ -117,7 +113,6 @@ qt_add_resources(librepods "resources"
         assets/icons/panel-bottom-close.svg
         assets/icons/pencil.svg
         assets/icons/power.svg
-        assets/icons/qr-code.svg
         assets/icons/refresh-cw.svg
         assets/icons/settings.svg
         assets/icons/sliders-horizontal.svg

@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+452"/>
+        <location filename="../main.cpp" line="+454"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -135,24 +135,6 @@
         <location line="+1"/>
         <source>Try again</source>
         <translation>Tekrar dene</translation>
-    </message>
-</context>
-<context>
-    <name>KeysQRDialog</name>
-    <message>
-        <location filename="../KeysQRDialog.qml" line="+10"/>
-        <source>Magic Cloud Keys QR Code</source>
-        <translation>Magic Cloud Anahtarları QR Kodu</translation>
-    </message>
-    <message>
-        <location line="+43"/>
-        <source>Failed to generate QR code</source>
-        <translation>QR kodu oluşturulamadı</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Scan this QR code with the LibrePods Android app to transfer the Magic Cloud Keys.</source>
-        <translation>Magic Cloud Anahtarlarını aktarmak için bu QR kodunu LibrePods Android uygulamasıyla tarayın.</translation>
     </message>
 </context>
 <context>
@@ -438,17 +420,7 @@
         <translation>Bir bağlantıdan vazgeçmeden önce kaç kez yeniden denenecek.</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>Scan with the LibrePods Android app so it can identify these AirPods and read their battery over Bluetooth.</source>
-        <translation>Bu AirPods&apos;u tanıyabilmesi ve pilini Bluetooth üzerinden okuyabilmesi için LibrePods Android uygulamasıyla tarayın.</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Show Magic Cloud Keys QR</source>
-        <translation>Magic Cloud Anahtarları QR&apos;ını Göster</translation>
-    </message>
-    <message>
-        <location line="+9"/>
+        <location line="+16"/>
         <source>Experimental</source>
         <translation>Deneysel</translation>
     </message>
