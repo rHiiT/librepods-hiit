@@ -121,6 +121,7 @@ qt_add_resources(librepods "resources"
         assets/icons/triangle-alert.svg
         assets/icons/x.svg
         assets/illustrations/bud.svg
+        assets/illustrations/buds.svg
         assets/illustrations/case.svg
         assets/illustrations/headphones.svg
 )

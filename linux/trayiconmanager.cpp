@@ -4,11 +4,10 @@
 #include <QMenu>
 #include <QAction>
 #include <QApplication>
-#include <QPainter>
-#include <QFont>
 #include <QColor>
 #include <QActionGroup>
 #include <QPalette>
+#include <QEvent>
 
 #include "IconImageProvider.hpp"
 
@@ -17,7 +16,8 @@ using namespace AirpodsTrayApp::Enums;
 TrayIconManager::TrayIconManager(QObject *parent) : QObject(parent)
 {
     // Initialize tray icon
-    trayIcon = new QSystemTrayIcon(defaultIcon(), this);
+    trayIcon = new QSystemTrayIcon(this);
+    showIllustration("case");
     trayMenu = new QMenu();
 
     // Setup basic menu actions
@@ -28,6 +28,16 @@ TrayIconManager::TrayIconManager(QObject *parent) : QObject(parent)
     connect(trayIcon, &QSystemTrayIcon::activated, this, &TrayIconManager::onTrayIconActivated);
 
     trayIcon->show();
+
+    // LibrePods HiiT: redraw the icon when the system color scheme changes
+    qApp->installEventFilter(this);
+}
+
+bool TrayIconManager::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == qApp && event->type() == QEvent::ApplicationPaletteChange)
+        showIllustration(m_illustration);
+    return QObject::eventFilter(watched, event);
 }
 
 void TrayIconManager::showNotification(const QString &title, const QString &message)
@@ -132,45 +142,16 @@ void TrayIconManager::retranslateMenu()
 
 void TrayIconManager::updateIconFromBattery(const QString &status)
 {
-    // LibrePods HiiT: no status (e.g. right after a disconnect) shows the device icon, not "0%"
+    // LibrePods HiiT: the icon shows the connection, not the battery (that stays in the
+    // tooltip): the case while waiting, the earbuds (or headphones) once connected
     if (status.isEmpty())
     {
-        trayIcon->setIcon(defaultIcon());
+        showIllustration("case");
         return;
     }
 
-    int leftLevel = 0;
-    int rightLevel = 0;
-    int minLevel = 0;
-
-    // Parse the battery status string
-    QStringList parts = status.split(", ");
-    if (parts.size() >= 2) {
-        leftLevel = parts[0].split(": ")[1].replace("%", "").toInt();
-        rightLevel = parts[1].split(": ")[1].replace("%", "").toInt();
-        minLevel = (leftLevel == 0) ? rightLevel : (rightLevel == 0) ? leftLevel
-                                                                : qMin(leftLevel, rightLevel);
-    } else if (parts.size() == 1) {
-        minLevel = parts[0].split(": ")[1].replace("%", "").toInt();
-    }
-
-    // LibrePods HiiT: the number alone in Departure Mono (crisp at multiples of 11px), in the
-    // system text color so it stays visible on light panels; red when low. The full status
-    // stays in the tooltip.
-    const QColor textColor = minLevel <= 20 ? QColor("#ef4444")
-                                            : QApplication::palette().color(QPalette::WindowText);
-    QFont font("Departure Mono");
-    font.setPixelSize(minLevel >= 100 ? 33 : 44);
-
-    QPixmap pixmap(64, 64);
-    pixmap.fill(Qt::transparent);
-    QPainter painter(&pixmap);
-    painter.setPen(textColor);
-    painter.setFont(font);
-    painter.drawText(pixmap.rect(), Qt::AlignCenter, QString::number(minLevel));
-    painter.end();
-
-    trayIcon->setIcon(QIcon(pixmap));
+    const bool headset = status.startsWith("Headset");
+    showIllustration(headset ? "headphones" : "buds");
 }
 
 void TrayIconManager::onTrayIconActivated(QSystemTrayIcon::ActivationReason reason)
@@ -182,9 +163,11 @@ void TrayIconManager::onTrayIconActivated(QSystemTrayIcon::ActivationReason reas
 }
 
 
-// LibrePods HiiT: generic headphones illustration instead of a product photo
-QIcon TrayIconManager::defaultIcon()
+// LibrePods HiiT: drawn illustrations instead of product photos, in the system text color
+// so they stay visible on light and dark panels
+void TrayIconManager::showIllustration(const QString &name)
 {
+    m_illustration = name;
     const QColor color = QApplication::palette().color(QPalette::WindowText);
-    return QIcon(QPixmap::fromImage(IconImageProvider::render("headphones", color, QSize(64, 64))));
+    trayIcon->setIcon(QIcon(QPixmap::fromImage(IconImageProvider::render(name, color, QSize(64, 64)))));
 }
