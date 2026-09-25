@@ -9,6 +9,11 @@
 #include <QPalette>
 #include <QEvent>
 #include <QPainter>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusPendingCallWatcher>
+#include <QDBusPendingReply>
+#include <QGuiApplication>
 
 #include "IconImageProvider.hpp"
 #include "deviceinfo.hpp"
@@ -42,11 +47,32 @@ bool TrayIconManager::eventFilter(QObject *watched, QEvent *event)
     return QObject::eventFilter(watched, event);
 }
 
+// LibrePods HiiT: notifications go straight to the desktop's notification service
+// (org.freedesktop.Notifications), so they also show where there is no tray; the tray
+// balloon is only the fallback when no service answers
 void TrayIconManager::showNotification(const QString &title, const QString &message)
 {
     if (!m_notificationsEnabled)
         return;
-    trayIcon->showMessage(title, message, QSystemTrayIcon::Information, 3000);
+
+    QDBusMessage notify = QDBusMessage::createMethodCall(
+        QStringLiteral("org.freedesktop.Notifications"), QStringLiteral("/org/freedesktop/Notifications"),
+        QStringLiteral("org.freedesktop.Notifications"), QStringLiteral("Notify"));
+    const QString appId = QGuiApplication::desktopFileName();
+    QVariantMap hints;
+    hints.insert(QStringLiteral("desktop-entry"), appId);
+    notify << QStringLiteral("LibrePods") << m_notificationId << appId << title << message
+           << QStringList() << hints << 5000;
+
+    auto *watcher = new QDBusPendingCallWatcher(QDBusConnection::sessionBus().asyncCall(notify), this);
+    connect(watcher, &QDBusPendingCallWatcher::finished, this, [this, title, message](QDBusPendingCallWatcher *call) {
+        QDBusPendingReply<uint> reply = *call;
+        if (reply.isError())
+            trayIcon->showMessage(title, message, QSystemTrayIcon::Information, 5000);
+        else
+            m_notificationId = reply.value(); // the next one replaces it instead of piling up
+        call->deleteLater();
+    });
 }
 
 // LibrePods HiiT: the menu and tooltip are built from the DeviceInfo state instead of the

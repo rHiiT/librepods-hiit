@@ -86,6 +86,7 @@ private:
     bool m_conversationalAwareness = false;
     // LibrePods HiiT: a bud (or headset) at 20% or less and not charging; notified once until
     // it charges again
+    uint m_notificationId = 0;
     bool m_lowBattery = false;
     bool m_lowBatteryNotified = false;
 
