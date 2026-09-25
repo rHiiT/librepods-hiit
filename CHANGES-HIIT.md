@@ -164,6 +164,17 @@ rewritten or new files, and next to the change in the C++ sources.
 - The main window has a fixed size (451×570); the resize edges
   (`linux/WindowResizeHandles.qml`) were removed.
 
+## 2026-09-25 — Linux app: tray menu shows only confirmed state
+
+- Noise control and Conversational Awareness in the tray menu are disabled while
+  the AirPods are not connected, and only show what the AirPods confirmed: Qt used
+  to check a clicked item even when nothing was sent.
+- Noise control modes follow the order of the main window's selector.
+- The tray tooltip is translated and built from `DeviceInfo` and `Battery`: device
+  name, then each bud, the case and charging; a case out of reach is shown as the
+  last reading, not as 0%. While not connected it shows the connection state.
+- The tray icon follows `connectionState` instead of the battery status string.
+
 ## Third-party assets
 
 | Asset | Path | License |

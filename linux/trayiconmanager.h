@@ -6,6 +6,7 @@
 class QMenu;
 class QAction;
 class QActionGroup;
+class DeviceInfo;
 
 class TrayIconManager : public QObject
 {
@@ -15,7 +16,11 @@ class TrayIconManager : public QObject
 public:
     explicit TrayIconManager(QObject *parent = nullptr);
 
-    void updateBatteryStatus(const QString &status);
+    // LibrePods HiiT: the tooltip reads names and levels from here, not from a status string
+    void setDeviceInfo(DeviceInfo *deviceInfo);
+
+    // LibrePods HiiT: icon, tooltip and menu follow AirPodsTrayApp::connectionState
+    void updateConnectionState(const QString &state, const QString &pairedName);
 
     void updateNoiseControlState(AirpodsTrayApp::Enums::NoiseControlMode);
 
@@ -35,12 +40,6 @@ public:
         }
     }
 
-    void resetTrayIcon()
-    {
-        showIllustration("case");
-        trayIcon->setToolTip("");
-    }
-
 signals:
     void notificationsEnabledChanged(bool enabled);
 
@@ -48,6 +47,12 @@ private:
     // LibrePods HiiT: "case" (not connected), "buds" or "headphones" (connected)
     void showIllustration(const QString &name);
     QString m_illustration;
+
+    void refresh();
+    QString tooltipText() const;
+    QString batteryLines() const;
+    QString stateText() const;
+    void syncControls();
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;
@@ -65,9 +70,16 @@ private:
     QActionGroup *noiseControlGroup;
     bool m_notificationsEnabled = true;
 
-    void setupMenuActions();
+    // LibrePods HiiT: last values confirmed by the AirPods; the menu only shows these
+    DeviceInfo *m_deviceInfo = nullptr;
+    QString m_connectionState;
+    QString m_pairedName;
+    AirpodsTrayApp::Enums::NoiseControlMode m_noiseControlMode = AirpodsTrayApp::Enums::NoiseControlMode::Off;
+    bool m_conversationalAwareness = false;
 
-    void updateIconFromBattery(const QString &status);
+    bool isConnected() const { return m_connectionState == QLatin1String("connected"); }
+
+    void setupMenuActions();
 
 signals:
     void trayClicked();
