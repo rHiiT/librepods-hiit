@@ -37,7 +37,7 @@ public:
 
     void resetTrayIcon()
     {
-        trayIcon->setIcon(defaultIcon());
+        showIllustration("case");
         trayIcon->setToolTip("");
     }
 
@@ -45,7 +45,12 @@ signals:
     void notificationsEnabledChanged(bool enabled);
 
 private:
-    static QIcon defaultIcon();
+    // LibrePods HiiT: "case" (not connected), "buds" or "headphones" (connected)
+    void showIllustration(const QString &name);
+    QString m_illustration;
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private slots:
     void onTrayIconActivated(QSystemTrayIcon::ActivationReason reason);

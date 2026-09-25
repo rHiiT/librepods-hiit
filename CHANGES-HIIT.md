@@ -154,6 +154,16 @@ rewritten or new files, and next to the change in the C++ sources.
   "off", saved when both buds were taken out). `MediaController` now looks the
   card up again and retries the activation for up to 10 seconds.
 
+## 2026-09-25 — Linux app: tray icons and fixed window size
+
+- The tray icon shows the connection instead of the battery number: the charging
+  case while not connected, both earbuds (or headphones, for a headset) once
+  connected (`linux/assets/illustrations/buds.svg`). The battery stays in the tooltip.
+- The tray icon is redrawn when the system palette changes, so it follows a switch
+  between light and dark color schemes without restarting the app.
+- The main window has a fixed size (451×570); the resize edges
+  (`linux/WindowResizeHandles.qml`) were removed.
+
 ## Third-party assets
 
 | Asset | Path | License |

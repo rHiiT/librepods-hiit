@@ -67,7 +67,6 @@ qt_add_qml_module(librepods
         ConnectionStatus.qml
         SettingsPage.qml
         TitleBar.qml
-        WindowResizeHandles.qml
         UiBadge.qml
         UiButton.qml
         UiCard.qml
@@ -121,6 +120,7 @@ qt_add_resources(librepods "resources"
         assets/icons/triangle-alert.svg
         assets/icons/x.svg
         assets/illustrations/bud.svg
+        assets/illustrations/buds.svg
         assets/illustrations/case.svg
         assets/illustrations/headphones.svg
 )
