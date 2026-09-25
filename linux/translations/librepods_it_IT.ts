@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+424"/>
+        <location filename="../main.cpp" line="+425"/>
         <source>Enter a name.</source>
         <translation>Inserisci un nome.</translation>
     </message>
@@ -494,7 +494,7 @@
 <context>
     <name>TrayIconManager</name>
     <message>
-        <location filename="../trayiconmanager.cpp" line="+233"/>
+        <location filename="../trayiconmanager.cpp" line="+313"/>
         <source>Open</source>
         <translation>Apri</translation>
     </message>
@@ -504,12 +504,22 @@
         <translation>Impostazioni</translation>
     </message>
     <message>
-        <location line="-110"/>
+        <location line="-126"/>
         <source>%1, charging</source>
         <translation>%1, in carica</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="-12"/>
+        <source>Low battery</source>
+        <translation>Batteria scarica</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>%1: %2% left</source>
+        <translation>%1: %2% rimanente</translation>
+    </message>
+    <message>
+        <location line="+17"/>
         <source>Battery %1%</source>
         <translation>Batteria %1%</translation>
     </message>
@@ -569,12 +579,17 @@
         <translation>Ricerca delle tue AirPods…</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+87"/>
         <source>Conversational Awareness</source>
         <translation>Rilevamento conversazione</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+2"/>
+        <source>Connect</source>
+        <translation>Connetti</translation>
+    </message>
+    <message>
+        <location line="+6"/>
         <source>Adaptive</source>
         <translation>Adattivo</translation>
     </message>
@@ -594,7 +609,7 @@
         <translation>Non attivo</translation>
     </message>
     <message>
-        <location line="-9"/>
+        <location line="-10"/>
         <source>Quit</source>
         <translation>Esci</translation>
     </message>

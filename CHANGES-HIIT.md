@@ -201,6 +201,18 @@ rewritten or new files, and next to the change in the C++ sources.
   `app/showInTaskbar`, off by default) is turned on. Other window rules are kept.
 - New Lucide icon `app-window` (`linux/assets/icons/`).
 
+## 2026-09-25 — Linux app: status and Connect in the tray menu
+
+- The tray menu opens with the device name and, below it, the battery of each
+  bud and the case, or the connection state while not connected (disabled items,
+  since DBusMenu has no plain text rows).
+- "Connect" appears in the tray menu when the AirPods are paired but not
+  connected (also nearby or after a failed attempt), like the main window button.
+- Menu order: status, noise control and Conversational Awareness, Open and
+  Settings, Quit.
+- Low battery (a bud or headset at 20% or less, not charging) shows a red dot on
+  the tray icon and one notification, repeated only after it charges again.
+
 ## Third-party assets
 
 | Asset | Path | License |

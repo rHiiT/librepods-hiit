@@ -49,7 +49,11 @@ private:
     QString m_illustration;
 
     void refresh();
+    QString displayName() const;
     QString tooltipText() const;
+    void updateHeader();
+    void checkLowBattery();
+    bool canConnect() const;
     QString batteryLines() const;
     QString stateText() const;
     void syncControls();
@@ -67,6 +71,10 @@ private:
     QAction *settingsAction = nullptr;
     QAction *caToggleAction;
     QAction *quitAction = nullptr;
+    // LibrePods HiiT: read-only header (name, battery or state) and Connect while not connected
+    QAction *nameAction = nullptr;
+    QAction *detailActions[2] = {nullptr, nullptr};
+    QAction *connectAction = nullptr;
     QActionGroup *noiseControlGroup;
     bool m_notificationsEnabled = true;
 
@@ -76,6 +84,10 @@ private:
     QString m_pairedName;
     AirpodsTrayApp::Enums::NoiseControlMode m_noiseControlMode = AirpodsTrayApp::Enums::NoiseControlMode::Off;
     bool m_conversationalAwareness = false;
+    // LibrePods HiiT: a bud (or headset) at 20% or less and not charging; notified once until
+    // it charges again
+    bool m_lowBattery = false;
+    bool m_lowBatteryNotified = false;
 
     bool isConnected() const { return m_connectionState == QLatin1String("connected"); }
 
@@ -87,4 +99,5 @@ signals:
     void conversationalAwarenessToggled(bool enabled);
     void openApp();
     void openSettings();
+    void connectRequested();
 };
