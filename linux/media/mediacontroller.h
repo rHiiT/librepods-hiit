@@ -5,6 +5,7 @@
 #include "pulseaudiocontroller.h"
 
 class QProcess;
+class QTimer;
 class EarDetection;
 class PlayerStatusWatcher;
 class QDBusInterface;
@@ -55,6 +56,7 @@ Q_SIGNALS:
 private:
   MediaState mediaStateFromPlayerctlOutput(const QString &output) const;
   QString getAudioDeviceName();
+  bool resolveDeviceOutputName();
   QStringList getPlayingMediaPlayers();
 
   QStringList pausedByAppServices;
@@ -65,6 +67,10 @@ private:
   PlayerStatusWatcher *playerStatusWatcher = nullptr;
   PulseAudioController *m_pulseAudio = nullptr;
   QString m_cachedA2dpProfile;
+  // LibrePods HiiT: the Bluetooth card can appear in PipeWire a few seconds after
+  // the device connects, so a pending A2DP activation is retried until it shows up.
+  QTimer *m_a2dpRetryTimer = nullptr;
+  int m_a2dpRetriesLeft = 0;
 };
 
 #endif // MEDIACONTROLLER_H
