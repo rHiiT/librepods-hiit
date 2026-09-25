@@ -1,5 +1,5 @@
 // SettingsPage.qml
-// LibrePods HiiT: settings grouped by what they affect (AirPods, controls, app, Android)
+// LibrePods HiiT: settings grouped by what they affect (AirPods, controls, app)
 // with rarely used options collapsed under "Advanced". Moved out of Main.qml.
 pragma ComponentBehavior: Bound
 
@@ -263,80 +263,6 @@ Page {
                     text: qsTr("Enable System Notifications")
                     checked: airPodsTrayApp.notificationsEnabled
                     onToggled: airPodsTrayApp.notificationsEnabled = checked
-                }
-            }
-
-            // Android: link with the LibrePods Android app
-            UiCard {
-                Layout.fillWidth: true
-                title: qsTr("Android")
-
-                UiSwitch {
-                    Layout.fillWidth: true
-                    iconName: "smartphone"
-                    text: qsTr("Cross-Device Connectivity with Android")
-                    description: qsTr("Hand the AirPods over between this computer and your phone.")
-                    checked: airPodsTrayApp.crossDeviceEnabled
-                    onToggled: airPodsTrayApp.setCrossDeviceEnabled(checked)
-                }
-
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    visible: airPodsTrayApp.crossDeviceEnabled
-                    spacing: 8
-
-                    UiLabel {
-                        text: qsTr("Phone Bluetooth address")
-                    }
-
-                    UiLabel {
-                        Layout.fillWidth: true
-                        tone: "muted"
-                        text: qsTr("On Android, find it in Settings > About phone.")
-                    }
-
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 8
-
-                        UiTextField {
-                            id: newPhoneMacField
-                            readonly property bool complete: /^([0-9A-Fa-f]{2}([-:]?)){5}[0-9A-Fa-f]{2}$/.test(text)
-                            Layout.fillWidth: true
-                            text: PHONE_MAC_ADDRESS
-                            placeholderText: "AA:BB:CC:DD:EE:FF"
-                            maximumLength: 17
-                            inputMethodHints: Qt.ImhPreferUppercase | Qt.ImhNoPredictiveText
-                            validator: RegularExpressionValidator {
-                                regularExpression: /^([0-9A-Fa-f]{2}[-:]?){0,5}[0-9A-Fa-f]{0,2}$/
-                            }
-                            invalid: phoneMacError.text !== ""
-                            onTextEdited: phoneMacError.text = ""
-                            onAccepted: if (phoneMacButton.enabled) phoneMacButton.clicked()
-                        }
-
-                        UiButton {
-                            id: phoneMacButton
-                            variant: "outline"
-                            iconName: "smartphone"
-                            text: qsTr("Save")
-                            enabled: newPhoneMacField.complete && newPhoneMacField.text.toUpperCase() !== PHONE_MAC_ADDRESS.toUpperCase()
-                            onClicked: {
-                                const error = airPodsTrayApp.setPhoneMac(newPhoneMacField.text.toUpperCase());
-                                if (error !== "")
-                                    phoneMacError.text = error;
-                                else
-                                    root.toast.show(qsTr("Phone address saved"));
-                            }
-                        }
-                    }
-
-                    UiLabel {
-                        id: phoneMacError
-                        Layout.fillWidth: true
-                        visible: text !== ""
-                        tone: "danger"
-                    }
                 }
             }
 

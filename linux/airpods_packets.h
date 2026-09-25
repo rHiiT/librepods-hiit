@@ -151,17 +151,6 @@ namespace AirPodsPackets
         static const QByteArray HANDSHAKE = QByteArray::fromHex("00000400010002000000000000000000");
         static const QByteArray SET_SPECIFIC_FEATURES = QByteArray::fromHex("040004004d00d700000000000000");
         static const QByteArray REQUEST_NOTIFICATIONS = QByteArray::fromHex("040004000f00ffffffffff");
-        static const QByteArray AIRPODS_DISCONNECTED = QByteArray::fromHex("00010000");
-    }
-
-    // Phone Communication Packets
-    namespace Phone
-    {
-        static const QByteArray NOTIFICATION = QByteArray::fromHex("00040001");
-        static const QByteArray CONNECTED = QByteArray::fromHex("00010001");
-        static const QByteArray DISCONNECTED = QByteArray::fromHex("00010000");
-        static const QByteArray STATUS_REQUEST = QByteArray::fromHex("00020003");
-        static const QByteArray DISCONNECT_REQUEST = QByteArray::fromHex("00020000");
     }
 
     // Adaptive Noise Packets
