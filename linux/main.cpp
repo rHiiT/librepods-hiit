@@ -82,6 +82,8 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(QString language READ language WRITE setLanguage NOTIFY languageChanged)
     // LibrePods HiiT: "system", "light" or "dark", saved in the settings
     Q_PROPERTY(QString theme READ theme WRITE setTheme NOTIFY themeChanged)
+    // LibrePods HiiT: closing the window keeps the app in the tray (default) or quits it
+    Q_PROPERTY(bool closeToTray READ closeToTray WRITE setCloseToTray NOTIFY closeToTrayChanged)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -221,6 +223,15 @@ public:
             return;
         m_settings->setValue("app/theme", theme);
         emit themeChanged();
+    }
+
+    bool closeToTray() const { return m_settings->value("app/closeToTray", true).toBool(); }
+    void setCloseToTray(bool enabled)
+    {
+        if (enabled == closeToTray())
+            return;
+        m_settings->setValue("app/closeToTray", enabled);
+        emit closeToTrayChanged();
     }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
     QString pairedDeviceName() const { return m_pairedName; }
@@ -1188,6 +1199,7 @@ signals:
     void connectionStateChanged();
     void languageChanged();
     void themeChanged();
+    void closeToTrayChanged();
     void nearbyConnectEnabledChanged();
 
 private:

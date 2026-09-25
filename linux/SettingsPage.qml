@@ -241,6 +241,14 @@ Page {
 
                 UiSwitch {
                     Layout.fillWidth: true
+                    iconName: "panel-bottom-close"
+                    text: qsTr("Close to tray")
+                    checked: airPodsTrayApp.closeToTray
+                    onToggled: airPodsTrayApp.closeToTray = checked
+                }
+
+                UiSwitch {
+                    Layout.fillWidth: true
                     iconName: "bell"
                     text: qsTr("Enable System Notifications")
                     checked: airPodsTrayApp.notificationsEnabled
