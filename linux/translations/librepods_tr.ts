@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+454"/>
+        <location filename="../main.cpp" line="+426"/>
         <source>Enter a name.</source>
         <translation>Bir ad girin.</translation>
     </message>
@@ -19,17 +19,7 @@
         <translation>Yeniden adlandırılamadı: AirPods bağlı değil.</translation>
     </message>
     <message>
-        <location line="+37"/>
-        <source>Enter the phone&apos;s Bluetooth address.</source>
-        <translation>Telefonun Bluetooth adresini girin.</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Use the format AA:BB:CC:DD:EE:FF.</source>
-        <translation>AA:BB:CC:DD:EE:FF biçimini kullanın.</translation>
-    </message>
-    <message>
-        <location line="+272"/>
+        <location line="+250"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods Bağlantısı Kesildi</translation>
     </message>
@@ -371,41 +361,6 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>Android</source>
-        <translation>Android</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Cross-Device Connectivity with Android</source>
-        <translation>Android ile Çapraz Cihaz Bağlantısı</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Hand the AirPods over between this computer and your phone.</source>
-        <translation>AirPods&apos;u bu bilgisayar ile telefonunuz arasında aktarır.</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Phone Bluetooth address</source>
-        <translation>Telefonun Bluetooth adresi</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>On Android, find it in Settings &gt; About phone.</source>
-        <translation>Android&apos;de Ayarlar &gt; Telefon hakkında bölümünde bulabilirsiniz.</translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Save</source>
-        <translation>Kaydet</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Phone address saved</source>
-        <translation>Telefon adresi kaydedildi</translation>
-    </message>
-    <message>
-        <location line="+17"/>
         <source>Advanced</source>
         <translation>Gelişmiş</translation>
     </message>

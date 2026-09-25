@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+454"/>
+        <location filename="../main.cpp" line="+426"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -19,17 +19,7 @@
         <translation>Não foi possível renomear: os AirPods não estão conectados.</translation>
     </message>
     <message>
-        <location line="+37"/>
-        <source>Enter the phone&apos;s Bluetooth address.</source>
-        <translation>Digite o endereço Bluetooth do celular.</translation>
-    </message>
-    <message>
-        <location line="+9"/>
-        <source>Use the format AA:BB:CC:DD:EE:FF.</source>
-        <translation>Use o formato AA:BB:CC:DD:EE:FF.</translation>
-    </message>
-    <message>
-        <location line="+272"/>
+        <location line="+250"/>
         <source>AirPods Disconnected</source>
         <translation>AirPods desconectados</translation>
     </message>
@@ -371,41 +361,6 @@
     </message>
     <message>
         <location line="+9"/>
-        <source>Android</source>
-        <translation>Android</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Cross-Device Connectivity with Android</source>
-        <translation>Conexão entre dispositivos com Android</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Hand the AirPods over between this computer and your phone.</source>
-        <translation>Passa os AirPods entre este computador e o seu celular.</translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Phone Bluetooth address</source>
-        <translation>Endereço Bluetooth do celular</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>On Android, find it in Settings &gt; About phone.</source>
-        <translation>No Android, veja em Configurações &gt; Sobre o telefone.</translation>
-    </message>
-    <message>
-        <location line="+27"/>
-        <source>Save</source>
-        <translation>Salvar</translation>
-    </message>
-    <message>
-        <location line="+7"/>
-        <source>Phone address saved</source>
-        <translation>Endereço do celular salvo</translation>
-    </message>
-    <message>
-        <location line="+17"/>
         <source>Advanced</source>
         <translation>Avançado</translation>
     </message>
