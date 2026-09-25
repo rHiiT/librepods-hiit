@@ -250,6 +250,7 @@ Page {
 
                 UiSwitch {
                     Layout.fillWidth: true
+                    visible: airPodsTrayApp.trayAvailable
                     iconName: "panel-bottom-close"
                     text: qsTr("Close to tray")
                     checked: airPodsTrayApp.closeToTray

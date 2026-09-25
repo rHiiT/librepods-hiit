@@ -60,15 +60,21 @@ Rectangle {
             variant: "ghost"
             iconName: "minus"
             // LibrePods HiiT: minimizing hides the window in the tray instead of leaving a
-            // second entry in the taskbar
-            toolTipText: qsTr("Minimize to tray")
-            onClicked: root.Window.window.hide()
+            // second entry in the taskbar; without a tray it minimizes as usual
+            toolTipText: airPodsTrayApp.trayAvailable ? qsTr("Minimize to tray") : qsTr("Minimize")
+            onClicked: {
+                if (airPodsTrayApp.trayAvailable)
+                    root.Window.window.hide()
+                else
+                    root.Window.window.showMinimized()
+            }
         }
 
         UiButton {
             variant: "ghost"
             iconName: "x"
-            toolTipText: airPodsTrayApp.closeToTray ? qsTr("Close to tray") : qsTr("Quit")
+            toolTipText: airPodsTrayApp.closeToTray && airPodsTrayApp.trayAvailable ? qsTr("Close to tray")
+                                                                                   : qsTr("Quit")
             onClicked: root.Window.window.close()
         }
     }

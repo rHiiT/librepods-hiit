@@ -16,6 +16,8 @@
 #include <QLibraryInfo>
 #include <QDir>
 #include <QStandardPaths>
+#include <QDBusServiceWatcher>
+#include <QSystemTrayIcon>
 #include <QFontDatabase>
 #include <QIcon>
 
@@ -87,7 +89,10 @@ class AirPodsTrayApp : public QObject {
     Q_PROPERTY(bool closeToTray READ closeToTray WRITE setCloseToTray NOTIFY closeToTrayChanged)
     // LibrePods HiiT: the window lives in the tray; listing it in the taskbar is opt-in (KDE only)
     Q_PROPERTY(bool showInTaskbar READ showInTaskbar WRITE setShowInTaskbar NOTIFY showInTaskbarChanged)
-    Q_PROPERTY(bool canHideFromTaskbar READ canHideFromTaskbar CONSTANT)
+    Q_PROPERTY(bool canHideFromTaskbar READ canHideFromTaskbar NOTIFY trayAvailableChanged)
+    // LibrePods HiiT: GNOME without the AppIndicator extension (and some other desktops) has no
+    // tray; the window then minimizes and closes like any other, so it can always be reached
+    Q_PROPERTY(bool trayAvailable READ trayAvailable NOTIFY trayAvailableChanged)
 
 public:
     AirPodsTrayApp(bool debugMode, bool hideOnStart, QQmlApplicationEngine *parent = nullptr)
@@ -167,8 +172,18 @@ public:
                 enterIdleState();
         });
 
-        // LibrePods HiiT: keep the KWin rule in line with the setting (also on first run)
-        KWinTaskbarRule::apply(!showInTaskbar());
+        // LibrePods HiiT: follow the tray host (StatusNotifierWatcher) appearing or going away,
+        // and keep the KWin rule in line with the setting (also on first run)
+        m_trayAvailable = QSystemTrayIcon::isSystemTrayAvailable();
+        LOG_INFO("System tray available: " << m_trayAvailable);
+        auto *trayWatcher = new QDBusServiceWatcher(QStringLiteral("org.kde.StatusNotifierWatcher"),
+                                                    QDBusConnection::sessionBus(),
+                                                    QDBusServiceWatcher::WatchForOwnerChange, this);
+        connect(trayWatcher, &QDBusServiceWatcher::serviceOwnerChanged, this, [this]() {
+            // the tray host registers with the watcher right after it starts
+            QTimer::singleShot(1000, this, &AirPodsTrayApp::updateTrayAvailable);
+        });
+        KWinTaskbarRule::apply(!showInTaskbar() && m_trayAvailable);
 
         // Load settings
         CrossDevice.isEnabled = loadCrossDeviceEnabled();
@@ -248,10 +263,22 @@ public:
         if (enabled == showInTaskbar())
             return;
         m_settings->setValue("app/showInTaskbar", enabled);
-        KWinTaskbarRule::apply(!enabled);
+        KWinTaskbarRule::apply(!enabled && m_trayAvailable);
         emit showInTaskbarChanged();
     }
-    bool canHideFromTaskbar() const { return KWinTaskbarRule::isSupported(); }
+    bool canHideFromTaskbar() const { return KWinTaskbarRule::isSupported() && m_trayAvailable; }
+    bool trayAvailable() const { return m_trayAvailable; }
+
+    void updateTrayAvailable()
+    {
+        const bool available = QSystemTrayIcon::isSystemTrayAvailable();
+        if (available == m_trayAvailable)
+            return;
+        m_trayAvailable = available;
+        LOG_INFO("System tray available: " << available);
+        KWinTaskbarRule::apply(!showInTaskbar() && available);
+        emit trayAvailableChanged();
+    }
     QString lastDeviceName() const { return m_settings->value("DeviceInfo/deviceName", "").toString(); }
     QString pairedDeviceName() const { return m_pairedName; }
     bool nearbyConnectEnabled() const { return m_settings->value("experimental/nearbyConnect", false).toBool(); }
@@ -1220,6 +1247,7 @@ signals:
     void themeChanged();
     void closeToTrayChanged();
     void showInTaskbarChanged();
+    void trayAvailableChanged();
     void nearbyConnectEnabledChanged();
 
 private:
@@ -1243,6 +1271,7 @@ private:
     QTimer *m_nearbyTimer = nullptr;
     QString m_pairedAddress;
     QString m_pairedName;
+    bool m_trayAvailable = false;
     QString m_connectionState;
     int m_retryCount = 0;
 

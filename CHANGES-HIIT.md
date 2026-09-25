@@ -213,6 +213,17 @@ rewritten or new files, and next to the change in the C++ sources.
 - Low battery (a bud or headset at 20% or less, not charging) shows a red dot on
   the tray icon and one notification, repeated only after it charges again.
 
+## 2026-09-25 — Linux app: desktops without a tray
+
+- The app checks whether the desktop has a system tray (`trayAvailable`, updated
+  when `org.kde.StatusNotifierWatcher` appears or goes away). Without one (GNOME
+  without the AppIndicator extension, for example) the minimize button minimizes
+  as usual, closing quits, the "Close to tray" and "Show in taskbar" settings are
+  hidden and the KWin taskbar rule is removed, so the window can always be reached.
+- Notifications are sent to `org.freedesktop.Notifications` over D-Bus, so they
+  also show without a tray; the tray balloon is only used when that service does
+  not answer. A new notification replaces the previous one.
+
 ## Third-party assets
 
 | Asset | Path | License |

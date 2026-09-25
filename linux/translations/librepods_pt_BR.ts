@@ -4,7 +4,7 @@
 <context>
     <name>AirPodsTrayApp</name>
     <message>
-        <location filename="../main.cpp" line="+425"/>
+        <location filename="../main.cpp" line="+452"/>
         <source>Enter a name.</source>
         <translation>Digite um nome.</translation>
     </message>
@@ -158,7 +158,7 @@
 <context>
     <name>Main</name>
     <message>
-        <location filename="../Main.qml" line="+129"/>
+        <location filename="../Main.qml" line="+130"/>
         <source>Connected · %1</source>
         <translation>Conectado · %1</translation>
     </message>
@@ -378,7 +378,7 @@
         <translation>Mostrar na barra de tarefas</translation>
     </message>
     <message>
-        <location line="+8"/>
+        <location line="+9"/>
         <source>Close to tray</source>
         <translation>Fechar para a bandeja</translation>
     </message>
@@ -481,12 +481,17 @@
         <translation>Minimizar para a bandeja</translation>
     </message>
     <message>
-        <location line="+7"/>
+        <location line="+0"/>
+        <source>Minimize</source>
+        <translation>Minimizar</translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Quit</source>
         <translation>Sair</translation>
     </message>
     <message>
-        <location line="+0"/>
+        <location line="-1"/>
         <source>Close to tray</source>
         <translation>Fechar para a bandeja</translation>
     </message>
@@ -494,7 +499,7 @@
 <context>
     <name>TrayIconManager</name>
     <message>
-        <location filename="../trayiconmanager.cpp" line="+313"/>
+        <location filename="../trayiconmanager.cpp" line="+339"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>

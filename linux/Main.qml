@@ -26,9 +26,10 @@ ApplicationWindow {
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize
 
-    // LibrePods HiiT: closing keeps the app in the tray unless the user turned that off
+    // LibrePods HiiT: closing keeps the app in the tray unless the user turned that off, or
+    // there is no tray to come back from
     onClosing: {
-        if (airPodsTrayApp.closeToTray)
+        if (airPodsTrayApp.closeToTray && airPodsTrayApp.trayAvailable)
             mainWindow.visible = false
         else
             Qt.quit()
