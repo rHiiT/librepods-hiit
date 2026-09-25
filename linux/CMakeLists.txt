@@ -67,7 +67,6 @@ qt_add_qml_module(librepods
         ConnectionStatus.qml
         SettingsPage.qml
         TitleBar.qml
-        WindowResizeHandles.qml
         UiBadge.qml
         UiButton.qml
         UiCard.qml

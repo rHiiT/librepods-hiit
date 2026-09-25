@@ -2,7 +2,7 @@
 // Modified by LibrePods HiiT: controls rebuilt on the Ui* component kit, Departure Mono
 // font, Lucide icons, a connection badge that does not rely on color alone, a status
 // panel for every non-connected state; settings moved to SettingsPage.qml; frameless
-// window with its own title bar (TitleBar.qml).
+// fixed-size window with its own title bar (TitleBar.qml).
 pragma ComponentBehavior: Bound
 
 import QtQuick
@@ -12,10 +12,13 @@ import QtQuick.Layouts
 ApplicationWindow {
     id: mainWindow
     visible: !airPodsTrayApp.hideOnStart
-    width: 440
-    height: 540
-    minimumWidth: 400
-    minimumHeight: 420
+    // LibrePods HiiT: fixed size, the layout is designed for it
+    width: 451
+    height: 570
+    minimumWidth: width
+    maximumWidth: width
+    minimumHeight: height
+    maximumHeight: height
     flags: Qt.Window | Qt.FramelessWindowHint
     title: "LibrePods HiiT Edition"
     objectName: "mainWindowObject"
@@ -98,8 +101,6 @@ ApplicationWindow {
         border.width: 1
         border.color: Theme.border
     }
-
-    WindowResizeHandles {}
 
     Component {
         id: mainPage
