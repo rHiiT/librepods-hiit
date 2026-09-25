@@ -36,6 +36,7 @@ qt_add_executable(librepods
     BluetoothMonitor.h
     autostartmanager.hpp
     kwintaskbarrule.hpp
+    appimageintegration.hpp
     BasicControlCommand.hpp
     deviceinfo.hpp
     ble/bleutils.cpp

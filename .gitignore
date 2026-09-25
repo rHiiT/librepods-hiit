@@ -501,6 +501,8 @@ ui_*.h
 *.jsc
 Makefile*
 *build-*
+# LibrePods HiiT: the AppImage packaging script, not a build directory
+!linux/packaging/build-appimage.sh
 *.qm
 *.prl
 
