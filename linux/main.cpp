@@ -824,9 +824,25 @@ private slots:
         m_deviceInfo->setBluetoothAddress(device.address().toString());
     }
 
+    // LibrePods HiiT: any packet from the AirPods proves the control channel works. The
+    // metadata packet (name, model) used to be the only trigger, but the AirPods do not
+    // always send it again after reconnecting, which left the app "connecting" forever.
+    void markControlChannelReady()
+    {
+        if (m_connectionState == QLatin1String("connected") || !areAirpodsConnected())
+            return;
+        mediaController->setConnectedDeviceMacAddress(m_deviceInfo->bluetoothAddress().replace(":", "_"));
+        m_bleManager->stopScan();
+        m_retryCount = 0;
+        m_settings->setValue("DeviceInfo/lastAddress", m_deviceInfo->bluetoothAddress());
+        setConnectionState(QStringLiteral("connected"));
+        emit airPodsStatusChanged();
+    }
+
     void parseData(const QByteArray &data)
     {
         LOG_DEBUG("Received: " << data.toHex());
+        markControlChannelReady();
 
         if (data.startsWith(AirPodsPackets::Parse::HANDSHAKE_ACK))
         {
@@ -903,16 +919,10 @@ private slots:
         {
             parseMetadata(data);
             initiateMagicPairing();
-            mediaController->setConnectedDeviceMacAddress(m_deviceInfo->bluetoothAddress().replace(":", "_"));
             if (m_deviceInfo->getEarDetection()->oneOrMorePodsInEar()) // AirPods get added as output device only after this
             {
                 mediaController->activateA2dpProfile();
             }
-            m_bleManager->stopScan();
-            m_retryCount = 0;
-            m_settings->setValue("DeviceInfo/lastAddress", m_deviceInfo->bluetoothAddress());
-            setConnectionState(QStringLiteral("connected"));
-            emit airPodsStatusChanged();
         }
         else if (data.startsWith(AirPodsPackets::OneBudANCMode::HEADER)) {
             if (auto value = AirPodsPackets::OneBudANCMode::parseState(data))

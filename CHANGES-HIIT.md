@@ -283,6 +283,13 @@ rewritten or new files, and next to the change in the C++ sources.
   looked up as `AppRun.desktop`: an existing entry was never refreshed to the
   AppImage path, and the setting showed as off.
 
+## 2026-09-25 — Linux app: connected state after a reconnect
+
+- The app marks the AirPods as connected on the first packet received on the
+  control channel. It used to wait for the metadata packet (name, model), which the
+  AirPods do not always send again after reconnecting, leaving the app searching
+  while the AirPods were connected.
+
 ## Third-party assets
 
 | Asset | Path | License |
