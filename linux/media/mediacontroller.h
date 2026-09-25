@@ -33,7 +33,6 @@ public:
   ~MediaController();
 
   void handleEarDetection(EarDetection*);
-  void followMediaChanges();
   bool isActiveOutputDeviceAirPods();
   void handleConversationalAwareness(const QByteArray &data);
   void activateA2dpProfile();
@@ -50,9 +49,6 @@ public:
   void pause();
   MediaState getCurrentMediaState() const;
 
-Q_SIGNALS:
-  void mediaStateChanged(MediaState state);
-
 private:
   MediaState mediaStateFromPlayerctlOutput(const QString &output) const;
   QString getAudioDeviceName();
@@ -64,7 +60,6 @@ private:
   QString connectedDeviceMacAddress;
   EarDetectionBehavior earDetectionBehavior = PauseWhenOneRemoved;
   QString m_deviceOutputName;
-  PlayerStatusWatcher *playerStatusWatcher = nullptr;
   PulseAudioController *m_pulseAudio = nullptr;
   QString m_cachedA2dpProfile;
   // LibrePods HiiT: the Bluetooth card can appear in PipeWire a few seconds after

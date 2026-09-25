@@ -130,8 +130,6 @@ public:
 
         // Initialize MediaController and connect signals
         mediaController = new MediaController(this);
-        connect(mediaController, &MediaController::mediaStateChanged, this, &AirPodsTrayApp::handleMediaStateChange);
-        mediaController->followMediaChanges();
 
         monitor = new BluetoothMonitor(this);
         connect(monitor, &BluetoothMonitor::deviceConnected, this, &AirPodsTrayApp::bluezDeviceConnected);
@@ -947,40 +945,6 @@ private slots:
     }
 
 public:
-    void handleMediaStateChange(MediaController::MediaState state) {
-        if (state == MediaController::MediaState::Playing) {
-            LOG_INFO("Media started playing, taking over audio");
-            connectToAirPods(true);
-        }
-    }
-
-    void connectToAirPods(bool force) {
-        if (socket && socket->isOpen()) {
-            LOG_INFO("Already connected to AirPods");
-            return;
-        }
-
-        if (force) {
-            LOG_INFO("Forcing connection to AirPods");
-            QProcess process;
-            process.start("bluetoothctl", QStringList() << "connect" << m_deviceInfo->bluetoothAddress());
-            process.waitForFinished();
-            QString output = process.readAllStandardOutput().trimmed();
-            LOG_INFO("Bluetoothctl output: " << output);
-        }
-        QBluetoothLocalDevice localDevice;
-        const QList<QBluetoothAddress> connectedDevices = localDevice.connectedDevices();
-        for (const QBluetoothAddress &address : connectedDevices) {
-            QBluetoothDeviceInfo device(address, "", 0);
-            LOG_DEBUG("Connected device: " << device.name() << " (" << device.address().toString() << ")");
-            if (isAirPodsDevice(device)) {
-                connectToDevice(device);
-                return;
-            }
-        }
-        LOG_WARN("AirPods not found among connected devices");
-    }
-
     void initializeBluetooth() {
         m_deviceInfo->loadFromSettings(*m_settings);
         if (!areAirpodsConnected()) {

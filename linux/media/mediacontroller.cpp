@@ -101,17 +101,6 @@ void MediaController::setEarDetectionBehavior(EarDetectionBehavior behavior)
   LOG_INFO("Set ear detection behavior to: " << behavior);
 }
 
-void MediaController::followMediaChanges() {
-  playerStatusWatcher = new PlayerStatusWatcher("", this);
-  connect(playerStatusWatcher, &PlayerStatusWatcher::playbackStatusChanged,
-          this, [this](const QString &status)
-          {
-            LOG_DEBUG("Playback status changed: " << status);
-            MediaState state = mediaStateFromPlayerctlOutput(status);
-            emit mediaStateChanged(state);
-          });
-}
-
 bool MediaController::isActiveOutputDeviceAirPods() {
   QString defaultSink = m_pulseAudio->getDefaultSink();
   LOG_DEBUG("Default sink: " << defaultSink);
