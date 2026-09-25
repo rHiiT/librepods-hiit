@@ -238,6 +238,13 @@ rewritten or new files, and next to the change in the C++ sources.
   left alone. Autostart points at the AppImage file too, and translations are also
   looked up in `<prefix>/share/librepods/translations`.
 
+## 2026-09-25 — README for the fork
+
+- `README.md` rewritten for LibrePods HiiT Edition: unofficial fork notice, AppImage
+  download, changes from upstream, desktop support, build steps, license and credits.
+  The upstream README remains available in the upstream repository and in git history.
+- Screenshots of the Linux app in `imgs/hiit/`.
+
 ## Third-party assets
 
 | Asset | Path | License |
